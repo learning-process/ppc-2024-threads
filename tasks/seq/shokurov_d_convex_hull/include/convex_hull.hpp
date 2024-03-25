@@ -16,18 +16,18 @@ class ConvexHullSequential : public ppc::core::Task {
   bool run() override;
   bool post_processing() override;
 
-  inline double normal(const pair<double, double>& v);
-  inline double scalar_product(const pair<double, double>& v1, const pair<double, double>& v2);
+  double normal(const pair<double, double>& v);
+  double scalar_product(const pair<double, double>& v1, const pair<double, double>& v2);
 
-  inline double cos(const pair<double, double>& v1, const pair<double, double>& v2);
+  double cos(const pair<double, double>& v1, const pair<double, double>& v2);
 
-  inline bool my_less(const pair<double, double>& v1, const pair<double, double>& v2, const pair<double, double>& v);
+  bool my_less(const pair<double, double>& v1, const pair<double, double>& v2, const pair<double, double>& v);
 
   size_t index_lowest_right_point(const vector<pair<double, double>>& v);
 
-  inline pair<double, double> sub(const pair<double, double>& v1, const pair<double, double>& v2);
+  pair<double, double> sub(const pair<double, double>& v1, const pair<double, double>& v2);
 
-  inline bool comp(const pair<double, double>& a, const pair<double, double>& b);
+  bool comp(const pair<double, double>& a, const pair<double, double>& b);
 
   size_t solve(vector<pair<double, double>>& p);
 

@@ -77,11 +77,11 @@ size_t ConvexHullSequential::solve(vector<pair<double, double>>& p) {
   return k;
 }
 
-inline bool ConvexHullSequential::comp(const pair<double, double>& a, const pair<double, double>& b) {
+bool ConvexHullSequential::comp(const pair<double, double>& a, const pair<double, double>& b) {
   return normal(sub(a, b)) < 1e-6;
 }
 
-inline bool ConvexHullSequential::my_less(const pair<double, double>& v1, const pair<double, double>& v2,
+bool ConvexHullSequential::my_less(const pair<double, double>& v1, const pair<double, double>& v2,
                                           const pair<double, double>& v) {
   const double cosa = cos(v1, v), cosb = cos(v2, v);
   if (abs(cosa - cosb) > 1e-7)
@@ -90,7 +90,7 @@ inline bool ConvexHullSequential::my_less(const pair<double, double>& v1, const 
     return normal(v1) > normal(v2);
 }
 
-inline pair<double, double> ConvexHullSequential::sub(const pair<double, double>& v1, const pair<double, double>& v2) {
+pair<double, double> ConvexHullSequential::sub(const pair<double, double>& v1, const pair<double, double>& v2) {
   return pair<double, double>(v1.first - v2.first, v1.second - v2.second);
 }
 
@@ -114,15 +114,15 @@ size_t ConvexHullSequential::index_lowest_right_point(const vector<pair<double, 
   }
 }
 
-inline double ConvexHullSequential::scalar_product(const pair<double, double>& v1, const pair<double, double>& v2) {
+double ConvexHullSequential::scalar_product(const pair<double, double>& v1, const pair<double, double>& v2) {
   return v1.first * v2.first + v1.second * v2.second;
 }
 
-inline double ConvexHullSequential::normal(const pair<double, double>& v) {
+double ConvexHullSequential::normal(const pair<double, double>& v) {
   return sqrt(v.first * v.first + v.second * v.second);
 }
 
-inline double ConvexHullSequential::cos(const pair<double, double>& v1, const pair<double, double>& v2) {
+double ConvexHullSequential::cos(const pair<double, double>& v1, const pair<double, double>& v2) {
   const double n1 = normal(v1);
   const double n2 = normal(v2);
   return scalar_product(v1, v2) / (n1 * n2);
