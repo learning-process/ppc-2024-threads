@@ -2,6 +2,7 @@
 #include "seq/shokurov_d_convex_hull/include/ops_seq.hpp"
 
 #include <cmath>
+#include <cstring>
 #include <thread>
 #include <utility>
 using namespace std::chrono_literals;
