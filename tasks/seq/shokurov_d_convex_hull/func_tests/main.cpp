@@ -157,7 +157,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_line_segment) {
   ASSERT_EQ(test.post_processing(), true);
 
   size_t k = taskDataSeq->outputs_count[0];
-  //ASSERT_EQ(ans.size(), k);
+  ASSERT_EQ(ans.size(), k);
 
   pair<double, double> *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
@@ -203,7 +203,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_line_segment_2) {
   ASSERT_EQ(test.post_processing(), true);
 
   size_t k = taskDataSeq->outputs_count[0];
-  // ASSERT_EQ(ans.size(), k);
+  ASSERT_EQ(ans.size(), k);
 
   pair<double, double> *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 

@@ -2,7 +2,7 @@
 #include "seq/shokurov_d_convex_hull/include/convex_hull.hpp"
 
 #include <thread>
-
+#include <cmath>
 using namespace std::chrono_literals;
 
 bool ConvexHullSequential::validation() {
@@ -53,7 +53,7 @@ bool ConvexHullSequential::post_processing() {
     }
     taskData->outputs_count[0] = si;
     return true;
-  } catch (...){
+  } catch (...) {
     return false;
   }
 }
@@ -109,7 +109,7 @@ size_t ConvexHullSequential::index_lowest_right_point(const vector<pair<double, 
     }
     return index;
   } else {
-    throw exception("empty point set");
+    throw 11;
   }
 }
 
