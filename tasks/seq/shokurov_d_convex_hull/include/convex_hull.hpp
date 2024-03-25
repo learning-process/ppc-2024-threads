@@ -19,11 +19,7 @@ class ConvexHullSequential : public ppc::core::Task {
   inline double normal(const pair<double, double>& v);
   inline double scalar_product(const pair<double, double>& v1, const pair<double, double>& v2);
 
-  inline double cos(const pair<double, double>& v1, const pair<double, double>& v2) {
-    const double n1 = normal(v1);
-    const double n2 = normal(v2);
-    return scalar_product(v1, v2) / (n1 * n2);
-  }
+  inline double cos(const pair<double, double>& v1, const pair<double, double>& v2);
 
   inline bool my_less(const pair<double, double>& v1, const pair<double, double>& v2, const pair<double, double>& v);
 

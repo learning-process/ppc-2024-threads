@@ -2,8 +2,8 @@
 #include "seq/shokurov_d_convex_hull/include/convex_hull.hpp"
 
 #include <cmath>
-#include <utility>
 #include <thread>
+#include <utility>
 using namespace std::chrono_literals;
 
 bool ConvexHullSequential::validation() {
@@ -120,4 +120,10 @@ inline double ConvexHullSequential::scalar_product(const pair<double, double>& v
 
 inline double ConvexHullSequential::normal(const pair<double, double>& v) {
   return sqrt(v.first * v.first + v.second * v.second);
+}
+
+inline double ConvexHullSequential::cos(const pair<double, double>& v1, const pair<double, double>& v2) {
+  const double n1 = normal(v1);
+  const double n2 = normal(v2);
+  return scalar_product(v1, v2) / (n1 * n2);
 }
