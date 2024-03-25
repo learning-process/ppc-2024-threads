@@ -82,7 +82,7 @@ bool ConvexHullSequential::comp(const pair<double, double>& a, const pair<double
 }
 
 bool ConvexHullSequential::my_less(const pair<double, double>& v1, const pair<double, double>& v2,
-                                          const pair<double, double>& v) {
+                                   const pair<double, double>& v) {
   const double cosa = cos(v1, v), cosb = cos(v2, v);
   if (abs(cosa - cosb) > 1e-7)
     return cosa > cosb;
