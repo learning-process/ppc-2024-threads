@@ -2,7 +2,6 @@
 #include "seq/shokurov_d_convex_hull/include/ops_seq.hpp"
 
 #include <cmath>
-#include <cstring>
 #include <thread>
 #include <utility>
 using namespace std::chrono_literals;
@@ -48,10 +47,9 @@ bool ConvexHullSequential::post_processing() {
   internal_order_test();
   try {
     pair<double, double>* outputs_ = reinterpret_cast<pair<double, double>*>(taskData->outputs[0]);
-    /* for (size_t i = 0; i < si; ++i) {
+    for (size_t i = 0; i < si; ++i) {
       outputs_[i] = points[i];
-    }*/
-    memcpy(outputs_, points.data(), points.size() * sizeof(pair<double, double>));
+    }
     taskData->outputs_count[0] = si;
     return true;
   } catch (...) {
