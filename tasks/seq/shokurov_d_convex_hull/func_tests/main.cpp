@@ -1,6 +1,8 @@
 // Copyright 2024 Shokurov Daniil
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <utility>
 #include <vector>
 
 #include "seq/shokurov_d_convex_hull/include/convex_hull.hpp"

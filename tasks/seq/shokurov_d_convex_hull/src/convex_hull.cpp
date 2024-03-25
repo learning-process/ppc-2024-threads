@@ -1,8 +1,9 @@
 // Copyright 2024 Shokurov Daniil
 #include "seq/shokurov_d_convex_hull/include/convex_hull.hpp"
 
-#include <thread>
 #include <cmath>
+#include <utility>
+#include <thread>
 using namespace std::chrono_literals;
 
 bool ConvexHullSequential::validation() {
