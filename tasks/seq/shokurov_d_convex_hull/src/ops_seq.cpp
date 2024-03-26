@@ -23,7 +23,7 @@ bool ConvexHullSequential::pre_processing() {
   internal_order_test();
   try {
     // Init value for input and output
-    auto input_ = reinterpret_cast<pair<double, double>*>(taskData->inputs[0]);
+    auto* input_ = reinterpret_cast<pair<double, double>*>(taskData->inputs[0]);
     size_t n = taskData->inputs_count[0];
     points.assign(input_, input_ + n);
     return true;
@@ -45,7 +45,7 @@ bool ConvexHullSequential::run() {
 bool ConvexHullSequential::post_processing() {
   internal_order_test();
   try {
-    auto outputs_ = reinterpret_cast<pair<double, double>*>(taskData->outputs[0]);
+    auto* outputs_ = reinterpret_cast<pair<double, double>*>(taskData->outputs[0]);
     for (size_t i = 0; i < si; ++i) {
       outputs_[i] = points[i];
     }
@@ -103,17 +103,17 @@ size_t ConvexHullSequential::index_lowest_right_point(const vector<pair<double, 
       flag = a.first > b.first;
     return flag;
   };
+  size_t index = 0;
   if (!v.empty()) {
-    size_t index = 0;
     for (size_t i = 1; i < v.size(); ++i) {
       if (less(v[i], v[index])) {
         index = i;
       }
     }
-    return index;
   } else {
     throw 11;
   }
+  return index;
 }
 
 double ConvexHullSequential::scalar_product(const pair<double, double>& v1, const pair<double, double>& v2) {
