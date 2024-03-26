@@ -35,7 +35,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_one_point) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto* _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
   sort(_out, _out + k);
   sort(ans.begin(), ans.end());
@@ -77,7 +77,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_many_equals_point) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto* _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());
@@ -116,7 +116,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_two_point) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto* _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());
@@ -162,7 +162,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_line_segment) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto* _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());
@@ -208,7 +208,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_line_segment_2) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto* _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());
@@ -257,7 +257,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_square) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto* _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());
@@ -304,7 +304,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_triangle) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto* _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());
@@ -362,7 +362,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_random) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto* _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());
