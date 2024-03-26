@@ -13,14 +13,14 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
   // Create data
   std::vector<pair<double, double>> in;
   std::vector<pair<double, double>> ans;
-  ans.push_back({0, 0});
-  ans.push_back({1, 0});
-  ans.push_back({5, 5});
-  ans.push_back({0, 8});
-  ans.push_back({-3, 1});
-  size_t co = ans.size(), n = 2000000;
+  ans.emplace_back(0, 0);
+  ans.emplace_back(1, 0);
+  ans.emplace_back(5, 5);
+  ans.emplace_back(0, 8);
+  ans.emplace_back(-3, 1);
+  size_t co = 5, n = 2000000;
   for (size_t i = 0; i < co; ++i) {
-    in.push_back(ans[i]);
+    in.emplace_back(ans[i]);
   }
 
   std::mt19937 gen(1.0);
@@ -33,7 +33,7 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
     pair<double, double> np;
     np.first = ans[x].first * a + (1.0 - a) * ans[y].first;
     np.second = ans[x].second * a + (1.0 - a) * ans[y].second;
-    in.push_back(np);
+    in.emplace_back(np);
   }
   std::vector<pair<double, double>> out(in.size());
 
@@ -69,10 +69,10 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  pair<double, double> *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
-  sort(_out, _out + k);
-  sort(ans.begin(), ans.end());
+  std::sort(_out, _out + k);
+  std::sort(ans.begin(), ans.end());
 
   for (size_t i = 0; i < k; ++i) {
     ASSERT_DOUBLE_EQ(_out[i].first, ans[i].first);
@@ -84,14 +84,14 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_task_run) {
   // Create data
   std::vector<pair<double, double>> in;
   std::vector<pair<double, double>> ans;
-  ans.push_back({0, 0});
-  ans.push_back({1, 0});
-  ans.push_back({5, 5});
-  ans.push_back({0, 8});
-  ans.push_back({-3, 1});
-  size_t co = ans.size(), n = 2000000;
+  ans.emplace_back(0, 0);
+  ans.emplace_back(1, 0);
+  ans.emplace_back(5, 5);
+  ans.emplace_back(0, 8);
+  ans.emplace_back(-3, 1);
+  size_t co = 5, n = 2000000;
   for (size_t i = 0; i < co; ++i) {
-    in.push_back(ans[i]);
+    in.emplace_back(ans[i]);
   }
 
   std::mt19937 gen(1.0);
@@ -104,7 +104,7 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_task_run) {
     pair<double, double> np;
     np.first = ans[x].first * a + (1.0 - a) * ans[y].first;
     np.second = ans[x].second * a + (1.0 - a) * ans[y].second;
-    in.push_back(np);
+    in.emplace_back(np);
   }
   std::vector<pair<double, double>> out(in.size());
 
@@ -140,10 +140,10 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_task_run) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  pair<double, double> *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto _out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
 
-  sort(_out, _out + k);
-  sort(ans.begin(), ans.end());
+  std::sort(_out, _out + k);
+  std::sort(ans.begin(), ans.end());
 
   for (size_t i = 0; i < k; ++i) {
     ASSERT_DOUBLE_EQ(_out[i].first, ans[i].first);

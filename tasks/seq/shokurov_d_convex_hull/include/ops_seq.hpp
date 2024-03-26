@@ -16,20 +16,20 @@ class ConvexHullSequential : public ppc::core::Task {
   bool run() override;
   bool post_processing() override;
 
-  double normal(const pair<double, double>& v);
-  double scalar_product(const pair<double, double>& v1, const pair<double, double>& v2);
+  static double normal(const pair<double, double>& v);
+  static double scalar_product(const pair<double, double>& v1, const pair<double, double>& v2);
 
-  double cos(const pair<double, double>& v1, const pair<double, double>& v2);
+  static double cos(const pair<double, double>& v1, const pair<double, double>& v2);
 
-  bool my_less(const pair<double, double>& v1, const pair<double, double>& v2, const pair<double, double>& v);
+  static bool my_less(const pair<double, double>& v1, const pair<double, double>& v2, const pair<double, double>& v);
 
-  size_t index_lowest_right_point(const vector<pair<double, double>>& v);
+  static size_t index_lowest_right_point(const vector<pair<double, double>>& v);
 
-  pair<double, double> sub(const pair<double, double>& v1, const pair<double, double>& v2);
+  static pair<double, double> sub(const pair<double, double>& v1, const pair<double, double>& v2);
 
-  bool comp(const pair<double, double>& a, const pair<double, double>& b);
+  static bool comp(const pair<double, double>& a, const pair<double, double>& b);
 
-  size_t solve(vector<pair<double, double>>& p);
+  static size_t solve(vector<pair<double, double>>& p);
 
  private:
   vector<pair<double, double>> points;

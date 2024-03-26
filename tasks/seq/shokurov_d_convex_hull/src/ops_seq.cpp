@@ -23,10 +23,9 @@ bool ConvexHullSequential::pre_processing() {
   internal_order_test();
   try {
     // Init value for input and output
-    pair<double, double>* input_ = reinterpret_cast<pair<double, double>*>(taskData->inputs[0]);
+    auto input_ = reinterpret_cast<pair<double, double>*>(taskData->inputs[0]);
     size_t n = taskData->inputs_count[0];
     points.assign(input_, input_ + n);
-
     return true;
   } catch (...) {
     return false;
@@ -46,7 +45,7 @@ bool ConvexHullSequential::run() {
 bool ConvexHullSequential::post_processing() {
   internal_order_test();
   try {
-    pair<double, double>* outputs_ = reinterpret_cast<pair<double, double>*>(taskData->outputs[0]);
+    auto outputs_ = reinterpret_cast<pair<double, double>*>(taskData->outputs[0]);
     for (size_t i = 0; i < si; ++i) {
       outputs_[i] = points[i];
     }
@@ -81,11 +80,14 @@ bool ConvexHullSequential::comp(const pair<double, double>& a, const pair<double
 
 bool ConvexHullSequential::my_less(const pair<double, double>& v1, const pair<double, double>& v2,
                                    const pair<double, double>& v) {
-  const double cosa = cos(v1, v), cosb = cos(v2, v);
+  const double cosa = cos(v1, v);
+  const double cosb = cos(v2, v);
+  bool flag = false;
   if (abs(cosa - cosb) > 1e-7)
-    return cosa > cosb;
+    flag = cosa > cosb;
   else
-    return normal(v1) > normal(v2);
+    flag = normal(v1) > normal(v2);
+  return flag;
 }
 
 pair<double, double> ConvexHullSequential::sub(const pair<double, double>& v1, const pair<double, double>& v2) {
@@ -94,10 +96,12 @@ pair<double, double> ConvexHullSequential::sub(const pair<double, double>& v1, c
 
 size_t ConvexHullSequential::index_lowest_right_point(const vector<pair<double, double>>& v) {
   auto less = [](const pair<double, double>& a, const pair<double, double>& b) {
+    bool flag = false;
     if (a.second != b.second)
-      return a.second < b.second;
+      flag = a.second < b.second;
     else
-      return a.first > b.first;
+      flag = a.first > b.first;
+    return flag;
   };
   if (!v.empty()) {
     size_t index = 0;
