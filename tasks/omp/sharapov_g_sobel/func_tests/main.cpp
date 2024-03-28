@@ -40,16 +40,16 @@ TEST(sharapov_g_sobel_omp, Test_Seed_1234) {
   };
 
   // TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
-  taskDataSeq->inputs_count.emplace_back(width);
-  taskDataSeq->inputs_count.emplace_back(height);
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
-  taskDataSeq->outputs_count.emplace_back(width);
-  taskDataSeq->outputs_count.emplace_back(height);
+  std::shared_ptr<ppc::core::TaskData> taskDataOmp = std::make_shared<ppc::core::TaskData>();
+  taskDataOmp->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
+  taskDataOmp->inputs_count.emplace_back(width);
+  taskDataOmp->inputs_count.emplace_back(height);
+  taskDataOmp->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
+  taskDataOmp->outputs_count.emplace_back(width);
+  taskDataOmp->outputs_count.emplace_back(height);
 
   // Task
-  SSobelOmp SSobelOmp(taskDataSeq);
+  SSobelOmp SSobelOmp(taskDataOmp);
   ASSERT_EQ(SSobelOmp.validation(), true);
   ASSERT_EQ(SSobelOmp.pre_processing(), true);
   ASSERT_EQ(SSobelOmp.run(), true);
@@ -94,16 +94,16 @@ TEST(sharapov_g_sobel_omp, Test_Seed_2451) {
   };
 
   // TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
-  taskDataSeq->inputs_count.emplace_back(width);
-  taskDataSeq->inputs_count.emplace_back(height);
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
-  taskDataSeq->outputs_count.emplace_back(width);
-  taskDataSeq->outputs_count.emplace_back(height);
+  std::shared_ptr<ppc::core::TaskData> taskDataOmp = std::make_shared<ppc::core::TaskData>();
+  taskDataOmp->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
+  taskDataOmp->inputs_count.emplace_back(width);
+  taskDataOmp->inputs_count.emplace_back(height);
+  taskDataOmp->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
+  taskDataOmp->outputs_count.emplace_back(width);
+  taskDataOmp->outputs_count.emplace_back(height);
 
   // Task
-  SSobelOmp SSobelOmp(taskDataSeq);
+  SSobelOmp SSobelOmp(taskDataOmp);
   ASSERT_EQ(SSobelOmp.validation(), true);
   ASSERT_EQ(SSobelOmp.pre_processing(), true);
   ASSERT_EQ(SSobelOmp.run(), true);
@@ -148,16 +148,16 @@ TEST(sharapov_g_sobel_omp, Test_Seed_2423) {
   };
 
   // TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
-  taskDataSeq->inputs_count.emplace_back(width);
-  taskDataSeq->inputs_count.emplace_back(height);
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
-  taskDataSeq->outputs_count.emplace_back(width);
-  taskDataSeq->outputs_count.emplace_back(height);
+  std::shared_ptr<ppc::core::TaskData> taskDataOmp = std::make_shared<ppc::core::TaskData>();
+  taskDataOmp->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
+  taskDataOmp->inputs_count.emplace_back(width);
+  taskDataOmp->inputs_count.emplace_back(height);
+  taskDataOmp->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
+  taskDataOmp->outputs_count.emplace_back(width);
+  taskDataOmp->outputs_count.emplace_back(height);
 
   // Task
-  SSobelOmp SSobelOmp(taskDataSeq);
+  SSobelOmp SSobelOmp(taskDataOmp);
   ASSERT_EQ(SSobelOmp.validation(), true);
   ASSERT_EQ(SSobelOmp.pre_processing(), true);
   ASSERT_EQ(SSobelOmp.run(), true);
@@ -202,16 +202,16 @@ TEST(sharapov_g_sobel_omp, Test_Seed_2354) {
   };
 
   // TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
-  taskDataSeq->inputs_count.emplace_back(width);
-  taskDataSeq->inputs_count.emplace_back(height);
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
-  taskDataSeq->outputs_count.emplace_back(width);
-  taskDataSeq->outputs_count.emplace_back(height);
+  std::shared_ptr<ppc::core::TaskData> taskDataOmp = std::make_shared<ppc::core::TaskData>();
+  taskDataOmp->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
+  taskDataOmp->inputs_count.emplace_back(width);
+  taskDataOmp->inputs_count.emplace_back(height);
+  taskDataOmp->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
+  taskDataOmp->outputs_count.emplace_back(width);
+  taskDataOmp->outputs_count.emplace_back(height);
 
   // Task
-  SSobelOmp SSobelOmp(taskDataSeq);
+  SSobelOmp SSobelOmp(taskDataOmp);
   ASSERT_EQ(SSobelOmp.validation(), true);
   ASSERT_EQ(SSobelOmp.pre_processing(), true);
   ASSERT_EQ(SSobelOmp.run(), true);
@@ -256,16 +256,16 @@ TEST(sharapov_g_sobel_omp, Test_Seed_3453) {
   };
 
   // TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
-  taskDataSeq->inputs_count.emplace_back(width);
-  taskDataSeq->inputs_count.emplace_back(height);
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
-  taskDataSeq->outputs_count.emplace_back(width);
-  taskDataSeq->outputs_count.emplace_back(height);
+  std::shared_ptr<ppc::core::TaskData> taskDataOmp = std::make_shared<ppc::core::TaskData>();
+  taskDataOmp->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
+  taskDataOmp->inputs_count.emplace_back(width);
+  taskDataOmp->inputs_count.emplace_back(height);
+  taskDataOmp->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
+  taskDataOmp->outputs_count.emplace_back(width);
+  taskDataOmp->outputs_count.emplace_back(height);
 
   // Task
-  SSobelOmp SSobelOmp(taskDataSeq);
+  SSobelOmp SSobelOmp(taskDataOmp);
   ASSERT_EQ(SSobelOmp.validation(), true);
   ASSERT_EQ(SSobelOmp.pre_processing(), true);
   ASSERT_EQ(SSobelOmp.run(), true);

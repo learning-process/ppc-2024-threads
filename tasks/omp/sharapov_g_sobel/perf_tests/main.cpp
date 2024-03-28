@@ -16,16 +16,16 @@ TEST(sharapov_g_sobel_omp, test_pipeline_run) {
   std::vector<SSobelOmp::GrayScale> EdgeImage(ColoredImage.size());
 
   // TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
-  taskDataSeq->inputs_count.emplace_back(sideLen);
-  taskDataSeq->inputs_count.emplace_back(sideLen);
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
-  taskDataSeq->outputs_count.emplace_back(sideLen);
-  taskDataSeq->outputs_count.emplace_back(sideLen);
+  std::shared_ptr<ppc::core::TaskData> taskDataOmp = std::make_shared<ppc::core::TaskData>();
+  taskDataOmp->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
+  taskDataOmp->inputs_count.emplace_back(sideLen);
+  taskDataOmp->inputs_count.emplace_back(sideLen);
+  taskDataOmp->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
+  taskDataOmp->outputs_count.emplace_back(sideLen);
+  taskDataOmp->outputs_count.emplace_back(sideLen);
 
   // Task
-  auto SobelSeq = std::make_shared<SSobelOmp>(taskDataSeq);
+  auto SobelOmp = std::make_shared<SSobelOmp>(taskDataOmp);
 
   // Perf attr
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -36,7 +36,7 @@ TEST(sharapov_g_sobel_omp, test_pipeline_run) {
   auto perfResults = std::make_shared<ppc::core::PerfResults>();
 
   // Perf analyzer
-  auto perfAnalyzer = std::make_shared<ppc::core::Perf>(SobelSeq);
+  auto perfAnalyzer = std::make_shared<ppc::core::Perf>(SobelOmp);
   perfAnalyzer->pipeline_run(perfAttr, perfResults);
   ppc::core::Perf::print_perf_statistic(perfResults);
 
@@ -55,16 +55,16 @@ TEST(sharapov_g_sobel_omp, test_task_run) {
   std::vector<SSobelOmp::GrayScale> EdgeImage(ColoredImage.size());
 
   // TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
-  taskDataSeq->inputs_count.emplace_back(sideLen);
-  taskDataSeq->inputs_count.emplace_back(sideLen);
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
-  taskDataSeq->outputs_count.emplace_back(sideLen);
-  taskDataSeq->outputs_count.emplace_back(sideLen);
+  std::shared_ptr<ppc::core::TaskData> taskDataOmp = std::make_shared<ppc::core::TaskData>();
+  taskDataOmp->inputs.emplace_back(reinterpret_cast<uint8_t *>(ColoredImage.data()));
+  taskDataOmp->inputs_count.emplace_back(sideLen);
+  taskDataOmp->inputs_count.emplace_back(sideLen);
+  taskDataOmp->outputs.emplace_back(reinterpret_cast<uint8_t *>(EdgeImage.data()));
+  taskDataOmp->outputs_count.emplace_back(sideLen);
+  taskDataOmp->outputs_count.emplace_back(sideLen);
 
   // Task
-  auto SobelSeq = std::make_shared<SSobelOmp>(taskDataSeq);
+  auto SobelOmp = std::make_shared<SSobelOmp>(taskDataOmp);
 
   // Perf attr
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -75,7 +75,7 @@ TEST(sharapov_g_sobel_omp, test_task_run) {
   auto perfResults = std::make_shared<ppc::core::PerfResults>();
 
   // Perf analyzer
-  auto perfAnalyzer = std::make_shared<ppc::core::Perf>(SobelSeq);
+  auto perfAnalyzer = std::make_shared<ppc::core::Perf>(SobelOmp);
   perfAnalyzer->task_run(perfAttr, perfResults);
   ppc::core::Perf::print_perf_statistic(perfResults);
 
