@@ -42,9 +42,9 @@ std::vector<SSobelTbb::GrayScale> SSobelTbb::convertToGrayScale(const std::vecto
                                                                 size_t width, size_t height) {
   std::vector<SSobelTbb::GrayScale> grayImage(width * height);
 
-  int imgSize = height * width;
+  int sizeImg = height * width;
 
-  tbb::parallel_for(tbb::blocked_range<int>(0, imgSize), [&](const tbb::blocked_range<int>& r) {
+  tbb::parallel_for(tbb::blocked_range<int>(0, sizeImg), [&](const tbb::blocked_range<int>& r) {
     for (int index = r.begin(); index != r.end(); ++index) {
       const auto& pixel = colorImage[index];
       grayImage[index].value = static_cast<uint8_t>(0.299 * pixel.r + 0.587 * pixel.g + 0.114 * pixel.b);
@@ -59,10 +59,10 @@ std::vector<SSobelTbb::GrayScale> SSobelTbb::SobelOperatorTbb(const std::vector<
   const int Gx[3][3] = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
   const int Gy[3][3] = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
-  int imgSize = height * width;
+  int sizeImg = height * width;
 
   std::vector<GrayScale> resultImg(width * height);
-  tbb::parallel_for(tbb::blocked_range<int>(0, imgSize), [&](const tbb::blocked_range<int>& r) {
+  tbb::parallel_for(tbb::blocked_range<int>(0, sizeImg), [&](const tbb::blocked_range<int>& r) {
     for (int index = r.begin(); index != r.end(); ++index) {
       int i = index / width;
       int j = index % width;
@@ -153,9 +153,9 @@ bool SSobelTbb::post_processing() {
   try {
     internal_order_test();
 
-    int imgSize = grayscale_img.size();
+    int sizeImg = grayscale_img.size();
 
-    for (int i = 0; i < imgSize; ++i) {
+    for (int i = 0; i < sizeImg; ++i) {
       auto* pixel = reinterpret_cast<SSobelTbb::GrayScale*>(taskData->outputs[0] + i);
       *pixel = result[i];
     }
