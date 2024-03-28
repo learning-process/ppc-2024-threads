@@ -144,7 +144,7 @@ bool SSobelOmp::post_processing() {
   try {
     internal_order_test();
 
-// #pragma omp parallel for
+#pragma omp parallel for
     for (size_t i = 0; i < grayscale_img.size(); ++i) {
       auto* pixel = reinterpret_cast<SSobelOmp::GrayScale*>(taskData->outputs[0] + i);
       *pixel = result[i];
