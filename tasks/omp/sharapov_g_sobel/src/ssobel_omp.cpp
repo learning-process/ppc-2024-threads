@@ -43,7 +43,7 @@ std::vector<SSobelOmp::GrayScale> SSobelOmp::convertToGrayScale(const std::vecto
                                                                 size_t width, size_t height) {
   std::vector<SSobelOmp::GrayScale> grayImage(width * height);
 #pragma omp parallel for
-    for (size_t index = 0; index < width * height; ++index) {
+    for (int index = 0; index < width * height; ++index) {
     const auto& pixel = colorImage[index];
     grayImage[index].value = static_cast<uint8_t>(0.299 * pixel.r + 0.587 * pixel.g + 0.114 * pixel.b);
   }
@@ -57,7 +57,7 @@ std::vector<SSobelOmp::GrayScale> SSobelOmp::SobelOperatorOmp(const std::vector<
 
   std::vector<GrayScale> resultImg(width * height);
 #pragma omp parallel for
-    for (size_t index = 0; index < width * height; ++index) {
+    for (int index = 0; index < width * height; ++index) {
     int i = index / width;
     int j = index % width;
     int sumX = 0;
@@ -117,7 +117,7 @@ bool SSobelOmp::pre_processing() {
     colored_img.reserve(imgSize);
     uint8_t* rawData = taskData->inputs[0];
 #pragma omp parallel for
-    for (size_t i = 0; i < imgSize; ++i) {
+    for (int i = 0; i < imgSize; ++i) {
       colored_img[i] = (RGB{rawData[i * 3], rawData[i * 3 + 1], rawData[i * 3 + 2]});
     }
 
@@ -145,7 +145,7 @@ bool SSobelOmp::post_processing() {
     internal_order_test();
 
 #pragma omp parallel for
-    for (size_t i = 0; i < grayscale_img.size(); ++i) {
+    for (int i = 0; i < grayscale_img.size(); ++i) {
       auto* pixel = reinterpret_cast<SSobelOmp::GrayScale*>(taskData->outputs[0] + i);
       *pixel = result[i];
     }
