@@ -31,7 +31,7 @@ class SSobelTbb : public ppc::core::Task {
   static std::vector<GrayScale> SobelOperatorTbb(const std::vector<GrayScale>& grayImage, size_t width, size_t height);
 
  private:
-  size_t imgWidth{}, imgHeight{}, imgSize{};
+  int imgWidth{}, imgHeight{}, imgSize{};
   std::vector<RGB> colored_img{};
   std::vector<GrayScale> grayscale_img{};
   std::vector<GrayScale> result{};
