@@ -1,27 +1,29 @@
-// Copyright 2023 Nesterov Alexander
+// Copyright 2024 Mamaeva Olga
 #include <gtest/gtest.h>
 
+#include <algorithm>
 #include <vector>
 
 #include "core/perf/include/perf.hpp"
-#include "seq/example/include/ops_seq.hpp"
+#include "seq/mamaeva_o_jarvis/include/ops_seq.hpp"
 
-TEST(sequential_example_perf_test, test_pipeline_run) {
-  const int count = 100;
+TEST(mamaeva_o_jarvis_seq, test_pipeline_run) {
+  int n = 20000, h = 1200;
+  std::vector<jarvis::r> points(n);
+  std::vector<jarvis::r> hull(h);
+  std::vector<jarvis::r> out(hull.size());
 
-  // Create data
-  std::vector<int> in(1, count);
-  std::vector<int> out(1, 0);
+  jarvis::prepare_points(points.data(), points.size(), hull.data(), hull.size(), 250.0);
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(in.data()));
-  taskDataSeq->inputs_count.emplace_back(in.size());
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(points.data()));
+  taskDataSeq->inputs_count.emplace_back(points.size());
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
   // Create Task
-  auto testTaskSequential = std::make_shared<TestTaskSequential>(taskDataSeq);
+  auto testTaskSequential = std::make_shared<JarvisHullSequential>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -40,25 +42,31 @@ TEST(sequential_example_perf_test, test_pipeline_run) {
   auto perfAnalyzer = std::make_shared<ppc::core::Perf>(testTaskSequential);
   perfAnalyzer->pipeline_run(perfAttr, perfResults);
   ppc::core::Perf::print_perf_statistic(perfResults);
-  ASSERT_EQ(count, out[0]);
+  std::sort(out.begin(), out.end());
+  std::sort(hull.begin(), hull.end());
+  for (size_t i = 0; i < hull.size(); i++) {
+    EXPECT_DOUBLE_EQ(hull[i].x, out[i].x);
+    EXPECT_DOUBLE_EQ(hull[i].y, out[i].y);
+  }
 }
 
-TEST(sequential_example_perf_test, test_task_run) {
-  const int count = 100;
+TEST(mamaeva_o_jarvis_seq, test_task_run) {
+  int n = 20000, h = 1200;
+  std::vector<jarvis::r> points(n);
+  std::vector<jarvis::r> hull(h);
+  std::vector<jarvis::r> out(hull.size());
 
-  // Create data
-  std::vector<int> in(1, count);
-  std::vector<int> out(1, 0);
+  jarvis::prepare_points(points.data(), points.size(), hull.data(), hull.size(), 250.0);
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(in.data()));
-  taskDataSeq->inputs_count.emplace_back(in.size());
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(points.data()));
+  taskDataSeq->inputs_count.emplace_back(points.size());
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
   // Create Task
-  auto testTaskSequential = std::make_shared<TestTaskSequential>(taskDataSeq);
+  auto testTaskSequential = std::make_shared<JarvisHullSequential>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -77,10 +85,10 @@ TEST(sequential_example_perf_test, test_task_run) {
   auto perfAnalyzer = std::make_shared<ppc::core::Perf>(testTaskSequential);
   perfAnalyzer->task_run(perfAttr, perfResults);
   ppc::core::Perf::print_perf_statistic(perfResults);
-  ASSERT_EQ(count, out[0]);
-}
-
-int main(int argc, char **argv) {
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+  std::sort(out.begin(), out.end());
+  std::sort(hull.begin(), hull.end());
+  for (size_t i = 0; i < hull.size(); i++) {
+    EXPECT_DOUBLE_EQ(hull[i].x, out[i].x);
+    EXPECT_DOUBLE_EQ(hull[i].y, out[i].y);
+  }
 }
