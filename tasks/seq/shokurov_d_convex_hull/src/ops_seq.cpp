@@ -12,7 +12,7 @@ bool ConvexHullSequential::validation() {
     if (taskData->inputs_count.size() != 1) throw 1;
     if (taskData->inputs_count[0] == 0) throw 2;
     if (taskData->outputs_count.size() != 1) throw 3;
-    if (taskData->outputs_count[0] != taskData->inputs_count[0]) throw 4;
+    //if (taskData->outputs_count[0] != taskData->inputs_count[0]) throw 4;
     return true;
   } catch (...) {
     return false;
@@ -64,7 +64,7 @@ size_t ConvexHullSequential::solve(vector<pair<double, double>>& p) {
   pair<double, double> pk = p0;
   size_t k = 0;
   do {
-    for (size_t i = k; i < n; ++i) {
+    for (int i = k; i < n; ++i) {
       if (!comp(p[i], pk) && my_less(sub(p[i], pk), sub(p[k], pk), vec)) swap(p[k], p[i]);
     }
     vec = sub(p[k], pk);

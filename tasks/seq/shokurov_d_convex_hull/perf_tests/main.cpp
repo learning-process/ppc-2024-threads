@@ -19,7 +19,7 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
   ans.emplace_back(0, 8);
   ans.emplace_back(-3, 1);
   size_t co = 5;
-  size_t n = 2000000;
+  size_t n = 5000000;
   for (size_t i = 0; i < co; ++i) {
     in.emplace_back(ans[i]);
   }
@@ -91,7 +91,7 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_task_run) {
   ans.emplace_back(0, 8);
   ans.emplace_back(-3, 1);
   size_t co = 5;
-  size_t n = 2000000;
+  size_t n = 5000000;
   for (size_t i = 0; i < co; ++i) {
     in.emplace_back(ans[i]);
   }
