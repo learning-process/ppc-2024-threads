@@ -9,7 +9,7 @@
 #include "core/perf/include/perf.hpp"
 #include "omp/shokurov_d_convex_hull/include/ops_omp.hpp"
 
-TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
+TEST(shokurov_d_convex_hull_omp, test_pipeline_run) {
   // Create data
   std::vector<pair<double, double>> in;
   std::vector<pair<double, double>> ans;
@@ -81,7 +81,7 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
   }
 }
 
-TEST(sequential_shokurov_d_convex_hull_perf_test, test_task_run) {
+TEST(shokurov_d_convex_hull_omp, test_task_run) {
   // Create data
   std::vector<pair<double, double>> in;
   std::vector<pair<double, double>> ans;

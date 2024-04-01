@@ -12,7 +12,7 @@ bool ConvexHullSequential::validation() {
     if (taskData->inputs_count.size() != 1) throw 1;
     if (taskData->inputs_count[0] == 0) throw 2;
     if (taskData->outputs_count.size() != 1) throw 3;
-    if (taskData->outputs_count[0] != taskData->inputs_count[0]) throw 4;
+    //if (taskData->outputs_count[0] != taskData->inputs_count[0]) throw 4;
     return true;
   } catch (...) {
     return false;
@@ -57,20 +57,26 @@ bool ConvexHullSequential::post_processing() {
 }
 
 size_t ConvexHullSequential::solve(vector<pair<double, double>>& p) {
-  const size_t n = p.size();
-  size_t index = index_lowest_right_point(p);
-  pair<double, double> p0 = p[index];
+  const int n = p.size();
+  pair<double, double> p0 = p[index_lowest_right_point(p)];
   pair<double, double> vec = {1.0, 0.0};
   pair<double, double> pk = p0;
-  size_t k = 0;
+  int k = 0;
+  int common_index = 0;
+
   do {
-    for (size_t i = k; i < n; ++i) {
-      if (!comp(p[i], pk) && my_less(sub(p[i], pk), sub(p[k], pk), vec)) swap(p[k], p[i]);
+    common_index = k;
+    int index = k;
+    for (int i = k; i < n; ++i) {
+      if (!comp(p[i], pk) && my_less(sub(p[i], pk), sub(p[index], pk), vec)) index = i;
     }
+    if (!comp(p[index], pk) && my_less(sub(p[index], pk), sub(p[common_index], pk), vec)) common_index = index;
+    swap(p[common_index], p[k]);
     vec = sub(p[k], pk);
     pk = p[k];
     ++k;
   } while (!comp(pk, p0));
+
   return k;
 }
 
