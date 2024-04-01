@@ -12,7 +12,7 @@ bool ConvexHullSequential::validation() {
     if (taskData->inputs_count.size() != 1) throw 1;
     if (taskData->inputs_count[0] == 0) throw 2;
     if (taskData->outputs_count.size() != 1) throw 3;
-    //if (taskData->outputs_count[0] != taskData->inputs_count[0]) throw 4;
+    // if (taskData->outputs_count[0] != taskData->inputs_count[0]) throw 4;
     return true;
   } catch (...) {
     return false;
