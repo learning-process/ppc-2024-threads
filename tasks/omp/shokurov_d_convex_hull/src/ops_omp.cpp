@@ -1,8 +1,9 @@
 // Copyright 2024 Shokurov Daniil
 #include "omp/shokurov_d_convex_hull/include/ops_omp.hpp"
 
-#include <cmath>
 #include <omp.h>
+
+#include <cmath>
 #include <thread>
 #include <utility>
 using namespace std::chrono_literals;
