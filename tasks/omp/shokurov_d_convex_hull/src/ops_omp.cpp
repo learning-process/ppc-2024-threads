@@ -66,6 +66,7 @@ size_t ConvexHullSequential::solve(vector<pair<double, double>>& p) {
   int k = 0;
   int common_index = 0;
 #pragma omp parallel shared(k)
+  cout << "omp_get_num_threads = " << omp_get_num_threads() << "\n";
   {
     do {
 #pragma omp single
