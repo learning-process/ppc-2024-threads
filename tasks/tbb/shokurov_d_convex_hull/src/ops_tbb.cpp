@@ -87,7 +87,7 @@ struct PointFinder {
       index = finder.index;
     }
   }
-  const int result() const { return index; }
+  int result() const { return index; }
 };
 
 size_t ConvexHullSequential::solve(std::vector<std::pair<double, double>>& p) {
