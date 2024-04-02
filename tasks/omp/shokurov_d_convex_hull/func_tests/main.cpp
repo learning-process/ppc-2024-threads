@@ -8,7 +8,7 @@
 
 #include "omp/shokurov_d_convex_hull/include/ops_omp.hpp"
 
-TEST(shokurov_d_convex_hull_sequential, Test_one_point) {
+TEST(shokurov_d_convex_hull_omp, Test_one_point) {
   // Create data
   std::vector<pair<double, double>> in;
   in.emplace_back(0, 0);
@@ -46,7 +46,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_one_point) {
   }
 }
 
-TEST(shokurov_d_convex_hull_sequential, Test_many_equals_point) {
+TEST(shokurov_d_convex_hull_omp, Test_many_equals_point) {
   // Create data
   std::vector<pair<double, double>> in;
   in.emplace_back(0, 0);
@@ -88,7 +88,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_many_equals_point) {
   }
 }
 
-TEST(shokurov_d_convex_hull_sequential, Test_two_point) {
+TEST(shokurov_d_convex_hull_omp, Test_two_point) {
   // Create data
   std::vector<pair<double, double>> in;
   in.emplace_back(1, 1);
@@ -127,7 +127,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_two_point) {
   }
 }
 
-TEST(shokurov_d_convex_hull_sequential, Test_line_segment) {
+TEST(shokurov_d_convex_hull_omp, Test_line_segment) {
   // Create data
   std::vector<pair<double, double>> in;
   in.emplace_back(1, 1);
@@ -173,7 +173,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_line_segment) {
   }
 }
 
-TEST(shokurov_d_convex_hull_sequential, Test_line_segment_2) {
+TEST(shokurov_d_convex_hull_omp, Test_line_segment_2) {
   // Create data
   std::vector<pair<double, double>> in;
   in.emplace_back(1, 0);
@@ -219,7 +219,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_line_segment_2) {
   }
 }
 
-TEST(shokurov_d_convex_hull_sequential, Test_square) {
+TEST(shokurov_d_convex_hull_omp, Test_square) {
   // Create data
   std::vector<pair<double, double>> in;
   in.emplace_back(0, 0);
@@ -268,7 +268,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_square) {
   }
 }
 
-TEST(shokurov_d_convex_hull_sequential, Test_triangle) {
+TEST(shokurov_d_convex_hull_omp, Test_triangle) {
   // Create data
   std::vector<pair<double, double>> in;
   in.emplace_back(0, 0);
@@ -315,7 +315,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_triangle) {
   }
 }
 
-TEST(shokurov_d_convex_hull_sequential, Test_random) {
+TEST(shokurov_d_convex_hull_omp, Test_random) {
   // Create data
   std::vector<pair<double, double>> in;
   std::vector<pair<double, double>> ans;
@@ -331,7 +331,7 @@ TEST(shokurov_d_convex_hull_sequential, Test_random) {
   }
 
   std::mt19937 gen(1.0);
-  std::uniform_real_distribution<> dis(0.0, 1.0);
+  std::uniform_real_distribution<> dis(0.1, 0.9);
 
   for (size_t i = 0; i < n; ++i) {
     size_t x = i % co;

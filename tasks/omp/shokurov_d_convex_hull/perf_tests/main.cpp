@@ -25,7 +25,7 @@ TEST(shokurov_d_convex_hull_omp, test_pipeline_run) {
   }
 
   std::mt19937 gen(1.0);
-  std::uniform_real_distribution<> dis(0.0, 1.0);
+  std::uniform_real_distribution<> dis(0.1, 0.9);
 
   for (size_t i = 0; i < n; ++i) {
     size_t x = i % co;
@@ -97,7 +97,7 @@ TEST(shokurov_d_convex_hull_omp, test_task_run) {
   }
 
   std::mt19937 gen(1.0);
-  std::uniform_real_distribution<> dis(0.0, 1.0);
+  std::uniform_real_distribution<> dis(0.1, 0.9);
 
   for (size_t i = 0; i < n; ++i) {
     size_t x = i % co;

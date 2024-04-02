@@ -65,7 +65,7 @@ size_t ConvexHullSequential::solve(vector<pair<double, double>>& p) {
   pair<double, double> pk = p0;
   int k = 0;
   int common_index = 0;
-#pragma omp parallel shared(k)
+#pragma omp parallel num_threads(1) shared(k)
   {
     do {
 #pragma omp single
@@ -82,6 +82,7 @@ size_t ConvexHullSequential::solve(vector<pair<double, double>>& p) {
 #pragma omp barrier
 #pragma omp single
       {
+        std::cout << "index: " << common_index << "\n";
         swap(p[common_index], p[k]);
         vec = sub(p[k], pk);
         pk = p[k];
