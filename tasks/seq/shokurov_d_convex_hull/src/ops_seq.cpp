@@ -97,7 +97,7 @@ bool ConvexHullSequential::my_less(const std::pair<double, double>& v1, const st
 }
 
 std::pair<double, double> ConvexHullSequential::sub(const std::pair<double, double>& v1,
-                                               const std::pair<double, double>& v2) {
+                                                    const std::pair<double, double>& v2) {
   return std::pair<double, double>(v1.first - v2.first, v1.second - v2.second);
 }
 
