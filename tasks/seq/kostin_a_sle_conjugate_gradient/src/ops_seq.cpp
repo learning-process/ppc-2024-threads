@@ -61,7 +61,7 @@ std::vector<double> conjugate_gradient(const std::vector<double>& A, int n, cons
 std::vector<double> generateSPDMatrix(int size, int max_value) {
   std::vector<double> A(size * size);
   std::random_device dev;
-  std::mt19937 gen(dev());
+  std::mt19937 gen(4041);
   for (int i = 0; i < size; ++i) {
     for (int j = i; j < size; ++j) {
       A[i * size + j] = static_cast<double>(gen() % max_value + 1);
@@ -79,7 +79,7 @@ std::vector<double> generateSPDMatrix(int size, int max_value) {
 std::vector<double> generatePDVector(int size, int max_value) {
   std::vector<double> vec(size);
   std::random_device dev;
-  std::mt19937 gen(dev());
+  std::mt19937 gen(4140);
   for (int i = 0; i < size; ++i) {
     vec[i] = static_cast<double>(gen() % max_value + 1);
   }
