@@ -71,7 +71,7 @@ size_t ConvexHullSequential::solve(std::vector<std::pair<double, double>>& p) {
       if (!comp(p[i], pk) && my_less(sub(p[i], pk), sub(p[index], pk), vec)) index = i;
     }
     if (!comp(p[index], pk) && my_less(sub(p[index], pk), sub(p[common_index], pk), vec)) common_index = index;
-    swap(p[common_index], p[k]);
+    std::swap(p[common_index], p[k]);
     vec = sub(p[k], pk);
     pk = p[k];
     ++k;
@@ -89,7 +89,7 @@ bool ConvexHullSequential::my_less(const std::pair<double, double>& v1, const st
   const double cosa = cos(v1, v);
   const double cosb = cos(v2, v);
   bool flag = false;
-  if (abs(cosa - cosb) > 1e-7)
+  if (std::abs(cosa - cosb) > 1e-7)
     flag = cosa > cosb;
   else
     flag = normal(v1) > normal(v2);
@@ -128,7 +128,7 @@ double ConvexHullSequential::scalar_product(const std::pair<double, double>& v1,
 }
 
 double ConvexHullSequential::normal(const std::pair<double, double>& v) {
-  return sqrt(v.first * v.first + v.second * v.second);
+  return std::sqrt(v.first * v.first + v.second * v.second);
 }
 
 double ConvexHullSequential::cos(const std::pair<double, double>& v1, const std::pair<double, double>& v2) {
