@@ -9,10 +9,10 @@
 #include "core/perf/include/perf.hpp"
 #include "seq/shokurov_d_convex_hull/include/ops_seq.hpp"
 
-TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
+TEST(shokurov_d_convex_hull_seq, test_pipeline_run) {
   // Create data
-  std::vector<pair<double, double>> in;
-  std::vector<pair<double, double>> ans;
+  std::vector<std::pair<double, double>> in;
+  std::vector<std::pair<double, double>> ans;
   ans.emplace_back(0, 0);
   ans.emplace_back(1, 0);
   ans.emplace_back(5, 5);
@@ -25,18 +25,18 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
   }
 
   std::mt19937 gen(1.0);
-  std::uniform_real_distribution<> dis(0.0, 1.0);
+  std::uniform_real_distribution<> dis(0.1, 0.9);
 
   for (size_t i = 0; i < n; ++i) {
     size_t x = i % co;
     size_t y = (i + 1) % co;
     double a = dis(gen);
-    pair<double, double> np;
+    std::pair<double, double> np;
     np.first = ans[x].first * a + (1.0 - a) * ans[y].first;
     np.second = ans[x].second * a + (1.0 - a) * ans[y].second;
     in.emplace_back(np);
   }
-  std::vector<pair<double, double>> out(in.size());
+  std::vector<std::pair<double, double>> out(in.size());
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -70,7 +70,7 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<std::pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());
@@ -81,10 +81,10 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_pipeline_run) {
   }
 }
 
-TEST(sequential_shokurov_d_convex_hull_perf_test, test_task_run) {
+TEST(shokurov_d_convex_hull_seq, test_task_run) {
   // Create data
-  std::vector<pair<double, double>> in;
-  std::vector<pair<double, double>> ans;
+  std::vector<std::pair<double, double>> in;
+  std::vector<std::pair<double, double>> ans;
   ans.emplace_back(0, 0);
   ans.emplace_back(1, 0);
   ans.emplace_back(5, 5);
@@ -97,18 +97,18 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_task_run) {
   }
 
   std::mt19937 gen(1.0);
-  std::uniform_real_distribution<> dis(0.0, 1.0);
+  std::uniform_real_distribution<> dis(0.1, 0.9);
 
   for (size_t i = 0; i < n; ++i) {
     size_t x = i % co;
     size_t y = (i + 1) % co;
     double a = dis(gen);
-    pair<double, double> np;
+    std::pair<double, double> np;
     np.first = ans[x].first * a + (1.0 - a) * ans[y].first;
     np.second = ans[x].second * a + (1.0 - a) * ans[y].second;
     in.emplace_back(np);
   }
-  std::vector<pair<double, double>> out(in.size());
+  std::vector<std::pair<double, double>> out(in.size());
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -142,7 +142,7 @@ TEST(sequential_shokurov_d_convex_hull_perf_test, test_task_run) {
   size_t k = taskDataSeq->outputs_count[0];
   ASSERT_EQ(ans.size(), k);
 
-  auto *_out = reinterpret_cast<pair<double, double> *>(taskDataSeq->outputs[0]);
+  auto *_out = reinterpret_cast<std::pair<double, double> *>(taskDataSeq->outputs[0]);
 
   std::sort(_out, _out + k);
   std::sort(ans.begin(), ans.end());

@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "core/task/include/task.hpp"
-using namespace std;
 
 class ConvexHullSequential : public ppc::core::Task {
  public:
@@ -16,22 +15,23 @@ class ConvexHullSequential : public ppc::core::Task {
   bool run() override;
   bool post_processing() override;
 
-  static double normal(const pair<double, double>& v);
-  static double scalar_product(const pair<double, double>& v1, const pair<double, double>& v2);
+  static double normal(const std::pair<double, double>& v);
+  static double scalar_product(const std::pair<double, double>& v1, const std::pair<double, double>& v2);
 
-  static double cos(const pair<double, double>& v1, const pair<double, double>& v2);
+  static double cos(const std::pair<double, double>& v1, const std::pair<double, double>& v2);
 
-  static bool my_less(const pair<double, double>& v1, const pair<double, double>& v2, const pair<double, double>& v);
+  static bool my_less(const std::pair<double, double>& v1, const std::pair<double, double>& v2,
+                      const std::pair<double, double>& v);
 
-  static size_t index_lowest_right_point(const vector<pair<double, double>>& v);
+  static size_t index_lowest_right_point(const std::vector<std::pair<double, double>>& v);
 
-  static pair<double, double> sub(const pair<double, double>& v1, const pair<double, double>& v2);
+  static std::pair<double, double> sub(const std::pair<double, double>& v1, const std::pair<double, double>& v2);
 
-  static bool comp(const pair<double, double>& a, const pair<double, double>& b);
+  static bool comp(const std::pair<double, double>& a, const std::pair<double, double>& b);
 
-  static size_t solve(vector<pair<double, double>>& p);
+  static size_t solve(std::vector<std::pair<double, double>>& p);
 
  private:
-  vector<pair<double, double>> points;
+  std::vector<std::pair<double, double>> points;
   size_t si = 0;
 };
