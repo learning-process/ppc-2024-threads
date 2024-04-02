@@ -7,9 +7,9 @@
 #include <vector>
 
 #include "core/perf/include/perf.hpp"
-#include "seq/shokurov_d_convex_hull/include/ops_seq.hpp"
+#include "tbb/shokurov_d_convex_hull/include/ops_tbb.hpp"
 
-TEST(shokurov_d_convex_hull_seq, test_pipeline_run) {
+TEST(shokurov_d_convex_hull_tbb, test_pipeline_run) {
   // Create data
   std::vector<std::pair<double, double>> in;
   std::vector<std::pair<double, double>> ans;
@@ -81,7 +81,7 @@ TEST(shokurov_d_convex_hull_seq, test_pipeline_run) {
   }
 }
 
-TEST(shokurov_d_convex_hull_seq, test_task_run) {
+TEST(shokurov_d_convex_hull_tbb, test_task_run) {
   // Create data
   std::vector<std::pair<double, double>> in;
   std::vector<std::pair<double, double>> ans;
