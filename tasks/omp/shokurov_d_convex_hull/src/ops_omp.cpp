@@ -121,17 +121,27 @@ size_t ConvexHullSequential::index_lowest_right_point(const vector<pair<double, 
       flag = a.first > b.first;
     return flag;
   };
-  size_t index = 0;
-  if (!v.empty()) {
-    for (size_t i = 1; i < v.size(); ++i) {
+  const int si = v.size();
+  int common_index = 0;
+  if (v.empty()) throw 11;
+#pragma omp parallel
+  {
+    int index = 0;
+#pragma omp for
+    for (int i = 0; i < si; ++i) {
       if (less(v[i], v[index])) {
         index = i;
       }
     }
-  } else {
-    throw 11;
+#pragma omp critical(common_index)
+    {
+      if (less(v[index], v[common_index])) {
+        common_index = index;
+      }
+    }
   }
-  return index;
+
+  return common_index;
 }
 
 double ConvexHullSequential::scalar_product(const pair<double, double>& v1, const pair<double, double>& v2) {
