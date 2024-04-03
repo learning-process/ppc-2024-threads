@@ -75,7 +75,7 @@ TEST(gauss_gorizont, test_two) {
     int n = 1000;
     int m = 1000;
     int min = 100;
-    int max = 200;
+    int max = 220;
 
     std::vector<int> image = getImage(n, m, min, max);
     std::vector<int> image_size = { n, m };
