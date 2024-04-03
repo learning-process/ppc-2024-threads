@@ -110,7 +110,7 @@ TEST(gauss_gorizont, test_two) {
   task_data->inputs_count.emplace_back(image_third.size());
   task_data->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   task_data->outputs_count.emplace_back(out.size());
-  
+ 
   auto test_task = std::make_shared<LinearGaussianFiltering>(task_data);
 
   auto perf_at = std::make_shared<ppc::core::PerfAttr>();

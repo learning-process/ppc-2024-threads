@@ -7,7 +7,6 @@
 
 #include "tasks/seq/bonyuk_p_gauss_gorizont/include/ops_seq.hpp"
 
-
 TEST(gauss_gorizont, one_test) {
   int n = 3;
   int m = 3;

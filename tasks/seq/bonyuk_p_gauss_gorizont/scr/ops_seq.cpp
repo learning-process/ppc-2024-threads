@@ -72,5 +72,3 @@ bool LinearGaussianFiltering::run() {
   }
   return true;
 }
-
-
