@@ -71,7 +71,7 @@ size_t ConvexHullSequential::solve(vector<pair<double, double>>& p) {
 #pragma omp single
       { common_index = k; }
       int index = k;
-#pragma omp for schedule(static) nowait
+#pragma omp for schedule(dynamic, 2048) nowait
       for (int i = k; i < n; ++i) {
         if (!comp(p[i], pk) && my_less(sub(p[i], pk), sub(p[index], pk), vec)) index = i;
       }
@@ -121,13 +121,13 @@ size_t ConvexHullSequential::index_lowest_right_point(const vector<pair<double, 
       flag = a.first > b.first;
     return flag;
   };
+  if (v.empty()) throw 11;
   const int si = v.size();
   int common_index = 0;
-  if (v.empty()) throw 11;
 #pragma omp parallel
   {
     int index = 0;
-#pragma omp for
+#pragma omp for schedule(dynamic, 2048)
     for (int i = 0; i < si; ++i) {
       if (less(v[i], v[index])) {
         index = i;
