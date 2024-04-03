@@ -15,14 +15,14 @@ TEST(gauss_gorizont, test_one) {
 
   std::vector<int> image = getImage(n, m, min, max);
 
-  std::vector<int> image_size = { n, m };
-  std::vector<int> image_third = { min, max };
+  std::vector<int> image_size = {n, m};
+  std::vector<int> image_third = {min, max};
   std::vector<int> out(n * m);
 
   std::vector<int> in(image);
   std::vector<int> result(n * m, 0);
 
-  std::vector<int> gauss_kernel = { 1, 2, 1, 2, 4, 2, 1, 2, 1 };
+  std::vector<int> gauss_kernel = {1, 2, 1, 2, 4, 2, 1, 2, 1};
   int kSize = 3;
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
@@ -76,13 +76,13 @@ TEST(gauss_gorizont, test_two) {
   int max = 220;
 
   std::vector<int> image = getImage(n, m, min, max);
-  std::vector<int> image_size = { n, m };
-  std::vector<int> image_third = { min, max };
+  std::vector<int> image_size = {n, m};
+  std::vector<int> image_third = {min, max};
   std::vector<int> out(n * m);
 
   std::vector<int> in(image);
   std::vector<int> result(n * m, 0);
-  std::vector<int> gauss_kernel = { 1, 2, 1, 2, 4, 2, 1, 2, 1 };
+  std::vector<int> gauss_kernel = {1, 2, 1, 2, 4, 2, 1, 2, 1};
   int kSize = 3;
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {

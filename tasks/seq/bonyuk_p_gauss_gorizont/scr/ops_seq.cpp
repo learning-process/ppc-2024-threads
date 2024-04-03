@@ -50,7 +50,7 @@ bool LinearGaussianFiltering::post_proc() {
 bool LinearGaussianFiltering::run() {
   internal_order_test();
   std::vector<int> filteredImage(input.size(), 0);
-  std::vector<int> gauss_kernel = { 1, 2, 1, 2, 4, 2, 1, 2, 1 };
+  std::vector<int> gauss_kernel = {1, 2, 1, 2, 4, 2, 1, 2, 1};
   int kSize = 3;
   int stride = width;
 
