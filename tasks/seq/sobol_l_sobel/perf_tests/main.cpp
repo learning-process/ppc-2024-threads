@@ -66,7 +66,7 @@ TEST(Sequential_sobol_sobel_perf_test, test_task_run) {
   const uint8_t max = 255;
   const int w = 100;
   const int h = 100;
-  
+
   // Create data
   std::vector<int> in(2);
   in[0] = w;
