@@ -55,7 +55,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestScalarMatrix) {
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
-  SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
+  CSeq testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -82,7 +82,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestDFT2x2) {
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
-  SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
+  CSeq testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -105,7 +105,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestDFT16x16) {
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
-  SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
+  CSeq testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -132,7 +132,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestDFT64x64) {
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
-  SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
+  CSeq testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -164,7 +164,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestShiftingDiagonal) {
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
-  SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
+  CSeq testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -203,7 +203,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestPermutationMatrix) {
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
-  SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
+  CSeq testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
