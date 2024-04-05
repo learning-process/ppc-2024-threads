@@ -19,7 +19,6 @@ class Sobel_seq : public ppc::core::Task {
   int w{}, h{};
   std::vector<uint8_t> input_ = {};
   std::vector<uint8_t> res = {};
-  
 };
 
 std::vector<uint8_t> getRandomPicture(int w, int h, uint8_t min, uint8_t max);

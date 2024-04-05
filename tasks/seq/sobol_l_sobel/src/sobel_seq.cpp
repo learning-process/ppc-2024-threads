@@ -36,9 +36,9 @@ bool Sobel_seq::run() {
   for (int i = 1; i < w - 1; i++) {
     for (int j = 1; j < h - 1; j++) {
       int x = -input_[(i - 1) * h + j - 1] + input_[(i - 1) * h + j + 1] - 2 * input_[i * h + j - 1] +
-               2 * input_[i * h + j + 1] - input_[(i + 1) * h + j - 1] + input_[(i + 1) * h + j + 1];
+              2 * input_[i * h + j + 1] - input_[(i + 1) * h + j - 1] + input_[(i + 1) * h + j + 1];
       int y = input_[(i - 1) * h + j - 1] + 2 * input_[(i - 1) * h + j] + input_[(i - 1) * h + j + 1] -
-               input_[(i + 1) * h + j - 1] - 2 * input_[(i + 1) * h + j] - input_[(i + 1) * h + j + 1];
+              input_[(i + 1) * h + j - 1] - 2 * input_[(i + 1) * h + j] - input_[(i + 1) * h + j + 1];
       res[i * h + j] = sqrt(x * x + y * y);
     }
   }
