@@ -13,7 +13,7 @@ TEST(vinokurov_i_simpson_method_seq, test_pipeline_run) {
   const int d = 1;
   const int n = 2000;
 
-  double result = 4.5;
+  const double result = 4.5;
 
   func fn = fn_linear;
 

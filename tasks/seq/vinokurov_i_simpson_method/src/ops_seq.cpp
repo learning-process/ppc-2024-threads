@@ -6,7 +6,6 @@
 
 using namespace std::chrono_literals;
 
-
 double fn_simpson(func _fn, double _x0, double _x1, double _y) {
   return _fn(_x0, _y) + 4 * _fn((_x0 + _x1) / 2, _y) + _fn(_x1, _y);
 }
@@ -20,7 +19,6 @@ double fn_trig(double _x, double _y) { return sin(_x * _y); }
 double fn_mul(double _x, double _y) { return _x * _x * _y; }
 
 double fn_other(double _x, double _y) { return (_x + _y) * _y; }
-
 
 bool SimpsonMethodSequential::pre_processing() {
   internal_order_test();
@@ -61,7 +59,6 @@ bool SimpsonMethodSequential::run() {
                 (fn_simpson(fn, b1, b2, a1) + 4 * fn_simpson(fn, b1, b2, (a1 + a2) / 2) + fn_simpson(fn, b1, b2, a2));
     }
   }
-
 
   return true;
 }
