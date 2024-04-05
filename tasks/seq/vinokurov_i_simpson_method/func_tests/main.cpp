@@ -11,7 +11,7 @@ TEST(vinokurov_i_simpson_method_seq, test_linear) {
   const int c = 0;
   const int d = 10;
   const int n = 100;
-  
+
   const double result = 90;
 
   func fn = fn_linear;
