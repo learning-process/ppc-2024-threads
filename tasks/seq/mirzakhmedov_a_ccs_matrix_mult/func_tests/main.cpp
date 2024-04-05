@@ -6,101 +6,96 @@
 #include <iostream>
 #include <vector>
 
-#include "seq/mirzakhmedov_a_ccs_matrix_mult/include/ops_seq.hpp"
+#include "seq/mirzakhmedov_a_ccs_matrix_mult/include/ccs_matrix_mult.hpp"
 
 const double PI = 3.14159265358979323846;
 
 CCSSparseMatrix dft_matrix(int n) {
-    auto N = (double)n;
-    std::complex<double> exponent{ 0.0, -2.0 * PI / N };
-    CCSSparseMatrix dft(n, n, n * n);
-    for (int i = 1; i <= n; ++i) {
-        dft.columnPointers[i] = i * n;
-    }
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            dft.rowIndices[i * n + j] = j;
-            dft.nonzeroValues[i * n + j] = std::exp(exponent * double(i * j));
-        }
-    }
-    return dft;
+  auto N = (double)n;
+  std::complex<double> exponent{ 0.0, -2.0 * PI / N };
+  CCSSparseMatrix dft(n, n, n * n);
+  for (int i = 1; i <= n; ++i) {
+    dft.columnPointers[i] = i * n;
+  }
+  for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < n; ++j) {
+          dft.rowIndices[i * n + j] = j;
+          dft.nonzeroValues[i * n + j] = std::exp(exponent * double(i * j));
+      }
+  }
+  return dft;
 }
 
 CCSSparseMatrix dft_conj_matrix(int n) {
-    auto N = (double)n;
-    std::complex<double> exponent{ 0.0, 2.0 * PI / N };
-    CCSSparseMatrix dft_conj(n, n, n * n);
-    for (int i = 1; i <= n; ++i) {
-        dft_conj.columnPointers[i] = i * n;
+  auto N = (double)n;
+  std::complex<double> exponent{ 0.0, 2.0 * PI / N };
+  CCSSparseMatrix dft_conj(n, n, n * n);
+  for (int i = 1; i <= n; ++i) {
+    dft_conj.columnPointers[i] = i * n;
+  }
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      dft_conj.rowIndices[i * n + j] = j;
+      dft_conj.nonzeroValues[i * n + j] = std::exp(exponent * double(j * i));
     }
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            dft_conj.rowIndices[i * n + j] = j;
-            dft_conj.nonzeroValues[i * n + j] = std::exp(exponent * double(j * i));
-        }
-    }
-    return dft_conj;
+  }
+  return dft_conj;
 }
 
 TEST(mirzakhmedov_a_ccs_matrix_mult, test_scalar_matrix) {
-    CCSSparseMatrix A(1, 1, 1);
-    CCSSparseMatrix B(1, 1, 1);
-    CCSSparseMatrix C;
-    A.columnPointers = { 0, 1 };
-    A.rowIndices = { 0 };
-    A.nonzeroValues = { std::complex<double>(0.0, 1.0) };
-    B.columnPointers = { 0, 1 };
-    B.rowIndices = { 0 };
-    B.nonzeroValues = { std::complex<double>(0.0, -1.0) };
-
-    std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-    taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
-    taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
-    taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
-
-    SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
-    ASSERT_EQ(testTaskSequential.validation(), true);
-    testTaskSequential.pre_processing();
-    testTaskSequential.run();
-    testTaskSequential.post_processing();
-    std::complex<double> answer(1.0, 0.0);
-    ASSERT_NEAR(std::abs(C.nonzeroValues[0] - answer), 0.0, 1e-6);
+  CCSSparseMatrix A(1, 1, 1);
+  CCSSparseMatrix B(1, 1, 1);
+  CCSSparseMatrix C;
+  A.columnPointers = { 0, 1 };
+  A.rowIndices = { 0 };
+  A.nonzeroValues = { std::complex<double>(0.0, 1.0) };
+  B.columnPointers = { 0, 1 };
+  B.rowIndices = { 0 };
+  B.nonzeroValues = { std::complex<double>(0.0, -1.0) };
+  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
+  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
+  SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
+  ASSERT_EQ(testTaskSequential.validation(), true);
+  testTaskSequential.pre_processing();
+  testTaskSequential.run();
+  testTaskSequential.post_processing();
+  std::complex<double> answer(1.0, 0.0);
+  ASSERT_NEAR(std::abs(C.nonzeroValues[0] - answer), 0.0, 1e-6);
 }
 
 TEST(mirzakhmedov_a_ccs_matrix_mult, test_dft2x2) {
-    double N = 2.0;
-    std::complex<double> exponent{ 0, -2.0 * PI / N };
-    CCSSparseMatrix A(2, 2, 4);
-    CCSSparseMatrix B(2, 2, 4);
-    CCSSparseMatrix C;
-    A.columnPointers = { 0, 2, 4 };
-    A.rowIndices = { 0, 1, 0, 1 };
-    A.nonzeroValues = { std::exp(exponent * 0.0 * 0.0), std::exp(exponent * 0.0 * 1.0), std::exp(exponent * 1.0 * 0.0),
-                std::exp(exponent * 1.0 * 1.0) };
-    B.columnPointers = { 0, 2, 4 };
-    B.rowIndices = { 0, 1, 0, 1 };
-    B.nonzeroValues = { std::exp(-exponent * 0.0 * 0.0), std::exp(-exponent * 1.0 * 0.0), std::exp(-exponent * 0.0 * 1.0),
-                std::exp(-exponent * 1.0 * 1.0) };
-
-    std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-    taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
-    taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
-    taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
-
-    SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
-    ASSERT_EQ(testTaskSequential.validation(), true);
-    testTaskSequential.pre_processing();
-    testTaskSequential.run();
-    testTaskSequential.post_processing();
-
-    std::vector<std::complex<double>> expected_values{ {N, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {N, 0.0} };
-    for (size_t i = 0; i < C.nonzeroValues.size(); ++i) {
-        ASSERT_NEAR(std::abs(C.nonzeroValues[i] - expected_values[i]), 0.0, 1e-6);
-    }
+  double N = 2.0;
+  std::complex<double> exponent{ 0, -2.0 * PI / N };
+  CCSSparseMatrix A(2, 2, 4);
+  CCSSparseMatrix B(2, 2, 4);
+  CCSSparseMatrix C;
+  A.columnPointers = { 0, 2, 4 };
+  A.rowIndices = { 0, 1, 0, 1 };
+  A.nonzeroValues = { std::exp(exponent * 0.0 * 0.0), std::exp(exponent * 0.0 * 1.0), std::exp(exponent * 1.0 * 0.0),
+              std::exp(exponent * 1.0 * 1.0) };
+  B.columnPointers = { 0, 2, 4 };
+  B.rowIndices = { 0, 1, 0, 1 };
+  B.nonzeroValues = { std::exp(-exponent * 0.0 * 0.0), std::exp(-exponent * 1.0 * 0.0), std::exp(-exponent * 0.0 * 1.0),
+              std::exp(-exponent * 1.0 * 1.0) };
+  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
+  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
+  SpgemmCSCComplexSeq testTaskSequential(taskDataSeq);
+  ASSERT_EQ(testTaskSequential.validation(), true);
+  testTaskSequential.pre_processing();
+  testTaskSequential.run();
+  testTaskSequential.post_processing();
+  std::vector<std::complex<double>> expected_values{ {N, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {N, 0.0} };
+  for (size_t i = 0; i < C.nonzeroValues.size(); ++i) {
+    ASSERT_NEAR(std::abs(C.nonzeroValues[i] - expected_values[i]), 0.0, 1e-6);
+  }
 }
 
 TEST(mirzakhmedov_a_ccs_matrix_mult, test_dft16x16) {
-    int n = 16;
+  int n = 16;
     double N = 16.0;
     CCSSparseMatrix A = dft_matrix(n);
     CCSSparseMatrix B = dft_conj_matrix(n);
