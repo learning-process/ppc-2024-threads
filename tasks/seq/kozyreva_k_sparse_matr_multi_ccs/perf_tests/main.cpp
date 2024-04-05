@@ -6,7 +6,7 @@
 
 using namespace std;
 
-TEST(kozyreva_k_sparse_matr_multi_ccs, test_pipeline_run) {
+TEST(kozyreva_k_sparse_matr_multi_ccs_seq, test_pipeline_run) {
   // Create data
   size_t p = 500;
   size_t q = 500;
