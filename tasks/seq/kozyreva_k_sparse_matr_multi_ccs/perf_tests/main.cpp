@@ -1,4 +1,4 @@
-// Copyright 2023 Simonyan Suren
+// Copyright 2024 Kozyreva Ekaterina
 #include <gtest/gtest.h>
 
 #include "core/perf/include/perf.hpp"
