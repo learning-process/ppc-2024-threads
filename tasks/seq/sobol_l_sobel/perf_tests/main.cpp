@@ -51,12 +51,10 @@ TEST(Sequential_sobol_sobel_perf_test, test_pipeline_run) {
   ppc::core::Perf::print_perf_statistic(perfResults);
   for (int i = 1; i < w - 1; i++) {
     for (int j = 1; j < h - 1; j++) {
-      int x = -picture[(i - 1) * h + j - 1] + picture[(i - 1) * h + j + 1] -
-               2 * picture[i * h + j - 1] + 2 * picture[i * h + j + 1] - 
-               picture[(i + 1) * h + j - 1] + picture[(i + 1) * h + j + 1];
-      int y = picture[(i - 1) * h + j - 1] + 2 * picture[(i - 1) * h + j] +
-               picture[(i - 1) * h + j + 1] - picture[(i + 1) * h + j - 1] - 
-               2 * picture[(i + 1) * h + j] - picture[(i + 1) * h + j + 1];
+      int x = -picture[(i - 1) * h + j - 1] + picture[(i - 1) * h + j + 1] - 2 * picture[i * h + j - 1] +
+              2 * picture[i * h + j + 1] - picture[(i + 1) * h + j - 1] + picture[(i + 1) * h + j + 1];
+      int y = picture[(i - 1) * h + j - 1] + 2 * picture[(i - 1) * h + j] + picture[(i - 1) * h + j + 1] -
+              picture[(i + 1) * h + j - 1] - 2 * picture[(i + 1) * h + j] - picture[(i + 1) * h + j + 1];
       uint8_t expected = sqrt(x * x + y * y);
       ASSERT_EQ(expected, out[i * h + j]);
     }
@@ -107,12 +105,10 @@ TEST(Sequential_sobol_sobel_perf_test, test_task_run) {
   ppc::core::Perf::print_perf_statistic(perfResults);
   for (int i = 1; i < w - 1; i++) {
     for (int j = 1; j < h - 1; j++) {
-      int x = -picture[(i - 1) * h + j - 1] + picture[(i - 1) * h + j + 1] -
-               2 * picture[i * h + j - 1] + 2 * picture[i * h + j + 1] - 
-               picture[(i + 1) * h + j - 1] + picture[(i + 1) * h + j + 1];
-      int y = picture[(i - 1) * h + j - 1] + 2 * picture[(i - 1) * h + j] +
-               picture[(i - 1) * h + j + 1] - picture[(i + 1) * h + j - 1] - 
-               2 * picture[(i + 1) * h + j] - picture[(i + 1) * h + j + 1];
+      int x = -picture[(i - 1) * h + j - 1] + picture[(i - 1) * h + j + 1] - 2 * picture[i * h + j - 1] +
+              2 * picture[i * h + j + 1] - picture[(i + 1) * h + j - 1] + picture[(i + 1) * h + j + 1];
+      int y = picture[(i - 1) * h + j - 1] + 2 * picture[(i - 1) * h + j] + picture[(i - 1) * h + j + 1] -
+              picture[(i + 1) * h + j - 1] - 2 * picture[(i + 1) * h + j] - picture[(i + 1) * h + j + 1];
       uint8_t expected = sqrt(x * x + y * y);
       ASSERT_EQ(expected, out[i * h + j]);
     }
