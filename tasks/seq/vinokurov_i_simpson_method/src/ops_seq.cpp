@@ -1,8 +1,8 @@
 // Copyright 2024 Vinokurov Ivan
 #include "seq/vinokurov_i_simpson_method/include/ops_seq.hpp"
 
-#include <thread>
 #include <cmath>
+#include <thread>
 
 using namespace std::chrono_literals;
 
@@ -57,10 +57,8 @@ bool SimpsonMethodSequential::run() {
       double b1 = a + j * part1;
       double b2 = a + (j + 1) * part1;
 
-      result += (part1 * part2 / 36) * 
-                (fn_simpson(fn, b1, b2, a1) + 4 * 
-                 fn_simpson(fn, b1, b2, (a1 + a2) / 2) +
-                 fn_simpson(fn, b1, b2, a2));
+      result += (part1 * part2 / 36) *
+                (fn_simpson(fn, b1, b2, a1) + 4 * fn_simpson(fn, b1, b2, (a1 + a2) / 2) + fn_simpson(fn, b1, b2, a2));
     }
   }
 

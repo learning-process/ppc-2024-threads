@@ -16,7 +16,8 @@ double fn_other(double x, double y);
 
 class SimpsonMethodSequential : public ppc::core::Task {
  public:
-  explicit SimpsonMethodSequential(std::shared_ptr<ppc::core::TaskData> taskData_, func fn_) : Task(std::move(taskData_)), fn(std::move(fn_)) {}
+  explicit SimpsonMethodSequential(std::shared_ptr<ppc::core::TaskData> taskData_, func fn_)
+       : Task(std::move(taskData_)), fn(std::move(fn_)) {}
   bool pre_processing() override;
   bool validation() override;
   bool run() override;
