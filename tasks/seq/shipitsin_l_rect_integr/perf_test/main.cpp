@@ -6,7 +6,7 @@
 #include "core/perf/include/perf.hpp"
 #include "seq/shipitsin_l_rect_integr/include/ops_seq.hpp"
 
-TEST(shipitsin_a_rect_integr_seq, test_pipeline_run) {
+TEST(shipitsin_l_rect_integr_seq, test_pipeline_run) {
   // Create data
   std::vector<double> in{-15.0, 15.0, -20.0, 10.0, 4e3};
   std::vector<double> out(2);

@@ -5,7 +5,7 @@
 
 #include "seq/shipitsin_l_rect_integr/include/ops_seq.hpp"
 
-TEST(shipitsin_a_rect_integr_seq, Small) {
+TEST(shipitsin_l_rect_integr_seq, Small) {
   std::vector<double> in{0.0, 1.0, 0.0, 1.0, 1e2};  // x_lim_l, x_lim_u, y_lim_l, y_lim_u, n
   std::vector<double> out(2);                       // res, err
 
