@@ -13,12 +13,12 @@ CCSSparseMatrix dft_matrix(int n) {
   std::complex<double> exponent{0.0, -2.0 * PI / N};
   CCSSparseMatrix dft(n, n, n * n);
   for (int i = 1; i <= n; ++i) {
-    dft.col_ptr[i] = i * n;
+    dft.columnPointers[i] = i * n;
   }
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
-      dft.rows[i * n + j] = j;
-      dft.values[i * n + j] = std::exp(exponent * double(i * j));
+      dft.rowIndices[i * n + j] = j;
+      dft.nonzeroValues[i * n + j] = std::exp(exponent * double(i * j));
     }
   }
   return dft;
@@ -29,12 +29,12 @@ CCSSparseMatrix dft_conj_matrix(int n) {
   std::complex<double> exponent{0.0, 2.0 * PI / N};
   CCSSparseMatrix dft_conj(n, n, n * n);
   for (int i = 1; i <= n; ++i) {
-    dft_conj.col_ptr[i] = i * n;
+    dft_conj.columnPointers[i] = i * n;
   }
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
-      dft_conj.rows[i * n + j] = j;
-      dft_conj.values[i * n + j] = std::exp(exponent * double(j * i));
+      dft_conj.rowIndices[i * n + j] = j;
+      dft_conj.nonzeroValues[i * n + j] = std::exp(exponent * double(j * i));
     }
   }
   return dft_conj;
@@ -51,7 +51,7 @@ TEST(mirzakhmedov_a_ccs_matrix_mult, test_pipeline_run_dft384x384) {
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
-  auto testTaskSequential = std::make_shared<SpgemmCSCComplexSeq>(taskDataSeq);
+  auto testTaskSequential = std::make_shared<CSeq>(taskDataSeq);
 
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
   perfAttr->num_running = 10;
@@ -80,7 +80,7 @@ TEST(mirzakhmedov_a_ccs_matrix_mult, test_task_run_dft384x384) {
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
-  auto testTaskSequential = std::make_shared<SpgemmCSCComplexSeq>(taskDataSeq);
+  auto testTaskSequential = std::make_shared<CSeq>(taskDataSeq);
 
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
   perfAttr->num_running = 10;
