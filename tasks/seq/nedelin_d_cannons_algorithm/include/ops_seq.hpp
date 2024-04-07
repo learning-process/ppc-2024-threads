@@ -42,4 +42,5 @@ inline std::vector<double> getRandomMatrix(int rows, int cols) {
 }
 
 std::vector<double> multiplyMatrix(const std::vector<double>& A, const std::vector<double>& B, int rows_A, int col_B);
-};
+}
+;
