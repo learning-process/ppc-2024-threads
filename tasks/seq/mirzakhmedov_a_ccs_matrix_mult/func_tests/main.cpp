@@ -92,7 +92,6 @@ TEST(MirzakhmedovACCSMatrixMult, TestDFT2x2) {
 
 TEST(MirzakhmedovACCSMatrixMult, TestDFT16x16) {
   int n = 16;
-  double N = static_cast<double>(n);
   CCSSparseMatrix A = DFTMatrix(n);
   CCSSparseMatrix B = DFTConjMatrix(n);
   CCSSparseMatrix C;
@@ -117,7 +116,6 @@ TEST(MirzakhmedovACCSMatrixMult, TestDFT16x16) {
 
 TEST(MirzakhmedovACCSMatrixMult, TestDFT64x64) {
   int n = 64;
-  double N = static_cast<double>(n);
   CCSSparseMatrix A = DFTMatrix(n);
   CCSSparseMatrix B = DFTConjMatrix(n);
   CCSSparseMatrix C;
@@ -133,7 +131,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestDFT64x64) {
   testTaskSequential.run();
   testTaskSequential.post_processing();
 
-  std::vector<std::complex<double>> expected_values(n * n, {N, 0.0});
+  std::vector<std::complex<double>> expected_values(n * n, {static_cast<double>(n), 0.0});
   for (size_t i = 0; i < C.nonzeroValues.size(); ++i) {
     ASSERT_NEAR(std::abs(C.nonzeroValues[i].real() - expected_values[i].real()), 0.0, 1e-6);
     ASSERT_NEAR(std::abs(C.nonzeroValues[i].imag() - expected_values[i].imag()), 0.0, 1e-6);
