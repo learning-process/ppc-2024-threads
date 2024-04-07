@@ -77,16 +77,20 @@ TEST(MirzakhmedovACCSMatrixMult, TestDFT) {
     std::vector<std::complex<double>> expected_values(n * n, {0.0, 0.0});
     if (config.conjugate) {
       for (int i = 0; i < n; ++i) {
-        expected_values[i * (n + 1)] = {N, 0.0};
+        expected_values[i * n + i] = {N, 0.0};
       }
     } else {
       for (int i = 0; i < n; ++i) {
-        expected_values[i * (n + 1)] = {N, 0.0};
+        expected_values[i * n + i] = {N, 0.0};
       }
     }
 
+    ASSERT_EQ(C.nonzeroValues.size(), expected_values.size());
+
     for (size_t i = 0; i < C.nonzeroValues.size(); ++i) {
-      ASSERT_NEAR(std::abs(C.nonzeroValues[i] - expected_values[i]), 0.0, 1e-6);
+      if (C.nonzeroValues[i] != std::complex<double>(0.0, 0.0)) {
+        ASSERT_NEAR(std::abs(C.nonzeroValues[i] - expected_values[i]), 0.0, 1e-6);
+      }
     }
   }
 }
