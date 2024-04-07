@@ -7,8 +7,8 @@
 #include <unordered_set>
 #include <vector>
 
-bool CSeq::pre_processing() {
-  internal_order_test();
+bool CSeq::preProcessing() {
+  internalOrderTest();
   A = reinterpret_cast<CCSSparseMatrix*>(taskData->inputs[0]);
   B = reinterpret_cast<CCSSparseMatrix*>(taskData->inputs[1]);
   C = reinterpret_cast<CCSSparseMatrix*>(taskData->outputs[0]);
@@ -16,14 +16,14 @@ bool CSeq::pre_processing() {
 }
 
 bool CSeq::validation() {
-  internal_order_test();
-  int A_cols = reinterpret_cast<CCSSparseMatrix*>(taskData->inputs[0])->numCols;
-  int B_rows = reinterpret_cast<CCSSparseMatrix*>(taskData->inputs[1])->numRows;
+  internalOrderTest();
+  int A_cols = reinterpret_cast<CCSSparseMatrix*>(taskData->inputs[0])->colsNum;
+  int B_rows = reinterpret_cast<CCSSparseMatrix*>(taskData->inputs[1])->rowsNum;
   return (A_cols == B_rows);
 }
 
 bool CSeq::run() {
-  internal_order_test();
+  internalOrderTest();
   C->numRows = A->numRows;
   C->numCols = B->numCols;
   C->columnPointers.resize(C->numCols + 1);
@@ -77,7 +77,7 @@ bool CSeq::run() {
   return true;
 }
 
-bool CSeq::post_processing() {
-  internal_order_test();
+bool CSeq::postProcessing() {
+  internalOrderTest();
   return true;
 }

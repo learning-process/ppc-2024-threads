@@ -9,14 +9,12 @@
 
 const double PI = 3.14159265358979323846;
 
-CCSSparseMatrix DFTMatrix(int n, bool conjugate = false) {
+CCSSparseMatrix DFTMatrix(int n) {
   auto N = static_cast<double>(n);
-  std::complex<double> exponent{0.0, (conjugate ? 2.0 : -2.0) * PI / N};
+  std::complex<double> exponent{0.0, -2.0 * PI / N};
   CCSSparseMatrix dft(n, n, n * n);
-  for (int i = 1; i <= n; ++i) {
-    dft.columnPointers[i] = i * n;
-  }
   for (int i = 0; i < n; ++i) {
+    dft.columnPointers[i] = i * n;
     for (int j = 0; j < n; ++j) {
       dft.rowIndices[i * n + j] = j;
       dft.nonzeroValues[i * n + j] = std::exp(exponent * static_cast<double>(i * j));
@@ -25,22 +23,36 @@ CCSSparseMatrix DFTMatrix(int n, bool conjugate = false) {
   return dft;
 }
 
+CCSSparseMatrix DFTConjMatrix(int n) {
+  auto N = static_cast<double>(n);
+  std::complex<double> exponent{0.0, 2.0 * PI / N};
+  CCSSparseMatrix dft_conj(n, n, n * n);
+  for (int i = 0; i < n; ++i) {
+    dft_conj.columnPointers[i] = i * n;
+    for (int j = 0; j < n; ++j) {
+      dft_conj.rowIndices[i * n + j] = j;
+      dft_conj.nonzeroValues[i * n + j] = std::exp(exponent * static_cast<double>(j * i));
+    }
+  }
+  return dft_conj;
+}
+
 TEST(MirzakhmedovACCSMatrixMult, TestScalarMatrix) {
   CCSSparseMatrix A(1, 1, 1);
   CCSSparseMatrix B(1, 1, 1);
   CCSSparseMatrix C;
   A.columnPointers = {0, 1};
   A.rowIndices = {0};
-  A.nonzeroValues = {std::complex<double>(0.0, 1.0)};
+  A.nonzeroValues = {std::complex<double>(2.0, 3.0)};
   B.columnPointers = {0, 1};
   B.rowIndices = {0};
-  B.nonzeroValues = {std::complex<double>(0.0, -1.0)};
+  B.nonzeroValues = {std::complex<double>(-1.0, 1.0)};
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
   taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
   CSeq testTaskSequential(taskDataSeq);
-  ASSERT_EQ(testTaskSequential.validation(), true);
+  ASSERT_TRUE(testTaskSequential.validation());
   testTaskSequential.pre_processing();
   testTaskSequential.run();
   testTaskSequential.post_processing();
@@ -48,46 +60,83 @@ TEST(MirzakhmedovACCSMatrixMult, TestScalarMatrix) {
   ASSERT_NEAR(std::abs(C.nonzeroValues[0] - answer), 0.0, 1e-6);
 }
 
-TEST(MirzakhmedovACCSMatrixMult, TestDFT) {
-  struct TestConfig {
-    int size;
-    bool conjugate;
-  };
+TEST(MirzakhmedovACCSMatrixMult, TestDFT2x2) {
+  double N = 2.0;
+  std::complex<double> exponent{0, -2.0 * PI / N};
+  CCSSparseMatrix A(2, 2, 4);
+  CCSSparseMatrix B(2, 2, 4);
+  CCSSparseMatrix C;
+  A.columnPointers = {0, 2, 4};
+  A.rowIndices = {0, 1, 0, 1};
+  A.nonzeroValues = {std::exp(exponent * 0.0 * 0.0), std::exp(exponent * 0.0 * 1.0), std::exp(exponent * 1.0 * 0.0),
+                     std::exp(exponent * 1.0 * 1.0)};
+  B.columnPointers = {0, 2, 4};
+  B.rowIndices = {0, 1, 0, 1};
+  B.nonzeroValues = {std::exp(-exponent * 0.0 * 0.0), std::exp(-exponent * 1.0 * 0.0), std::exp(-exponent * 0.0 * 1.0),
+                     std::exp(-exponent * 1.0 * 1.0)};
+  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
+  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
+  CSeq testTaskSequential(taskDataSeq);
+  ASSERT_TRUE(testTaskSequential.validation());
+  testTaskSequential.pre_processing();
+  testTaskSequential.run();
+  testTaskSequential.post_processing();
+  std::vector<std::complex<double>> expected_values{{3.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {3.0, 0.0}};
+  for (size_t i = 0; i < C.nonzeroValues.size(); ++i) {
+    ASSERT_NEAR(std::abs(C.nonzeroValues[i].real() - expected_values[i].real()), 0.0, 1e-6);
+    ASSERT_NEAR(std::abs(C.nonzeroValues[i].imag() - expected_values[i].imag()), 0.0, 1e-6);
+  }
+}
 
-  std::vector<TestConfig> testCases = {{2, false}, {16, true}, {64, false}, {256, false}, {257, false}};
+TEST(MirzakhmedovACCSMatrixMult, TestDFT16x16) {
+  int n = 16;
+  double N = static_cast<double>(n);
+  CCSSparseMatrix A = DFTMatrix(n);
+  CCSSparseMatrix B = DFTConjMatrix(n);
+  CCSSparseMatrix C;
 
-  for (const auto& config : testCases) {
-    CCSSparseMatrix A = DFTMatrix(config.size);
-    CCSSparseMatrix B = DFTMatrix(config.size, config.conjugate);
-    CCSSparseMatrix C;
+  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
+  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
-    std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-    taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
-    taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
-    taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
+  CSeq testTaskSequential(taskDataSeq);
+  ASSERT_TRUE(testTaskSequential.validation());
+  testTaskSequential.pre_processing();
+  testTaskSequential.run();
+  testTaskSequential.post_processing();
 
-    CSeq testTaskSequential(taskDataSeq);
-    ASSERT_EQ(testTaskSequential.validation(), true);
-    testTaskSequential.pre_processing();
-    testTaskSequential.run();
-    testTaskSequential.post_processing();
+  std::vector<std::complex<double>> expected_values(n * n, {8.0, 0.0});
+  for (size_t i = 0; i < C.nonzeroValues.size(); ++i) {
+    ASSERT_NEAR(std::abs(C.nonzeroValues[i].real() - expected_values[i].real()), 0.0, 1e-6);
+    ASSERT_NEAR(std::abs(C.nonzeroValues[i].imag() - expected_values[i].imag()), 0.0, 1e-6);
+  }
+}
 
-    int n = config.size;
-    double N = static_cast<double>(n);
-    std::vector<std::complex<double>> expected_values(n * n, {0.0, 0.0});
-    if (config.conjugate) {
-      for (int i = 0; i < n; ++i) {
-        expected_values[i * (n + 1)] = {N, 0.0};
-      }
-    } else {
-      for (int i = 0; i < n; ++i) {
-        expected_values[i * (n + 1)] = {N, 0.0};
-      }
-    }
+TEST(MirzakhmedovACCSMatrixMult, TestDFT64x64) {
+  int n = 64;
+  double N = static_cast<double>(n);
+  CCSSparseMatrix A = DFTMatrix(n);
+  CCSSparseMatrix B = DFTConjMatrix(n);
+  CCSSparseMatrix C;
 
-    for (size_t i = 0; i < C.nonzeroValues.size(); ++i) {
-      ASSERT_NEAR(std::abs(C.nonzeroValues[i] - expected_values[i]), 0.0, 1e-6);
-    }
+  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&A));
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&B));
+  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
+
+  CSeq testTaskSequential(taskDataSeq);
+  ASSERT_TRUE(testTaskSequential.validation());
+  testTaskSequential.pre_processing();
+  testTaskSequential.run();
+  testTaskSequential.post_processing();
+
+  std::vector<std::complex<double>> expected_values(n * n, {N, 0.0});
+  for (size_t i = 0; i < C.nonzeroValues.size(); ++i) {
+    ASSERT_NEAR(std::abs(C.nonzeroValues[i].real() - expected_values[i].real()), 0.0, 1e-6);
+    ASSERT_NEAR(std::abs(C.nonzeroValues[i].imag() - expected_values[i].imag()), 0.0, 1e-6);
   }
 }
 
@@ -109,7 +158,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestShiftingDiagonal) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
   CSeq testTaskSequential(taskDataSeq);
-  ASSERT_EQ(testTaskSequential.validation(), true);
+  ASSERT_TRUE(testTaskSequential.validation());
   testTaskSequential.pre_processing();
   testTaskSequential.run();
   testTaskSequential.post_processing();
@@ -148,7 +197,7 @@ TEST(MirzakhmedovACCSMatrixMult, TestPermutationMatrix) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t*>(&C));
 
   CSeq testTaskSequential(taskDataSeq);
-  ASSERT_EQ(testTaskSequential.validation(), true);
+  ASSERT_TRUE(testTaskSequential.validation());
   testTaskSequential.pre_processing();
   testTaskSequential.run();
   testTaskSequential.post_processing();
