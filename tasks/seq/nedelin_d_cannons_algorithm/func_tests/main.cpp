@@ -9,8 +9,8 @@ TEST(nedelin_d_block_cannons_seq, Multiplication_3x3) {
   int n = 3;
   int m = 3;
 
-  std::vector<double> in_mtrx_A{10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
-  std::vector<double> in_mtrx_B{10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+  std::vector<double> in_mtrx_A{1, 2, 3, 4, 5, 6, 7, 8, 9};
+  std::vector<double> in_mtrx_B{1, 2, 3, 4, 5, 6, 7, 8, 9};
   std::vector<double> out(n * m);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -42,8 +42,8 @@ TEST(nedelin_d_block_cannons_seq, Multiplication_2x2) {
   int n = 2;
   int m = 2;
 
-  std::vector<double> in_mtrx_A{10, 11, 12, 13};
-  std::vector<double> in_mtrx_B{14, 15, 16, 17};
+  std::vector<double> in_mtrx_A{1, 2, 3, 4};
+  std::vector<double> in_mtrx_B{6, 7, 8, 9};
   std::vector<double> out(n * m);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
