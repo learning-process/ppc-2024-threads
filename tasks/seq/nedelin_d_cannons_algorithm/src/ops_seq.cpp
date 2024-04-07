@@ -86,12 +86,12 @@ bool TestTaskSequentialNedelinCannon::validation() {
 
 bool TestTaskSequentialNedelinCannon::run() {
   internal_order_test();
-  result = cannonMatrixMultiplication(A, B, n, m);
+  res = cannonMatrixMultiplication(A, B, n, m);
   return true;
 }
 
 bool TestTaskSequentialNedelinCannon::post_processing() {
   internal_order_test();
-  std::copy(result.begin(), result.end(), reinterpret_cast<double*>(taskData->outputs[0]));
+  std::copy(res.begin(), res.end(), reinterpret_cast<double*>(taskData->outputs[0]));
   return true;
 }
