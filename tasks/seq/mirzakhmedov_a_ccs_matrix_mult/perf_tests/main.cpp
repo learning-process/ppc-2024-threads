@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "core/perf/include/perf.hpp"
-#include "seq/mirzakhmedov_a_ccs_matrix_mult/include/css_matrix_mult.hpp"
+#include "seq/mirzakhmedov_a_ccs_matrix_mult/include/ccs_matrix_mult.hpp"
 
 const double PI = 3.14159265358979323846;
 
