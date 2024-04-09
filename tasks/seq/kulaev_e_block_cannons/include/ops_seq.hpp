@@ -33,4 +33,4 @@ std::vector<double> multiplyMatrix(const std::vector<double>& A, const std::vect
 
 std::vector<double> cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, int n,
                                                int m);
-}
+}  // namespace Kulaev_Seq
