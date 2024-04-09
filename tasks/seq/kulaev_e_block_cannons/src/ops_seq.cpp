@@ -6,8 +6,8 @@
 #include <random>
 #include <vector>
 
-std::vector<double> Kulaev_Seq::cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, int n,
-                                               int m) {
+std::vector<double> Kulaev_Seq::cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B,
+                                                           int n, int m) {
   int blockSize = std::min(n, m);
 
   std::vector<double> C(n * m, 0.0);
@@ -54,7 +54,8 @@ std::vector<double> Kulaev_Seq::getRandomMatrix(int rows, int cols) {
   return matrix;
 }
 
-std::vector<double> Kulaev_Seq::multiplyMatrix(const std::vector<double>& A, const std::vector<double>& B, int rows_A, int col_B) {
+std::vector<double> Kulaev_Seq::multiplyMatrix(const std::vector<double>& A, const std::vector<double>& B, int rows_A,
+                                               int col_B) {
   int col_A = rows_A;
   std::vector<double> C(rows_A * col_B, 0.0);
 

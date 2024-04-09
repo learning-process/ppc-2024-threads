@@ -9,7 +9,7 @@
 
 #include "core/task/include/task.hpp"
 
-namespace Kulaev_Seq{
+namespace Kulaev_Seq {
 
 class TestTaskSequentialKulaevCannon : public ppc::core::Task {
  public:
