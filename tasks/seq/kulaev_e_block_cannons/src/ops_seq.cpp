@@ -6,7 +6,9 @@
 #include <random>
 #include <vector>
 
-std::vector<double> Kulaev_Seq::cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B,
+namespace Kulaev_Seq {
+
+std::vector<double> cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B,
                                                            int n, int m) {
   int blockSize = std::min(n, m);
 
@@ -38,7 +40,7 @@ std::vector<double> Kulaev_Seq::cannonMatrixMultiplication(const std::vector<dou
   return C;
 }
 
-std::vector<double> Kulaev_Seq::getRandomMatrix(int rows, int cols) {
+std::vector<double> getRandomMatrix(int rows, int cols) {
   std::random_device dev;
   std::mt19937 gen(dev());
   std::uniform_real_distribution<double> dis(1.0, 20.0);
@@ -54,7 +56,7 @@ std::vector<double> Kulaev_Seq::getRandomMatrix(int rows, int cols) {
   return matrix;
 }
 
-std::vector<double> Kulaev_Seq::multiplyMatrix(const std::vector<double>& A, const std::vector<double>& B, int rows_A,
+std::vector<double> multiplyMatrix(const std::vector<double>& A, const std::vector<double>& B, int rows_A,
                                                int col_B) {
   int col_A = rows_A;
   std::vector<double> C(rows_A * col_B, 0.0);
@@ -73,7 +75,7 @@ std::vector<double> Kulaev_Seq::multiplyMatrix(const std::vector<double>& A, con
   return C;
 }
 
-bool Kulaev_Seq::TestTaskSequentialKulaevCannon::pre_processing() {
+bool TestTaskSequentialKulaevCannon::pre_processing() {
   internal_order_test();
   // Init value for input and output
 
@@ -95,7 +97,7 @@ bool Kulaev_Seq::TestTaskSequentialKulaevCannon::pre_processing() {
   return true;
 }
 
-bool Kulaev_Seq::TestTaskSequentialKulaevCannon::validation() {
+bool TestTaskSequentialKulaevCannon::validation() {
   internal_order_test();
   // Check count elements of output
   return taskData->inputs_count[0] == taskData->inputs_count[1] &&
@@ -103,14 +105,16 @@ bool Kulaev_Seq::TestTaskSequentialKulaevCannon::validation() {
          taskData->inputs_count[1] == taskData->outputs_count[0];
 }
 
-bool Kulaev_Seq::TestTaskSequentialKulaevCannon::run() {
+bool TestTaskSequentialKulaevCannon::run() {
   internal_order_test();
   result = cannonMatrixMultiplication(A, B, n, m);
   return true;
 }
 
-bool Kulaev_Seq::TestTaskSequentialKulaevCannon::post_processing() {
+bool TestTaskSequentialKulaevCannon::post_processing() {
   internal_order_test();
   std::copy(result.begin(), result.end(), reinterpret_cast<double*>(taskData->outputs[0]));
   return true;
 }
+
+}  // namespace Kulaev_Seq
