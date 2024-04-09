@@ -146,7 +146,7 @@ TEST(savchuk_a_crs_matmult, inverse_matrix) {
   ASSERT_EQ(k, n1 * m2);
 }
 
-TEST(simonyan_s_sparse_matr_multi_ccs_seq, zero_matrix) {
+TEST(savchuk_a_crs_matmult, zero_matrix) {
   size_t n1 = 3;
   size_t m1 = 3;
   size_t n2 = 3;

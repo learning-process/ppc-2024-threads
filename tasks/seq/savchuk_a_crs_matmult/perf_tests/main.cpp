@@ -1,10 +1,10 @@
-// Copyright 2024 Zorin Oleg
+// Copyright 2024 Savchuk Anton
 #include <gtest/gtest.h>
 
 #include "core/perf/include/perf.hpp"
-#include "seq/zorin_o_crs_matmult/include/crs_matmult_seq.hpp"
+#include "seq/savchuk_a_crs_matmult/include/crs_matmult_seq.hpp"
 
-TEST(Zorin_O_CRS_MatMult_Seq, test_pipeline_run) {
+TEST(savchuk_a_crs_matmult, test_pipeline_run) {
   // Create data
   size_t p = 901;
   size_t q = 900;
@@ -37,7 +37,7 @@ TEST(Zorin_O_CRS_MatMult_Seq, test_pipeline_run) {
   taskDataSeq->outputs_count.emplace_back(r);
 
   // Create Task
-  auto testTaskSeq = std::make_shared<CRSMatMult>(taskDataSeq);
+  auto testTaskSeq = std::make_shared<SavchukCRSMatMult>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -65,7 +65,7 @@ TEST(Zorin_O_CRS_MatMult_Seq, test_pipeline_run) {
   }
 }
 
-TEST(Zorin_O_CRS_MatMult_Seq, test_task_run) {
+TEST(savchuk_a_crs_matmult, test_task_run) {
   // Create data
   size_t p = 901;
   size_t q = 900;
@@ -98,7 +98,7 @@ TEST(Zorin_O_CRS_MatMult_Seq, test_task_run) {
   taskDataSeq->outputs_count.emplace_back(r);
 
   // Create Task
-  auto testTaskSeq = std::make_shared<CRSMatMult>(taskDataSeq);
+  auto testTaskSeq = std::make_shared<SavchukCRSMatMult>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
