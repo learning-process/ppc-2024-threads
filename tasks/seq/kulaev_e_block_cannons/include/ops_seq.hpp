@@ -9,7 +9,7 @@
 
 #include "core/task/include/task.hpp"
 
-namespace Kulaev_Seq{
+namespace Kulaev_Seq {
 
 class TestTaskSequentialKulaevCannon : public ppc::core::Task {
  public:
@@ -33,4 +33,4 @@ std::vector<double> multiplyMatrix(const std::vector<double>& A, const std::vect
 
 std::vector<double> cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, int n,
                                                int m);
-}
+}  // namespace Kulaev_Seq
