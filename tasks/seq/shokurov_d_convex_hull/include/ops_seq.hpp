@@ -7,6 +7,7 @@
 
 #include "core/task/include/task.hpp"
 
+namespace shokurov_d_convex_hull_seq {
 class ConvexHullShokurov : public ppc::core::Task {
  public:
   explicit ConvexHullShokurov(std::shared_ptr<ppc::core::TaskData> taskData_) : Task(std::move(taskData_)) {}
@@ -35,3 +36,4 @@ class ConvexHullShokurov : public ppc::core::Task {
   std::vector<std::pair<double, double>> points;
   size_t si = 0;
 };
+}  // namespace shokurov_d_convex_hull_seq

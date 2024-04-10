@@ -6,6 +6,7 @@
 #include <utility>
 using namespace std::chrono_literals;
 
+namespace shokurov_d_convex_hull_seq {
 bool ConvexHullShokurov::validation() {
   internal_order_test();
   try {
@@ -85,7 +86,7 @@ bool ConvexHullShokurov::comp(const std::pair<double, double>& a, const std::pai
 }
 
 bool ConvexHullShokurov::my_less(const std::pair<double, double>& v1, const std::pair<double, double>& v2,
-                                   const std::pair<double, double>& v) {
+                                 const std::pair<double, double>& v) {
   const double cosa = cos(v1, v);
   const double cosb = cos(v2, v);
   bool flag = false;
@@ -97,7 +98,7 @@ bool ConvexHullShokurov::my_less(const std::pair<double, double>& v1, const std:
 }
 
 std::pair<double, double> ConvexHullShokurov::sub(const std::pair<double, double>& v1,
-                                                    const std::pair<double, double>& v2) {
+                                                  const std::pair<double, double>& v2) {
   return std::pair<double, double>(v1.first - v2.first, v1.second - v2.second);
 }
 
@@ -123,8 +124,7 @@ size_t ConvexHullShokurov::index_lowest_right_point(const std::vector<std::pair<
   return index;
 }
 
-double ConvexHullShokurov::scalar_product(const std::pair<double, double>& v1,
-                                                    const std::pair<double, double>& v2) {
+double ConvexHullShokurov::scalar_product(const std::pair<double, double>& v1, const std::pair<double, double>& v2) {
   return v1.first * v2.first + v1.second * v2.second;
 }
 
@@ -137,3 +137,4 @@ double ConvexHullShokurov::cos(const std::pair<double, double>& v1, const std::p
   const double n2 = normal(v2);
   return scalar_product(v1, v2) / (n1 * n2);
 }
+}  // namespace shokurov_d_convex_hull_seq
