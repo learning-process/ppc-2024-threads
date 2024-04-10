@@ -7,9 +7,9 @@
 
 #include "core/task/include/task.hpp"
 
-class ConvexHullSequential : public ppc::core::Task {
+class ConvexHullShokurov : public ppc::core::Task {
  public:
-  explicit ConvexHullSequential(std::shared_ptr<ppc::core::TaskData> taskData_) : Task(std::move(taskData_)) {}
+  explicit ConvexHullShokurov(std::shared_ptr<ppc::core::TaskData> taskData_) : Task(std::move(taskData_)) {}
   bool pre_processing() override;
   bool validation() override;
   bool run() override;

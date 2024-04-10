@@ -26,7 +26,7 @@ TEST(shokurov_d_convex_hull_seq, Test_one_point) {
   ans.emplace_back(0.0, 0.0);
 
   // Create Task
-  ConvexHullSequential test(taskDataSeq);
+  ConvexHullShokurov test(taskDataSeq);
   ASSERT_EQ(test.validation(), true);
   ASSERT_EQ(test.pre_processing(), true);
   ASSERT_EQ(test.run(), true);
@@ -68,7 +68,7 @@ TEST(shokurov_d_convex_hull_seq, Test_many_equals_point) {
   ans.emplace_back(0, 0);
 
   // Create Task
-  ConvexHullSequential test(taskDataSeq);
+  ConvexHullShokurov test(taskDataSeq);
   ASSERT_EQ(test.validation(), true);
   ASSERT_EQ(test.pre_processing(), true);
   ASSERT_EQ(test.run(), true);
@@ -107,7 +107,7 @@ TEST(shokurov_d_convex_hull_seq, Test_two_point) {
   ans.emplace_back(0, 0);
   ans.emplace_back(1, 1);
   // Create Task
-  ConvexHullSequential test(taskDataSeq);
+  ConvexHullShokurov test(taskDataSeq);
   ASSERT_EQ(test.validation(), true);
   ASSERT_EQ(test.pre_processing(), true);
   ASSERT_EQ(test.run(), true);
@@ -153,7 +153,7 @@ TEST(shokurov_d_convex_hull_seq, Test_line_segment) {
   ans.emplace_back(0, 0);
   ans.emplace_back(1, 1);
   // Create Task
-  ConvexHullSequential test(taskDataSeq);
+  ConvexHullShokurov test(taskDataSeq);
   ASSERT_EQ(test.validation(), true);
   ASSERT_EQ(test.pre_processing(), true);
   ASSERT_EQ(test.run(), true);
@@ -199,7 +199,7 @@ TEST(shokurov_d_convex_hull_seq, Test_line_segment_2) {
   ans.emplace_back(0, 0);
   ans.emplace_back(1, 0);
   // Create Task
-  ConvexHullSequential test(taskDataSeq);
+  ConvexHullShokurov test(taskDataSeq);
   ASSERT_EQ(test.validation(), true);
   ASSERT_EQ(test.pre_processing(), true);
   ASSERT_EQ(test.run(), true);
@@ -248,7 +248,7 @@ TEST(shokurov_d_convex_hull_seq, Test_square) {
   ans.emplace_back(1, 1);
 
   // Create Task
-  ConvexHullSequential test(taskDataSeq);
+  ConvexHullShokurov test(taskDataSeq);
   ASSERT_EQ(test.validation(), true);
   ASSERT_EQ(test.pre_processing(), true);
   ASSERT_EQ(test.run(), true);
@@ -295,7 +295,7 @@ TEST(shokurov_d_convex_hull_seq, Test_triangle) {
   ans.emplace_back(0, 1);
 
   // Create Task
-  ConvexHullSequential test(taskDataSeq);
+  ConvexHullShokurov test(taskDataSeq);
   ASSERT_EQ(test.validation(), true);
   ASSERT_EQ(test.pre_processing(), true);
   ASSERT_EQ(test.run(), true);
@@ -352,7 +352,7 @@ TEST(shokurov_d_convex_hull_seq, Test_random) {
   taskDataSeq->outputs_count.emplace_back(out.size());
 
   // Create Task
-  ConvexHullSequential test(taskDataSeq);
+  ConvexHullShokurov test(taskDataSeq);
   ASSERT_EQ(test.validation(), true);
   ASSERT_EQ(test.pre_processing(), true);
   ASSERT_EQ(test.run(), true);

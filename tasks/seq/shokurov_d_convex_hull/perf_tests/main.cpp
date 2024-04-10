@@ -46,7 +46,7 @@ TEST(shokurov_d_convex_hull_seq, test_pipeline_run) {
   taskDataSeq->outputs_count.emplace_back(out.size());
 
   // Create Task
-  auto test = std::make_shared<ConvexHullSequential>(taskDataSeq);
+  auto test = std::make_shared<ConvexHullShokurov>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -118,7 +118,7 @@ TEST(shokurov_d_convex_hull_seq, test_task_run) {
   taskDataSeq->outputs_count.emplace_back(out.size());
 
   // Create Task
-  auto test = std::make_shared<ConvexHullSequential>(taskDataSeq);
+  auto test = std::make_shared<ConvexHullShokurov>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
