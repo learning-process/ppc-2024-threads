@@ -9,6 +9,8 @@
 
 #include "core/task/include/task.hpp"
 
+namespace Kulaev_Seq{
+
 class TestTaskSequentialKulaevCannon : public ppc::core::Task {
  public:
   explicit TestTaskSequentialKulaevCannon(std::shared_ptr<ppc::core::TaskData> taskData_)
@@ -25,20 +27,10 @@ class TestTaskSequentialKulaevCannon : public ppc::core::Task {
   int n = 0, m = 0;
 };
 
-inline std::vector<double> getRandomMatrix(int rows, int cols) {
-  std::random_device dev;
-  std::mt19937 gen(dev());
-  std::uniform_real_distribution<double> dis(1.0, 20.0);
+std::vector<double> getRandomMatrix(int rows, int cols);
 
-  std::vector<double> matrix(rows * cols);
+std::vector<double> multiplyMatrix(const std::vector<double>& A, const std::vector<double>& B, int rows_A, int col_B);
 
-  for (int i = 0; i < rows; ++i) {
-    for (int j = 0; j < cols; ++j) {
-      matrix[i * cols + j] = dis(gen);
-    }
-  }
-
-  return matrix;
+std::vector<double> cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, int n,
+                                               int m);
 }
-
-std::vector<double> multiplyMatrix1(const std::vector<double>& A, const std::vector<double>& B, int rows_A, int col_B);

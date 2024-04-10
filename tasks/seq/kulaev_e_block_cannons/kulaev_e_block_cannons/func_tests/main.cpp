@@ -28,10 +28,10 @@ TEST(Kulaev_e_block_cannons_seq, Multiplication_3x3) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  std::vector<double> res = multiplyMatrix1(in_A, in_B, n, m);
+  std::vector<double> res = Kulaev_Seq::multiplyMatrix(in_A, in_B, n, m);
 
   // Create Task
-  TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
+  Kulaev_Seq::TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -65,10 +65,10 @@ TEST(Kulaev_e_block_cannons_seq, Multiplication_2x2) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  std::vector<double> res = multiplyMatrix1(in_A, in_B, n, m);
+  std::vector<double> res = Kulaev_Seq::multiplyMatrix(in_A, in_B, n, m);
 
   // Create Task
-  TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
+  Kulaev_Seq::TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -83,10 +83,10 @@ TEST(Kulaev_e_block_cannons_seq, Multiplication_5x5) {
   int n = 5;
   int m = 5;
 
-  std::vector<double> in_A = getRandomMatrix(n, m);
+  std::vector<double> in_A = Kulaev_Seq::getRandomMatrix(n, m);
 
   // Create data
-  std::vector<double> in_B = getRandomMatrix(n, m);
+  std::vector<double> in_B = Kulaev_Seq::getRandomMatrix(n, m);
   std::vector<double> out(n * m);
 
   // Create TaskData
@@ -102,10 +102,10 @@ TEST(Kulaev_e_block_cannons_seq, Multiplication_5x5) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  std::vector<double> res = multiplyMatrix1(in_A, in_B, n, m);
+  std::vector<double> res = Kulaev_Seq::multiplyMatrix(in_A, in_B, n, m);
 
   // Create Task
-  TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
+  Kulaev_Seq::TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -120,10 +120,10 @@ TEST(Kulaev_e_block_cannons_seq, Multiplication_0x0) {
   int n = 0;
   int m = 0;
 
-  std::vector<double> in_A = getRandomMatrix(n, m);
+  std::vector<double> in_A = Kulaev_Seq::getRandomMatrix(n, m);
 
   // Create data
-  std::vector<double> in_B = getRandomMatrix(n, m);
+  std::vector<double> in_B = Kulaev_Seq::getRandomMatrix(n, m);
   std::vector<double> out(n * m);
 
   // Create TaskData
@@ -139,10 +139,10 @@ TEST(Kulaev_e_block_cannons_seq, Multiplication_0x0) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  std::vector<double> res = multiplyMatrix1(in_A, in_B, n, m);
+  std::vector<double> res = Kulaev_Seq::multiplyMatrix(in_A, in_B, n, m);
 
   // Create Task
-  TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
+  Kulaev_Seq::TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -157,10 +157,10 @@ TEST(Kulaev_e_block_cannons_seq, Multiplication_100x100) {
   int n = 100;
   int m = 100;
 
-  std::vector<double> in_A = getRandomMatrix(n, m);
+  std::vector<double> in_A = Kulaev_Seq::getRandomMatrix(n, m);
 
   // Create data
-  std::vector<double> in_B = getRandomMatrix(n, m);
+  std::vector<double> in_B = Kulaev_Seq::getRandomMatrix(n, m);
   std::vector<double> out(n * m);
 
   // Create TaskData
@@ -176,10 +176,10 @@ TEST(Kulaev_e_block_cannons_seq, Multiplication_100x100) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  std::vector<double> res = multiplyMatrix1(in_A, in_B, n, m);
+  std::vector<double> res = Kulaev_Seq::multiplyMatrix(in_A, in_B, n, m);
 
   // Create Task
-  TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
+  Kulaev_Seq::TestTaskSequentialKulaevCannon testTaskSequential(taskDataSeq);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
