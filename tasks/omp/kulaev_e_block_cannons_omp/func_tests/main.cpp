@@ -29,7 +29,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_3x3) {
   taskDataSeq->outputs_count.emplace_back(seq_res.size());
 
   // Create Task
-  TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
+  Kulaev_Omp::TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
   ASSERT_EQ(testOmpTaskSequential.validation(), true);
   testOmpTaskSequential.pre_processing();
   testOmpTaskSequential.run();
@@ -52,7 +52,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_3x3) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
+  Kulaev_Omp::TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();
@@ -87,7 +87,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_2x2) {
   taskDataSeq->outputs_count.emplace_back(seq_res.size());
 
   // Create Task
-  TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
+  Kulaev_Omp::TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
   ASSERT_EQ(testOmpTaskSequential.validation(), true);
   testOmpTaskSequential.pre_processing();
   testOmpTaskSequential.run();
@@ -110,7 +110,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_2x2) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
+  Kulaev_Omp::TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();
@@ -124,10 +124,10 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_5x5) {
   int n = 5;
   int m = 5;
 
-  std::vector<double> in_A = getRandomMatrix(n, m);
+  std::vector<double> in_A = Kulaev_Omp::getRandomMatrix(n, m);
 
   // Create data
-  std::vector<double> in_B = getRandomMatrix(n, m);
+  std::vector<double> in_B = Kulaev_Omp::getRandomMatrix(n, m);
   std::vector<double> seq_res(n * m);
 
   // Create TaskData
@@ -144,7 +144,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_5x5) {
   taskDataSeq->outputs_count.emplace_back(seq_res.size());
 
   // Create Task
-  TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
+  Kulaev_Omp::TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
   ASSERT_EQ(testOmpTaskSequential.validation(), true);
   testOmpTaskSequential.pre_processing();
   testOmpTaskSequential.run();
@@ -167,7 +167,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_5x5) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
+  Kulaev_Omp::TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();
@@ -181,10 +181,10 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_0x0) {
   int n = 0;
   int m = 0;
 
-  std::vector<double> in_A = getRandomMatrix(n, m);
+  std::vector<double> in_A = Kulaev_Omp::getRandomMatrix(n, m);
 
   // Create data
-  std::vector<double> in_B = getRandomMatrix(n, m);
+  std::vector<double> in_B = Kulaev_Omp::getRandomMatrix(n, m);
   std::vector<double> seq_res(n * m);
 
   // Create TaskData
@@ -201,7 +201,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_0x0) {
   taskDataSeq->outputs_count.emplace_back(seq_res.size());
 
   // Create Task
-  TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
+  Kulaev_Omp::TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
   ASSERT_EQ(testOmpTaskSequential.validation(), true);
   testOmpTaskSequential.pre_processing();
   testOmpTaskSequential.run();
@@ -224,7 +224,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_0x0) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
+  Kulaev_Omp::TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();
@@ -238,10 +238,10 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_100x100) {
   int n = 100;
   int m = 100;
 
-  std::vector<double> in_A = getRandomMatrix(n, m);
+  std::vector<double> in_A = Kulaev_Omp::getRandomMatrix(n, m);
 
   // Create data
-  std::vector<double> in_B = getRandomMatrix(n, m);
+  std::vector<double> in_B = Kulaev_Omp::getRandomMatrix(n, m);
   std::vector<double> seq_res(n * m);
 
   // Create TaskData
@@ -258,7 +258,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_100x100) {
   taskDataSeq->outputs_count.emplace_back(seq_res.size());
 
   // Create Task
-  TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
+  Kulaev_Omp::TestOMPSequentialKulaevCannon testOmpTaskSequential(taskDataSeq);
   ASSERT_EQ(testOmpTaskSequential.validation(), true);
   testOmpTaskSequential.pre_processing();
   testOmpTaskSequential.run();
@@ -281,7 +281,7 @@ TEST(Kulaev_e_block_cannons_omp, Multiplication_100x100) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
+  Kulaev_Omp::TestTaskOMPParallelKulaevCannon testOmpTaskParallel(taskDataPar);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();

@@ -8,13 +8,13 @@
 #include "omp/kulaev_e_block_cannons_omp/include/ops_omp.hpp"
 
 TEST(openmp_kulaev_e_block_cannons_perf_test, test_pipeline_run) {
-  int n = 500;
-  int m = 500;
+  int n = 700;
+  int m = 700;
 
-  std::vector<double> in_A = getRandomMatrix(n, m);
+  std::vector<double> in_A = Kulaev_Omp::getRandomMatrix(n, m);
 
   // Create data
-  std::vector<double> in_B = getRandomMatrix(n, m);
+  std::vector<double> in_B = Kulaev_Omp::getRandomMatrix(n, m);
   std::vector<double> out(n * m);
 
   // Create TaskData
@@ -30,10 +30,10 @@ TEST(openmp_kulaev_e_block_cannons_perf_test, test_pipeline_run) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  std::vector<double> res = multiplyMatrix(in_A, in_B, n, m);
+  std::vector<double> res = Kulaev_Omp::multiplyMatrix(in_A, in_B, n, m);
 
   // Create Task
-  auto testTaskOMP = std::make_shared<TestTaskOMPParallelKulaevCannon>(taskDataSeq);
+  auto testTaskOMP = std::make_shared<Kulaev_Omp::TestTaskOMPParallelKulaevCannon>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -54,13 +54,13 @@ TEST(openmp_kulaev_e_block_cannons_perf_test, test_pipeline_run) {
 }
 
 TEST(openmp_kulaev_e_block_cannons_perf_test, test_task_run) {
-  int n = 500;
-  int m = 500;
+  int n = 700;
+  int m = 700;
 
-  std::vector<double> in_A = getRandomMatrix(n, m);
+  std::vector<double> in_A = Kulaev_Omp::getRandomMatrix(n, m);
 
   // Create data
-  std::vector<double> in_B = getRandomMatrix(n, m);
+  std::vector<double> in_B = Kulaev_Omp::getRandomMatrix(n, m);
   std::vector<double> out(n * m);
 
   // Create TaskData
@@ -76,9 +76,9 @@ TEST(openmp_kulaev_e_block_cannons_perf_test, test_task_run) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  std::vector<double> res = multiplyMatrix(in_A, in_B, n, m);
+  std::vector<double> res = Kulaev_Omp::multiplyMatrix(in_A, in_B, n, m);
   // Create Task
-  auto testTaskOMP = std::make_shared<TestTaskOMPParallelKulaevCannon>(taskDataSeq);
+  auto testTaskOMP = std::make_shared<Kulaev_Omp::TestTaskOMPParallelKulaevCannon>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();

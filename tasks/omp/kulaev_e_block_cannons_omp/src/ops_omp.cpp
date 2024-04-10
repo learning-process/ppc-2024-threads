@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 
+namespace Kulaev_Omp {
+
 std::vector<double> cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, int n,
                                                int m) {
   int blockSize = std::min(n, m);
@@ -49,7 +51,6 @@ std::vector<double> cannonMatrixMultiplication_omp(const std::vector<double>& A,
     return std::vector<double>();
   }
 
-#pragma omp parallel for
   for (int i = 0; i < n; i += blockSize) {
     for (int j = 0; j < m; j += blockSize) {
       for (int k = 0; k < m; k += blockSize) {
@@ -189,3 +190,5 @@ bool TestTaskOMPParallelKulaevCannon::post_processing() {
   std::copy(result.begin(), result.end(), reinterpret_cast<double*>(taskData->outputs[0]));
   return true;
 }
+
+}  // namespace Kulaev_Omp

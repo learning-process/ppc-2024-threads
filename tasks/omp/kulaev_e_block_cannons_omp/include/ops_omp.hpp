@@ -7,6 +7,8 @@
 
 #include "core/task/include/task.hpp"
 
+namespace Kulaev_Omp {
+
 class TestOMPSequentialKulaevCannon : public ppc::core::Task {
  public:
   explicit TestOMPSequentialKulaevCannon(std::shared_ptr<ppc::core::TaskData> taskData_) : Task(std::move(taskData_)) {}
@@ -47,3 +49,5 @@ std::vector<double> cannonMatrixMultiplication_omp(const std::vector<double>& A,
 
 std::vector<double> cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, int n,
                                                int m);
+
+}  // namespace Kulaev_Omp
