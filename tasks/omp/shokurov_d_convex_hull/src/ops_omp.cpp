@@ -121,6 +121,7 @@ size_t ConvexHullSequential::index_lowest_right_point(const vector<pair<double, 
       flag = a.first > b.first;
     return flag;
   };
+
   if (v.empty()) throw 11;
   const int si = v.size();
   int common_index = 0;
@@ -129,6 +130,7 @@ size_t ConvexHullSequential::index_lowest_right_point(const vector<pair<double, 
     int index = 0;
 #pragma omp for schedule(dynamic, 2048)
     for (int i = 0; i < si; ++i) {
+
       if (less(v[i], v[index])) {
         index = i;
       }
