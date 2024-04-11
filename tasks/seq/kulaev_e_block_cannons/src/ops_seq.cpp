@@ -75,7 +75,6 @@ std::vector<double> Kulaev_Seq::multiplyMatrix(const std::vector<double>& A, con
 
 bool Kulaev_Seq::TestTaskSequentialKulaevCannon::pre_processing() {
   internal_order_test();
-  // Init value for input and output
 
   A = std::vector<double>(taskData->inputs_count[0]);
   B = std::vector<double>(taskData->inputs_count[1]);
