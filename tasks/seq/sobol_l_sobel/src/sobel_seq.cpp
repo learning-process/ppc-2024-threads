@@ -42,7 +42,6 @@ bool Sobel_seq::run() {
       res[i * h + j] = sqrt(x * x + y * y);
     }
   }
-  std::this_thread::sleep_for(30ms);
   return true;
 }
 

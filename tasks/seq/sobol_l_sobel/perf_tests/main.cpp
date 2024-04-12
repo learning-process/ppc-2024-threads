@@ -10,8 +10,8 @@
 TEST(Sequential_sobol_sobel_perf_test, test_pipeline_run) {
   const uint8_t min = 0;
   const uint8_t max = 255;
-  const int w = 100;
-  const int h = 100;
+  const int w = 1000;
+  const int h = 1000;
 
   // Create data
   std::vector<int> in(2);
@@ -64,8 +64,8 @@ TEST(Sequential_sobol_sobel_perf_test, test_pipeline_run) {
 TEST(Sequential_sobol_sobel_perf_test, test_task_run) {
   const uint8_t min = 0;
   const uint8_t max = 255;
-  const int w = 100;
-  const int h = 100;
+  const int w = 1000;
+  const int h = 1000;
 
   // Create data
   std::vector<int> in(2);
