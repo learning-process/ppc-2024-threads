@@ -2,54 +2,19 @@
 #include <gtest/gtest.h>
 
 #include <chrono>
-#include <random>
 #include <utility>
 #include <vector>
 
 #include "core/perf/include/perf.hpp"
 #include "seq/isaev_d_sparse_mult_double_crs/include/ops_seq.hpp"
 
-SparseMatrix getRandomMatrix(int _rows, int _columns, double chance, int seed) {
-  std::mt19937 gen(seed);
-  std::uniform_real_distribution<double> rnd(-5.0, 5.0);
-  std::bernoulli_distribution bd(chance);
-
-  SparseMatrix randomMatrix;
-
-  randomMatrix.rows = _rows;
-  randomMatrix.columns = _columns;
-  randomMatrix.row_pointers.assign(randomMatrix.rows + 1, 0);
-
-  std::vector<std::vector<std::pair<int, double>>> temp(randomMatrix.rows);
-
-  for (int i = 0; i < _rows; i++) {
-    for (int j = 0; j < _columns; j++) {
-      if (bd(gen)) {
-        double v = rnd(gen);
-        temp[i].emplace_back(j, v);
-      }
-    }
-  }
-
-  for (int i = 0; i < randomMatrix.rows; i++) {
-    randomMatrix.row_pointers[i + 1] = randomMatrix.row_pointers[i];
-    for (const auto &t : temp[i]) {
-      randomMatrix.column_indices.push_back(t.first);
-      randomMatrix.values.push_back(t.second);
-      randomMatrix.row_pointers[i + 1]++;
-    }
-  }
-
-  return randomMatrix;
-}
-
 TEST(isaev_d_sparse_mult_double_crs_seq, test_pipeline_run) {
   int N = 500;
   int M = 500;
   // Create data
-  SparseMatrix A = getRandomMatrix(N, M, 0.50, 3200);
-  SparseMatrix B = getRandomMatrix(M, N, 0.50, 1350);
-  SparseMatrix C;
+  IsaevSeq::SparseMatrix A = IsaevSeq::getRandomMatrix(N, M, 0.50, 3200);
+  IsaevSeq::SparseMatrix B = IsaevSeq::getRandomMatrix(M, N, 0.50, 1350);
+  IsaevSeq::SparseMatrix C;
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -64,7 +29,7 @@ TEST(isaev_d_sparse_mult_double_crs_seq, test_pipeline_run) {
   taskDataSeq->outputs_count.emplace_back(N);
 
   // Create Task
-  auto taskSequential = std::make_shared<SparseMultDoubleCRS>(taskDataSeq);
+  auto taskSequential = std::make_shared<IsaevSeq::SparseMultDoubleCRS>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -89,9 +54,9 @@ TEST(isaev_d_sparse_mult_double_crs_seq, test_task_run) {
   int N = 500;
   int M = 500;
   // Create data
-  SparseMatrix A = getRandomMatrix(N, M, 0.50, 3200);
-  SparseMatrix B = getRandomMatrix(M, N, 0.50, 1350);
-  SparseMatrix C;
+  IsaevSeq::SparseMatrix A = IsaevSeq::getRandomMatrix(N, M, 0.50, 3200);
+  IsaevSeq::SparseMatrix B = IsaevSeq::getRandomMatrix(M, N, 0.50, 1350);
+  IsaevSeq::SparseMatrix C;
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -106,7 +71,7 @@ TEST(isaev_d_sparse_mult_double_crs_seq, test_task_run) {
   taskDataSeq->outputs_count.emplace_back(N);
 
   // Create Task
-  auto taskSequential = std::make_shared<SparseMultDoubleCRS>(taskDataSeq);
+  auto taskSequential = std::make_shared<IsaevSeq::SparseMultDoubleCRS>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();

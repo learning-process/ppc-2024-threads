@@ -7,6 +7,7 @@
 
 #include "core/task/include/task.hpp"
 
+namespace IsaevSeq {
 struct SparseMatrix {
   std::vector<double> values{};
   std::vector<int> column_indices{};
@@ -27,3 +28,7 @@ class SparseMultDoubleCRS : public ppc::core::Task {
  private:
   SparseMatrix *A{}, *B{}, *C{};
 };
+
+SparseMatrix getRandomMatrix(int _rows, int _columns, double chance, int seed);
+
+}  // namespace IsaevSeq
