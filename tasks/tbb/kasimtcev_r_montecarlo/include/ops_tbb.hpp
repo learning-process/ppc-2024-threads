@@ -16,7 +16,7 @@ class KasimtcevMonteCarloTBB : public ppc::core::Task {
   bool run() override;
   bool post_processing() override;
 
- private:
+ public:
   func function{};
   double Int1[2]{}, Int2[2]{};
 
