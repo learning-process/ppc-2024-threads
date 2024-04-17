@@ -1,5 +1,7 @@
 // Copyright 2024 Kasimtcev Roman
 
+#include "tbb/kasimtcev_r_montecarlo/include/my_funcs.hpp"
+
 #include <cmath>
 
 double flinear(double x, double y) { return x + y; }
