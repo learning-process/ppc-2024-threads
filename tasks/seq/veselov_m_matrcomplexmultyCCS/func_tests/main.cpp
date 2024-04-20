@@ -160,7 +160,7 @@ TEST(veselov_m_matrcomplexmultyCCS, zero_matrix) {
   size_t n2 = 3;
   size_t m2 = 3;
   // Create data
-  Complex Null = Complex{0, 0};
+  auto Null = Complex{0, 0};
   std::vector<Complex> in1{Complex{7, 1}, Complex{0, 0}, Complex{0, 0}, Complex{2, -6}, Complex{0, 5},
                            Complex{0, 0}, Complex{1, 0}, Complex{0, 0}, Complex{0, 0}};
   std::vector<Complex> in2{Null, Null, Null, Null, Null, Null, Null, Null, Null};
