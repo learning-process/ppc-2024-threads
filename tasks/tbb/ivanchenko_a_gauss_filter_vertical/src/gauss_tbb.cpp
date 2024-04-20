@@ -59,14 +59,15 @@ using namespace oneapi::tbb;
 
 void GaussFilterSequential::applyKernel() {
   oneapi::tbb::parallel_for(oneapi::tbb::blocked_range2d<int>(0, height, 0, width),
-    [&](const oneapi::tbb::blocked_range2d<int>& r) {
-      for (int j = r.rows().begin(); j < r.rows().end(); j++) {
-        for (int i = r.cols().begin(); i < r.cols().end(); i++) {
-          image[i * width + j] = calculateNewPixelColor(i, j);
-        }  
-      }
-    });
+                            [&](const oneapi::tbb::blocked_range2d<int>& r) {
+                              for (int j = r.rows().begin(); j < r.rows().end(); j++) {
+                                for (int i = r.cols().begin(); i < r.cols().end(); i++) {
+                                  image[i * width + j] = calculateNewPixelColor(i, j);
+                                }
+                              }
+                            });
 }
+
 Color GaussFilterSequential::calculateNewPixelColor(size_t x, size_t y) {
   uint32_t radius = kernelSize / 2;
   float resultR = 0;
