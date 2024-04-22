@@ -6,9 +6,9 @@
 #include "core/perf/include/perf.hpp"
 #include "seq/vanushkin_d_sobel_operator/include/sobel_operator_seq.hpp"
 
-TEST(Vanuskin_D_SeqSobelOperator, test_task_pipeline) {
-  size_t height = 100;
-  size_t width = 200;
+TEST(Vanushkin_D_SeqSobelOperator, test_task_pipeline) {
+  size_t height = 1024;
+  size_t width = 960;
 
   std::vector<Color> in(width * height, Color(0));
   std::vector<Grayscale> out((width - 2) * (height - 2), 0);
@@ -53,9 +53,9 @@ TEST(Vanuskin_D_SeqSobelOperator, test_task_pipeline) {
   }
 }
 
-TEST(Vanuskin_D_SeqSobelOperator, test_task_run) {
-  size_t height = 100;
-  size_t width = 200;
+TEST(Vanushkin_D_SeqSobelOperator, test_task_run) {
+  size_t height = 1024;
+  size_t width = 960;
 
   std::vector<Color> in(width * height, Color(0));
   std::vector<Grayscale> out((width - 2) * (height - 2), 0);
