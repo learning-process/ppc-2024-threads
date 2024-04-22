@@ -3,7 +3,6 @@
 #include "seq/vanushkin_d_sobel_operator/include/sobel_operator_seq.hpp"
 
 #include <cmath>
-#include <thread>
 
 ConvolutionKernel SobelOperatorSequential::convolutionByX = {{-1, 0, +1}, {-2, 0, +2}, {-1, 0, +1}};
 
@@ -63,8 +62,6 @@ bool SobelOperatorSequential::run() {
       resultImage[(y - 1) * (imageWidth - 2) + (x - 1)] = resultIntensity;
     }
   }
-  using namespace std::chrono_literals;  // NOLINT
-  std::this_thread::sleep_for(20ms);
   return true;
 }
 
