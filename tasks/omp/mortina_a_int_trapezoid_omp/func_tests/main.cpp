@@ -34,7 +34,8 @@ TEST(Parallel_mortina_a_int_trapizoid, Test_1) {
   taskDataSeq->outputs_count.emplace_back(out.size());
 
   // Create Task
-  Mortina_a_omp_integral_trapezoid::TestTaskSequentialMortinaIntegralTrapezoid testOmpTaskSequential(taskDataSeq, x_y_quadro);
+  Mortina_a_omp_integral_trapezoid::TestTaskSequentialMortinaIntegralTrapezoid testOmpTaskSequential(taskDataSeq,
+                                                                                                     x_y_quadro);
   ASSERT_EQ(testOmpTaskSequential.validation(), true);
   testOmpTaskSequential.pre_processing();
   testOmpTaskSequential.run();
@@ -53,7 +54,8 @@ TEST(Parallel_mortina_a_int_trapizoid, Test_1) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar, x_y_quadro);
+  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar,
+                                                                                                    x_y_quadro);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();
@@ -109,7 +111,8 @@ TEST(Parallel_mortina_a_int_trapizoid, Test_2) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar, sin_cos);
+  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar,
+                                                                                                    sin_cos);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();
@@ -165,7 +168,8 @@ TEST(Parallel_mortina_a_int_trapizoid, Test_3) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar, x_mul_y);
+  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar,
+                                                                                                    x_mul_y);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();
@@ -203,7 +207,8 @@ TEST(Parallel_mortina_a_int_trapizoid, Test_4) {
   taskDataSeq->outputs_count.emplace_back(out.size());
 
   // Create Task
-  Mortina_a_omp_integral_trapezoid::TestTaskSequentialMortinaIntegralTrapezoid testTaskSequential(taskDataSeq, x_mult_sinY);
+  Mortina_a_omp_integral_trapezoid::TestTaskSequentialMortinaIntegralTrapezoid testTaskSequential(taskDataSeq,
+                                                                                                  x_mult_sinY);
   ASSERT_EQ(testTaskSequential.validation(), true);
   testTaskSequential.pre_processing();
   testTaskSequential.run();
@@ -222,7 +227,8 @@ TEST(Parallel_mortina_a_int_trapizoid, Test_4) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar, x_mult_sinY);
+  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar,
+                                                                                                    x_mult_sinY);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();
@@ -278,7 +284,8 @@ TEST(Parallel_mortina_a_int_trapizoid, Test_5) {
   taskDataPar->outputs_count.emplace_back(par_res.size());
 
   // Create Task
-  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar, x_del_y);
+  Mortina_a_omp_integral_trapezoid::TestOMPTaskParallelMortinaIntegralTrapezoid testOmpTaskParallel(taskDataPar,
+                                                                                                    x_del_y);
   ASSERT_EQ(testOmpTaskParallel.validation(), true);
   testOmpTaskParallel.pre_processing();
   testOmpTaskParallel.run();

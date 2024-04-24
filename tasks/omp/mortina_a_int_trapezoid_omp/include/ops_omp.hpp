@@ -48,4 +48,4 @@ double trapezoidal_integral(double a1, double b1, double a2, double b2, int n1, 
 
 double trapezoidal_integral_omp(double a1, double b1, double a2, double b2, int n1, int n2,
                                 std::function<double(double, double)> fun);
-}  // Mortina_a_omp_integral_trapezoid
+}  // namespace Mortina_a_omp_integral_trapezoid

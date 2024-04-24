@@ -1,9 +1,9 @@
 // Copyright 2024 Mortina Nastya
+#include "omp/mortina_a_int_trapezoid_omp/include/ops_omp.hpp"
+
 #include <cmath>
 #include <functional>
 #include <iostream>
-
-#include "omp/mortina_a_int_trapezoid_omp/include/ops_omp.hpp"
 
 namespace Mortina_a_omp_integral_trapezoid {
 
@@ -118,4 +118,4 @@ bool TestOMPTaskParallelMortinaIntegralTrapezoid::post_processing() {
   reinterpret_cast<double*>(taskData->outputs[0])[0] = res;
   return true;
 }
-}  // Mortina_a_omp_integral_trapezoid
+}  // namespace Mortina_a_omp_integral_trapezoid
