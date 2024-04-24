@@ -1,6 +1,6 @@
 // Copyright 2024 Mortina Nastya
 #include <gtest/gtest.h>
-#include <omp.h> 
+#include <omp.h>
 
 #include <cmath>
 
