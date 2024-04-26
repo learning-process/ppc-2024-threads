@@ -40,7 +40,7 @@ TEST(simonyan_s_sparse_matr_multi_ccs_omp, test_pipeline_run) {
   taskDataSeq->outputs_count.emplace_back(r);
 
   // Create Task
-  auto testTaskSeq = std::make_shared<SparseTBBMatrixMultiSequential>(taskDataSeq);
+  auto testTaskSeq = std::make_shared<SparseTBBMatrixMultiParallel>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -101,7 +101,7 @@ TEST(simonyan_s_sparse_matr_multi_ccs_omp, test_task_run) {
   taskDataSeq->outputs_count.emplace_back(r);
 
   // Create Task
-  auto testTaskSeq = std::make_shared<SparseTBBMatrixMultiSequential>(taskDataSeq);
+  auto testTaskSeq = std::make_shared<SparseTBBMatrixMultiParallel>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
