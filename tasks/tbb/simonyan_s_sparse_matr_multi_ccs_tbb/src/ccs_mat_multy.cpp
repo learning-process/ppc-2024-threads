@@ -18,8 +18,6 @@ bool SparseTBBMatrixMultiSequential::pre_processing() {
   numCols1 = taskData->inputs_count[1];
   numRows2 = taskData->inputs_count[2];
   numCols2 = taskData->inputs_count[3];
-  numRows3 = numRows1;
-  numCols3 = numCols2;
 
   result = new double[numRows1 * numCols2]{0};
 
@@ -64,10 +62,6 @@ bool SparseTBBMatrixMultiSequential::validation() {
 bool SparseTBBMatrixMultiSequential::run() {
   internal_order_test();
 
-  values3.clear();
-  rows3.clear();
-  colPtr3.clear();
-
   for (int j = 0; j < numCols1; j++) {
     for (int k = colPtr2[j]; k < colPtr2[j + 1]; k++) {
       int column2 = j;
@@ -82,18 +76,6 @@ bool SparseTBBMatrixMultiSequential::run() {
     }
   }
 
-  for (int j = 0; j < numCols2; j++) {
-    colPtr3.push_back(values3.size());
-    for (int i = 0; i < numRows1; i++) {
-      int ind = i * numCols2 + j;
-      if (result[ind] != 0.0) {
-        values3.push_back(result[ind]);
-        rows3.push_back(i);
-      }
-    }
-  }
-  colPtr3.push_back(values3.size());
-
   return true;
 }
 
@@ -101,7 +83,7 @@ bool SparseTBBMatrixMultiSequential::post_processing() {
   internal_order_test();
 
   auto* out_ptr = reinterpret_cast<double*>(taskData->outputs[0]);
-  for (int i = 0; i < numRows3 * numCols3; i++) {
+  for (int i = 0; i < numRows1 * numCols2; i++) {
     out_ptr[i] = result[i];
   }
 
@@ -118,8 +100,6 @@ bool SparseTBBMatrixMultiParallel::pre_processing() {
   numCols1 = taskData->inputs_count[1];
   numRows2 = taskData->inputs_count[2];
   numCols2 = taskData->inputs_count[3];
-  numRows3 = numRows1;
-  numCols3 = numCols2;
 
   result = new double[numRows1 * numCols2]{0};
 
@@ -164,14 +144,6 @@ bool SparseTBBMatrixMultiParallel::validation() {
 bool SparseTBBMatrixMultiParallel::run() {
   internal_order_test();
 
-  values3.clear();
-  rows3.clear();
-  colPtr3.clear();
-
-  values3.resize(numCols2 * numRows1);  // Выделение памяти заранее для values3
-  rows3.reserve(numCols2 * numRows1);   // Резервирование места в rows3
-  colPtr3.reserve(numCols2 + 1);        // Резервирование места в colPtr3
-
   tbb::parallel_for(0, numCols1, [&](int j) {
     for (int k = colPtr2[j]; k < colPtr2[j + 1]; k++) {
       int column2 = j;
@@ -186,18 +158,6 @@ bool SparseTBBMatrixMultiParallel::run() {
     }
   });
 
-  tbb::parallel_for(0, numCols2, [&](int j) {
-    colPtr3.push_back(values3.size());
-    for (int i = 0; i < numRows1; i++) {
-      int ind = i * numCols2 + j;
-      if (result[ind] != 0.0) {
-        values3[ind] = result[ind];
-        rows3.push_back(i);
-      }
-    }
-  });
-
-  colPtr3.push_back(values3.size());
   return true;
 }
 
@@ -205,7 +165,7 @@ bool SparseTBBMatrixMultiParallel::post_processing() {
   internal_order_test();
 
   auto* out_ptr = reinterpret_cast<double*>(taskData->outputs[0]);
-  for (int i = 0; i < numRows3 * numCols3; i++) {
+  for (int i = 0; i < numRows1 * numCols2; i++) {
     out_ptr[i] = result[i];
   }
 

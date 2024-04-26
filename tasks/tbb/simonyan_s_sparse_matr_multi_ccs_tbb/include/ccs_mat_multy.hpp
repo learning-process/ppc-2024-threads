@@ -25,11 +25,6 @@ class SparseTBBMatrixMultiSequential : public ppc::core::Task {
   std::vector<int> colPtr2{};
   int numRows2{};
   int numCols2{};
-  std::vector<double> values3{};
-  std::vector<int> rows3{};
-  std::vector<int> colPtr3{};
-  int numRows3{};
-  int numCols3{};
   double* result{};
 };
 
@@ -52,10 +47,5 @@ class SparseTBBMatrixMultiParallel : public ppc::core::Task {
   std::vector<int> colPtr2{};
   int numRows2{};
   int numCols2{};
-  std::vector<double> values3{};
-  std::vector<int> rows3{};
-  std::vector<int> colPtr3{};
-  int numRows3{};
-  int numCols3{};
   double* result{};
 };
