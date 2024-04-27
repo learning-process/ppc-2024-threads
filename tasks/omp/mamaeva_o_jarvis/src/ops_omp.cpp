@@ -1,7 +1,7 @@
 // Copyright 2024 Mamaeva Olga
 #include "omp/mamaeva_o_jarvis/include/ops_omp.hpp"
 
-#define M_PI 3.14159265358979323846
+#define MAMAEVA_PI 3.14159265358979323846
 #include <omp.h>
 
 #include <algorithm>
