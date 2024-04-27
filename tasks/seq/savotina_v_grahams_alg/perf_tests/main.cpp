@@ -1,4 +1,5 @@
 // Copyright 2024 Savotina Valeria
+
 #include <gtest/gtest.h>
 
 #include "core/perf/include/perf.hpp"
@@ -6,13 +7,13 @@
 
 TEST(savotina_v_grahams_alg_seq, test_pipeline_run) {
   double min = 0;
-  double max = 100000;
-  size_t size = 300000;  // size of vector of random points
+  double max = 10000;
+  size_t size = 3000000;  // size of vector of random points
 
   // Create data
   std::vector<SavotinaPoint> points = {SavotinaPoint(max, min), SavotinaPoint(min, max), SavotinaPoint(max, max),
                                        SavotinaPoint(min, min)};
-  std::vector<SavotinaPoint> randomPoints = SavotinaRandomPoints(min, max, size);
+  std::vector<SavotinaPoint> randomPoints = SavotinaSeq::SavotinaRandomPoints(min, max, size);
   points.insert(points.end(), randomPoints.begin(), randomPoints.end());
   std::vector<SavotinaPoint> res = {SavotinaPoint(min, min), SavotinaPoint(max, min), SavotinaPoint(max, max),
                                     SavotinaPoint(min, max)};
@@ -26,7 +27,7 @@ TEST(savotina_v_grahams_alg_seq, test_pipeline_run) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  auto testGrahamSequential = std::make_shared<SavotinaGrahamsAlgorithmSequential>(dataGrahamsAlgSeq);
+  auto testGrahamSequential = std::make_shared<SavotinaSeq::SavotinaGrahamsAlgorithmSequential>(dataGrahamsAlgSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -53,13 +54,13 @@ TEST(savotina_v_grahams_alg_seq, test_pipeline_run) {
 
 TEST(savotina_v_grahams_alg_seq, test_task_run) {
   double min = 0;
-  double max = 100000;
-  size_t size = 300000;  // size of vector of random points
+  double max = 10000;
+  size_t size = 3000000;  // size of vector of random points
 
   // Create data
   std::vector<SavotinaPoint> points = {SavotinaPoint(max, min), SavotinaPoint(min, max), SavotinaPoint(max, max),
                                        SavotinaPoint(min, min)};
-  std::vector<SavotinaPoint> randomPoints = SavotinaRandomPoints(min, max, size);
+  std::vector<SavotinaPoint> randomPoints = SavotinaSeq::SavotinaRandomPoints(min, max, size);
   points.insert(points.end(), randomPoints.begin(), randomPoints.end());
   std::vector<SavotinaPoint> res = {SavotinaPoint(min, min), SavotinaPoint(max, min), SavotinaPoint(max, max),
                                     SavotinaPoint(min, max)};
@@ -73,7 +74,7 @@ TEST(savotina_v_grahams_alg_seq, test_task_run) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  auto testGrahamSequential = std::make_shared<SavotinaGrahamsAlgorithmSequential>(dataGrahamsAlgSeq);
+  auto testGrahamSequential = std::make_shared<SavotinaSeq::SavotinaGrahamsAlgorithmSequential>(dataGrahamsAlgSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();

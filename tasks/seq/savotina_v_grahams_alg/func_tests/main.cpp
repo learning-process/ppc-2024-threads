@@ -1,4 +1,5 @@
 // Copyright 2024 Savotina Valeria
+
 #include <gtest/gtest.h>
 
 #include "seq/savotina_v_grahams_alg/include/ops_seq.hpp"
@@ -24,7 +25,7 @@ TEST(savotina_v_grahams_alg_seq, Test1) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
+  SavotinaSeq::SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
   ASSERT_EQ(testGrahamsAlgSeq.validation(), true);
   testGrahamsAlgSeq.pre_processing();
   testGrahamsAlgSeq.run();
@@ -59,7 +60,7 @@ TEST(savotina_v_grahams_alg_seq, Test2) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
+  SavotinaSeq::SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
   ASSERT_EQ(testGrahamsAlgSeq.validation(), true);
   testGrahamsAlgSeq.pre_processing();
   testGrahamsAlgSeq.run();
@@ -88,7 +89,7 @@ TEST(savotina_v_grahams_alg_seq, Test3) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
+  SavotinaSeq::SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
   ASSERT_EQ(testGrahamsAlgSeq.validation(), true);
   testGrahamsAlgSeq.pre_processing();
   testGrahamsAlgSeq.run();
@@ -114,7 +115,7 @@ TEST(savotina_v_grahams_alg_seq, Test4) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
+  SavotinaSeq::SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
   ASSERT_EQ(testGrahamsAlgSeq.validation(), true);
   testGrahamsAlgSeq.pre_processing();
   testGrahamsAlgSeq.run();
@@ -140,7 +141,7 @@ TEST(savotina_v_grahams_alg_seq, Test5) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
+  SavotinaSeq::SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
   ASSERT_EQ(testGrahamsAlgSeq.validation(), true);
   testGrahamsAlgSeq.pre_processing();
   testGrahamsAlgSeq.run();
@@ -166,7 +167,7 @@ TEST(savotina_v_grahams_alg_seq, Test6) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
+  SavotinaSeq::SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
   ASSERT_EQ(testGrahamsAlgSeq.validation(), true);
   testGrahamsAlgSeq.pre_processing();
   testGrahamsAlgSeq.run();
@@ -195,7 +196,7 @@ TEST(savotina_v_grahams_alg_seq, Test7) {
   dataGrahamsAlgSeq->outputs_count.emplace_back(mch.size());
 
   // Create Task
-  SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
+  SavotinaSeq::SavotinaGrahamsAlgorithmSequential testGrahamsAlgSeq(dataGrahamsAlgSeq);
   ASSERT_EQ(testGrahamsAlgSeq.validation(), true);
   testGrahamsAlgSeq.pre_processing();
   testGrahamsAlgSeq.run();

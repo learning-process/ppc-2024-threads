@@ -1,11 +1,15 @@
 // Copyright 2024 Savotina Valeria
+
 #pragma once
 
+#include <cfloat>
 #include <stack>
 #include <vector>
 
 #include "core/task/include/task.hpp"
 #include "point.hpp"
+
+namespace SavotinaSeq {
 
 class SavotinaGrahamsAlgorithmSequential : public ppc::core::Task {
  public:
@@ -21,3 +25,4 @@ class SavotinaGrahamsAlgorithmSequential : public ppc::core::Task {
 };
 
 std::vector<SavotinaPoint> SavotinaRandomPoints(double leftBorder, double rightBorder, size_t size);
+}  // namespace SavotinaSeq
