@@ -266,7 +266,6 @@ TEST(Smirnov_L_Radix_Sort_Test_OMP, Test_Cor_Work_Real_Four_OMP_Sm) {
   }
 }
 
-
 TEST(Smirnov_L_Radix_Sort_Test_OMP, Test_Cor_Work_Real_Five_OMP_Sm) {
   std::vector<int> in = {-14, -10, -50, 50, 90, 54, 3, 14,
     19, 100, -54, 134, 363, 0, 79};

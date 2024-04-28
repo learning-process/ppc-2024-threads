@@ -7,6 +7,7 @@
 #include "omp/example/include/ops_omp.hpp"
 #include "omp/smirnov_l_radix_sort_omp/include/ops_omp.hpp"
 
+
 TEST(Smirnov_L_Radix_Sort_Test, test_pipeline_run) {
   const int count = 3000000;
 
