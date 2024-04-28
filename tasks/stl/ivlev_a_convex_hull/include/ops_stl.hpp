@@ -39,8 +39,8 @@ class ConvexHullSTLTaskParallel : public ppc::core::Task {
   std::vector<std::vector<std::pair<size_t, size_t>>> components;
   std::vector<std::vector<std::pair<size_t, size_t>>> results;
 
-  static void Convex_Hull_tmp(
-      size_t p, size_t last, size_t n, const std::vector<std::pair<size_t, size_t>>& component_, std::vector<std::pair<size_t, size_t>>& res);
+  static void Convex_Hull_tmp(size_t p, size_t last, size_t n, const std::vector<std::pair<size_t, size_t>>& component_,
+                              std::vector<std::pair<size_t, size_t>>& res);
   static std::vector<std::pair<size_t, size_t>> Convex_Hull(const std::vector<std::pair<size_t, size_t>>& component_);
 };
 

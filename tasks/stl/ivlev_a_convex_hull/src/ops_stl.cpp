@@ -199,8 +199,9 @@ std::vector<std::pair<size_t, size_t>> ConvexHullSTLTaskSequential::Convex_Hull(
   return res;
 }
 
-void ConvexHullSTLTaskParallel::Convex_Hull_tmp(
-    size_t p, size_t last, size_t n, const std::vector<std::pair<size_t, size_t>>& component_, std::vector<std::pair<size_t, size_t>>& res) {
+void ConvexHullSTLTaskParallel::Convex_Hull_tmp(size_t p, size_t last, size_t n,
+                                                const std::vector<std::pair<size_t, size_t>>& component_,
+                                                std::vector<std::pair<size_t, size_t>>& res) {
   size_t q = 0;
 
   do {
@@ -251,13 +252,17 @@ std::vector<std::pair<size_t, size_t>> ConvexHullSTLTaskParallel::Convex_Hull(
 
   std::vector<std::thread> threads;
 
-  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, left, top, n, std::cref(component_), std::ref(tmp_res[0])));
-  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, top, rigth, n, std::cref(component_), std::ref(tmp_res[1])));
-  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, rigth, down, n, std::cref(component_), std::ref(tmp_res[2])));
-  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, down, left, n, std::cref(component_), std::ref(tmp_res[3])));
+  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, left, top, n, std::cref(component_),
+                                std::ref(tmp_res[0])));
+  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, top, rigth, n, std::cref(component_),
+                                std::ref(tmp_res[1])));
+  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, rigth, down, n, std::cref(component_),
+                                std::ref(tmp_res[2])));
+  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, down, left, n, std::cref(component_),
+                                std::ref(tmp_res[3])));
 
   for (auto& thread : threads) {
-      thread.join();
+    thread.join();
   }
 
   for (size_t i = 0; i < 4; i++) res.insert(res.end(), tmp_res[i].begin(), tmp_res[i].end());
