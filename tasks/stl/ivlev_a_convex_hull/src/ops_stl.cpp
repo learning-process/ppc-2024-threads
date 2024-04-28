@@ -145,14 +145,14 @@ std::vector<std::pair<size_t, size_t>> ConvexHullSTLTaskParallel::Convex_Hull(
 
   std::vector<std::thread> threads;
 
-  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, left, top, n, std::cref(component_),
-                                std::ref(tmp_res[0])));
-  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, top, rigth, n, std::cref(component_),
-                                std::ref(tmp_res[1])));
-  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, rigth, down, n, std::cref(component_),
-                                std::ref(tmp_res[2])));
-  threads.push_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, down, left, n, std::cref(component_),
-                                std::ref(tmp_res[3])));
+  threads.emplace_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, left, top, n, std::cref(component_),
+                                    std::ref(tmp_res[0])));
+  threads.emplace_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, top, rigth, n, std::cref(component_),
+                                    std::ref(tmp_res[1])));
+  threads.emplace_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, rigth, down, n, std::cref(component_),
+                                    std::ref(tmp_res[2])));
+  threads.emplace_back(std::thread(ConvexHullSTLTaskParallel::Convex_Hull_tmp, down, left, n, std::cref(component_),
+                                    std::ref(tmp_res[3])));
 
   for (auto& thread : threads) {
     thread.join();
