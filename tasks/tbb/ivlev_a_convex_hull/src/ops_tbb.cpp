@@ -257,11 +257,12 @@ std::vector<std::pair<size_t, size_t>> ConvexHullTBBTaskParallel::Convex_Hull(
   oneapi::tbb::concurrent_vector<std::vector<std::pair<size_t, size_t>>> tmp_res(4);
 
   oneapi::tbb::parallel_invoke(
-      [&] {tmp_res[0] = ConvexHullTBBTaskParallel::Convex_Hull_tmp(left, top, n, component_); },
-      [&] {tmp_res[1] = ConvexHullTBBTaskParallel::Convex_Hull_tmp(top, rigth, n, component_); },
-      [&] {tmp_res[2] = ConvexHullTBBTaskParallel::Convex_Hull_tmp(rigth, down, n, component_); },
-      [&] {tmp_res[3] = ConvexHullTBBTaskParallel::Convex_Hull_tmp(down, left, n, component_); }
-  );
+      [&] { tmp_res[0] = ConvexHullTBBTaskParallel::Convex_Hull_tmp(left, top, n, component_); },
+      [&] { tmp_res[1] = ConvexHullTBBTaskParallel::Convex_Hull_tmp(top, rigth, n, component_); },
+      [&] { tmp_res[2] = ConvexHullTBBTaskParallel::Convex_Hull_tmp(rigth, down, n, component_); },
+      [&] { tmp_res[3] = ConvexHullTBBTaskParallel::Convex_Hull_tmp(down, left, n, component_); });
+
+  for (size_t i = 0; i < 4; i++) res.insert(res.end(), tmp_res[i].begin(), tmp_res[i].end());
 
   for(size_t i = 0; i < 4; i++)
     res.insert(res.end(), tmp_res[i].begin(), tmp_res[i].end());
