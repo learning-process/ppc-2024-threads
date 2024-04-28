@@ -264,8 +264,5 @@ std::vector<std::pair<size_t, size_t>> ConvexHullTBBTaskParallel::Convex_Hull(
 
   for (size_t i = 0; i < 4; i++) res.insert(res.end(), tmp_res[i].begin(), tmp_res[i].end());
 
-  for(size_t i = 0; i < 4; i++)
-    res.insert(res.end(), tmp_res[i].begin(), tmp_res[i].end());
-
   return res;
 }
