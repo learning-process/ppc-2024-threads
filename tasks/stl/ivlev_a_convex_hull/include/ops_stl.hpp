@@ -10,22 +10,6 @@
 #include "core/task/include/task.hpp"
 
 namespace ivlev_a_stl {
-class ConvexHullSTLTaskSequential : public ppc::core::Task {
- public:
-  explicit ConvexHullSTLTaskSequential(std::shared_ptr<ppc::core::TaskData> taskData_) : Task(std::move(taskData_)) {}
-  bool pre_processing() override;
-  bool validation() override;
-  bool run() override;
-  bool post_processing() override;
-
- private:
-  std::vector<std::pair<size_t, size_t>> sizes;
-  std::vector<std::vector<std::pair<size_t, size_t>>> components;
-  std::vector<std::vector<std::pair<size_t, size_t>>> results;
-
-  static std::vector<std::pair<size_t, size_t>> Convex_Hull(const std::vector<std::pair<size_t, size_t>>& component_);
-};
-
 class ConvexHullSTLTaskParallel : public ppc::core::Task {
  public:
   explicit ConvexHullSTLTaskParallel(std::shared_ptr<ppc::core::TaskData> taskData_) : Task(std::move(taskData_)) {}
