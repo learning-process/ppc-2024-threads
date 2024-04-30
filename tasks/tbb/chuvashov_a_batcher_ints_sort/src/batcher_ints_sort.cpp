@@ -2,7 +2,6 @@
 
 #include "tbb/chuvashov_a_batcher_ints_sort/include/batcher_ints_sort.hpp"
 
-#include <tbb/tbb.h>
 #include <oneapi/tbb/parallel_for.h>
 
 using namespace std::chrono_literals;
@@ -91,13 +90,16 @@ std::vector<int> ChuvashovTBB_merge(std::vector<int> arr1, std::vector<int> arr2
       j++;
     }
   }
-  tbb::parallel_for(tbb::blocked_range<int>(0, result.size() - 1, result.size() / threads_count), [&](const tbb::blocked_range<int>& r) {
-    for (int l = r.begin(); l != r.end(); ++l) {
-      if (result[l] > result[l + 1]) {
-        std::swap(result[l], result[l + 1]);
-      }
-    }
-  }, tbb::auto_partitioner());
+  tbb::parallel_for(
+      tbb::blocked_range<int>(0, result.size() - 1, result.size() / threads_count),
+      [&](const tbb::blocked_range<int> &r) {
+        for (int l = r.begin(); l != r.end(); ++l) {
+          if (result[l] > result[l + 1]) {
+            std::swap(result[l], result[l + 1]);
+          }
+        }
+      },
+      tbb::auto_partitioner());
 
   return result;
 }
