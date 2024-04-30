@@ -131,7 +131,6 @@ bool RadixSortTaskOMP::run() {
   } catch (...) {
     return false;
   }
-  
   return true;
 }
 
