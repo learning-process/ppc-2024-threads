@@ -70,8 +70,7 @@ std::vector<int> ChuvashovTBB_BatcherOdd(std::vector<int> arr1, std::vector<int>
   return result;
 }
 
-std::vector<int> ChuvashovTBB_merge(std::vector<int> arr1, std::vector<int> arr2, size_t threads_count = 13) {
-  
+std::vector<int> ChuvashovTBB_merge(std::vector<int> arr1, std::vector<int> arr2, size_t threads_count = 4) {
   std::vector<int> result(arr1.size() + arr2.size());
   size_t i = 0;
   size_t j = 0;
