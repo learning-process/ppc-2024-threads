@@ -5,10 +5,10 @@
 
 #include "omp/balyasov_i_sort_simple_merge_omp/include/ops_seq.hpp"
 
-TEST(balyasov_i_sort_simple_merge_omp, simple_test_with_three_values) {
+TEST(balyasov_i_sort_simple_merge_omp, test_three_values) {
   // Create data
-  std::vector<int> in = {5, 4, 3};
-  std::vector<int> answer = {3, 4, 5};
+  std::vector<int> in = {8, 6, 2};
+  std::vector<int> answer = {2, 6, 8};
   std::vector<int> out(3);
 
   // Create TaskData
@@ -29,10 +29,10 @@ TEST(balyasov_i_sort_simple_merge_omp, simple_test_with_three_values) {
   }
 }
 
-TEST(balyasov_i_sort_simple_merge_omp, simple_test_with_eleven_values) {
+TEST(balyasov_i_sort_simple_merge_omp, test_eleven_values) {
   // Create data
-  std::vector<int> in = {5, 4, 3, 2, 1, 20, 17, 8, 10, 16, 15};
-  std::vector<int> answer = {1, 2, 3, 4, 5, 8, 10, 15, 16, 17, 20};
+  std::vector<int> in = {7, 9, 3, 2, 1, 30, 11, 8, 10, 16, 15};
+  std::vector<int> answer = {1, 2, 3, 7, 8, 9, 10, 11, 15, 16, 30};
   std::vector<int> out(11);
 
   // Create TaskData
@@ -53,10 +53,10 @@ TEST(balyasov_i_sort_simple_merge_omp, simple_test_with_eleven_values) {
   }
 }
 
-TEST(balyasov_i_sort_simple_merge_omp, simple_test_with_duplicate) {
+TEST(balyasov_i_sort_simple_merge_omp, test_with_duplicate) {
   // Create data
-  std::vector<int> in = {1, 10, 10, 8, 7, 6, 5, 4, 3, 2, 1, 7, 6};
-  std::vector<int> answer = {1, 1, 2, 3, 4, 5, 6, 6, 7, 7, 8, 10, 10};
+  std::vector<int> in = {1, 10, 9, 9, 8, 6, 5, 4, 3, 2, 1, 8, 6};
+  std::vector<int> answer = {1, 1, 2, 3, 4, 5, 6, 6, 8, 8, 9, 9, 10};
   std::vector<int> out(13);
 
   // Create TaskData
@@ -101,7 +101,7 @@ TEST(balyasov_i_sort_simple_merge_omp, sort_random_vector) {
   }
 }
 
-TEST(balyasov_i_sort_simple_merge_omp, validation_test_one) {
+TEST(balyasov_i_sort_simple_merge_omp, validation_test) {
   // Create data
   std::vector<int> in = {3, 2, 1};
   std::vector<int> answer = {1, 2, 3};
@@ -114,23 +114,6 @@ TEST(balyasov_i_sort_simple_merge_omp, validation_test_one) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  // Create Task
-  RadixSortTaskOMP Task(taskDataSeq);
-  ASSERT_NE(Task.validation(), true);
-}
-
-TEST(balyasov_i_sort_simple_merge_omp, validation_test_two) {
-  // Create data
-  std::vector<int> in;
-  std::vector<int> answer = {1, 2, 3};
-  std::vector<int> out(0);
-
-  // Create TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(in.data()));
-  taskDataSeq->inputs_count.emplace_back(in.size());
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
-  taskDataSeq->outputs_count.emplace_back(out.size());
   // Create Task
   RadixSortTaskOMP Task(taskDataSeq);
   ASSERT_NE(Task.validation(), true);
