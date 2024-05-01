@@ -17,7 +17,7 @@ class Sobel_omp : public ppc::core::Task {
       : Task(std::move(taskData_)), width(w_), height(h_) {}
   bool validation() override;
   bool pre_processing() override;
-  bool run() override;
+  bool run() override;  // tempcom
   bool post_processing() override;
 
  private:
