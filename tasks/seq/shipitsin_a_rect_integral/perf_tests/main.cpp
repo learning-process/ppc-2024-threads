@@ -11,7 +11,7 @@ TEST(shipitsin_v_rect_integral_seq, test_pipeline_run) {
   Func f = shipitsin_fxexpy;
   uint64_t n = 5000;
 
-  std::vector<double> in = {0, 5, 1, 2};
+  std::vector<double> in = {0, 5, 1, 3};
   std::vector<double> out(1, 0);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -49,7 +49,7 @@ TEST(shipitsin_a_rect_integral_seq, test_task_run) {
   Func f = shipitsin_fxexpy;
   uint64_t n = 5000;
 
-  std::vector<double> in = {0, 5, 1, 2};
+  std::vector<double> in = {0, 5, 1, 3};
   std::vector<double> out(1, 0);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
