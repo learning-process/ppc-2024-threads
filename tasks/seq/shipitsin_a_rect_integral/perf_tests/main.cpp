@@ -44,12 +44,12 @@ TEST(shipitsin_v_rect_integral_seq, test_pipeline_run) {
   ASSERT_LT(std::abs(res - out[0]), 0.5);
 }
 
-TEST(shipitsin_a_rect_integral_seq, test_task_run) {
-  double res = 217.0907;
-  Func f = shipitsin_fxexpy;
-  uint64_t n = 5000;
+TEST(shipitsin_a_rect_integral_seq, Test_y_sin_x) {
+  double res = 2.295;
+  Func f = shipitsin_fysinx;
+  uint64_t n = 100;
 
-  std::vector<double> in = {0, 5, 1, 3};
+  std::vector<double> in = {-2, 3, 1, 3};
   std::vector<double> out(1, 0);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
