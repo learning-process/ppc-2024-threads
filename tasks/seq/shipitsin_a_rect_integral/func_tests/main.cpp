@@ -64,7 +64,7 @@ TEST(shipitsin_a_rect_integral_seq, Test_x_mul_y) {
   Func f = shipitsin_fxy;
   uint64_t n = 100;
 
-  std::vector<double> in = {0, 4, 1, 4};
+  std::vector<double> in = {0, 3, 1, 4};
   std::vector<double> out(1, 0);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
