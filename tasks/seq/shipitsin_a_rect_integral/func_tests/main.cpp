@@ -37,7 +37,7 @@ TEST(shipitsin_a_rect_integral_seq, Test_x_sub_y_2) {
   Func f = shipitsin_flin;
   uint64_t n = 100;
 
-  std::vector<double> in = {-5, 2, 3, 10};
+  std::vector<double> in = {-5, 2, 4, 10};
   std::vector<double> out(1, 0);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -64,7 +64,7 @@ TEST(shipitsin_a_rect_integral_seq, Test_x_mul_y) {
   Func f = shipitsin_fxy;
   uint64_t n = 100;
 
-  std::vector<double> in = {0, 2, 1, 2};
+  std::vector<double> in = {0, 3, 1, 3};
   std::vector<double> out(1, 0);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -91,7 +91,7 @@ TEST(shipitsin_a_rect_integral_seq, Test_y_sin_x) {
   Func f = shipitsin_fysinx;
   uint64_t n = 100;
 
-  std::vector<double> in = {-2, 2, 1, 2};
+  std::vector<double> in = {-2, 3, 1, 3};
   std::vector<double> out(1, 0);
 
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
