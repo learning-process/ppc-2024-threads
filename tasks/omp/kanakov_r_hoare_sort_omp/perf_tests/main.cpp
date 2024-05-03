@@ -118,7 +118,7 @@ TEST(kanakov_r_hoare_sort_omp, test_pipeline_run) {
       768,  -132, -403, -352, 764,  -20,  262,   570,  935,  104,  -660, -915, 520,  -490, -949, 581,  -552, -340, 46,
       -957, 552,  -100, -403, -140, -155, -110,  -786, 0,    -994, 818,  -936, 444,  -815, -366, -905, 22,   -921, -105,
       -517, -674, -578, 298,  783};
-  // Seq
+
   std::vector<int> outputArraySeq(inputArray.size());
 
   std::shared_ptr<ppc::core::TaskData> hoareSortSeq = std::make_shared<ppc::core::TaskData>();
@@ -132,7 +132,7 @@ TEST(kanakov_r_hoare_sort_omp, test_pipeline_run) {
   hoareSortSequential.pre_processing();
   hoareSortSequential.run();
   hoareSortSequential.post_processing();
-  //OMP
+
   std::vector<int> outputArrayOMP(inputArray.size());
 
   std::shared_ptr<ppc::core::TaskData> hoareSortOMP = std::make_shared<ppc::core::TaskData>();
