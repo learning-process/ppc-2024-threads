@@ -3,6 +3,7 @@
 #include "omp/kanakov_r_hoare_sort_omp/include/hoare_sort_omp.hpp"
 
 #include <omp.h>
+
 #include <algorithm>
 #include <random>
 #include <thread>
