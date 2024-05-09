@@ -2,9 +2,9 @@
 #include <gtest/gtest.h>
 #include <omp.h>
 
+#include <cmath>
 #include <random>
 #include <vector>
-#include <cmath>
 
 #include "core/perf/include/perf.hpp"
 #include "omp/kachalov_m_int_monte/include/ops_omp.hpp"

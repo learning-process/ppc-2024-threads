@@ -1,8 +1,8 @@
 // Copyright 2024 Kachalov Mikhail
 #include <gtest/gtest.h>
 
-#include <vector>
 #include <cmath>
+#include <vector>
 
 #include "omp/kachalov_m_int_monte/include/ops_omp.hpp"
 
