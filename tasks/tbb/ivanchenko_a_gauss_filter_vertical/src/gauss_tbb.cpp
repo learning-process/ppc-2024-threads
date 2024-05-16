@@ -55,43 +55,42 @@ void GaussFilterSequential::createKernel(float sigma) {
   }
 }
 
-using namespace oneapi::tbb;
-
 void GaussFilterSequential::applyKernel() {
-  tbb::task_scheduler_init init(4);
+  oneapi::tbb::task_arena limited(4);
   oneapi::tbb::parallel_for(oneapi::tbb::blocked_range<int>(0, width),
                             [&](const oneapi::tbb::blocked_range<int>& r) {
-                              for (int i = r.begin(); i < r.end(); i++) {
-                                for (int j = 0; j < static_cast<int>(height); j++) {
-                                  auto ii = static_cast<uint32_t>(i);
-                                  auto jj = static_cast<uint32_t>(j);
-                                  image[ii * width + jj] = calculateNewPixelColor(ii, jj);
-                              }
-                            });
+    for (int i = r.begin(); i < r.end(); i++) {
+      for (int j = 0; j < static_cast<int>(height); j++) {
+        auto ii = static_cast<uint32_t>(i);
+        auto jj = static_cast<uint32_t>(j);
+        image[ii * width + jj] = calculateNewPixelColor(ii, jj);
+      }
+    }
+  });
 }
 
 Color GaussFilterSequential::calculateNewPixelColor(size_t x, size_t y) {
-  uint32_t radius = kernelSize / 2;
-  float resultR = 0;
-  float resultG = 0;
-  float resultB = 0;
-  for (int l = -((int)radius); l <= (int)radius; l++) {
-    for (int k = -((int)radius); k <= (int)radius; k++) {
-      size_t idX = x + k;
-      size_t idY = y + l;
-      if (idX < 0) idX = 0;
-      if (idX >= width) idX = width - 1;
-      if (idY < 0) idY = 0;
-      if (idY >= height) idY = height - 1;
-      Color neighborColor = image[idX * width + idY];
-      resultR += neighborColor.R * kernel[k + radius][l + radius];
-      resultG += neighborColor.G * kernel[k + radius][l + radius];
-      resultB += neighborColor.B * kernel[k + radius][l + radius];
+    uint32_t radius = kernelSize / 2;
+    float resultR = 0;
+    float resultG = 0;
+    float resultB = 0;
+    for (int l = -((int)radius); l <= (int)radius; l++) {
+      for (int k = -((int)radius); k <= (int)radius; k++) {
+        size_t idX = x + k;
+        size_t idY = y + l;
+        if (idX < 0) idX = 0;
+        if (idX >= width) idX = width - 1;
+        if (idY < 0) idY = 0;
+        if (idY >= height) idY = height - 1;
+        Color neighborColor = image[idX * width + idY];
+        resultR += neighborColor.R * kernel[k + radius][l + radius];
+        resultG += neighborColor.G * kernel[k + radius][l + radius];
+        resultB += neighborColor.B * kernel[k + radius][l + radius];
+      }
     }
-  }
-  Color result;
-  result.R = (uint8_t)std::ceil(resultR);
-  result.G = (uint8_t)std::ceil(resultG);
-  result.B = (uint8_t)std::ceil(resultB);
-  return result;
+    Color result;
+    result.R = (uint8_t)std::ceil(resultR);
+    result.G = (uint8_t)std::ceil(resultG);
+    result.B = (uint8_t)std::ceil(resultB);
+    return result;
 }
