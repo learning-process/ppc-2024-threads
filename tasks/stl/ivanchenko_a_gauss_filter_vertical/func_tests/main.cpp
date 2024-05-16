@@ -131,7 +131,7 @@ TEST(ivanchenko_a_gauss_filter_vertical, image_with_some_noise) {
   for (size_t i = 0; i < width * height * 3; i += 3) {
     int x = i % width;
     int y = i / width;
-    int noise = static_cast<int>((x + y) % 13 == 0) * static_cast<int>(i > 2*width && i < (width - 1) * height * 3);
+    int noise = static_cast<int>((x + y) % 13 == 0) * static_cast<int>(i > 2 * width && i < (width - 1) * height * 3);
     in[i] = in[i + 1] = in[i + 2] = 128 - noise;
     expected[i] = expected[i + 1] = expected[i + 2] = 128;
   }
