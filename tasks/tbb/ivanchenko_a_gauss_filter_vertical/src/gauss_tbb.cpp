@@ -57,8 +57,7 @@ void GaussFilterSequential::createKernel(float sigma) {
 
 void GaussFilterSequential::applyKernel() {
   oneapi::tbb::task_arena limited(4);
-  oneapi::tbb::parallel_for(oneapi::tbb::blocked_range<int>(0, width),
-  [&](const oneapi::tbb::blocked_range<int>& r) {
+  oneapi::tbb::parallel_for(oneapi::tbb::blocked_range<int>(0, width), [&](const oneapi::tbb::blocked_range<int>& r) {
     for (int i = r.begin(); i < r.end(); i++) {
       for (int j = 0; j < static_cast<int>(height); j++) {
         auto ii = static_cast<uint32_t>(i);
