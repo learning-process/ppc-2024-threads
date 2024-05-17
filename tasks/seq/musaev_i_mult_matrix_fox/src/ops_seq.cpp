@@ -48,7 +48,7 @@ bool MusaevTaskSequential::post_processing() {
   return true;
 }
 
-void ScaledIdentityMatrix(double* matrix, int n, double k) {
+void ScaledIdentityMat(double* matrix, int n, double k) {
   std::random_device dev;
   std::mt19937 gen(dev());
   for (int i = 0; i < n; i++) {
@@ -59,7 +59,7 @@ void ScaledIdentityMatrix(double* matrix, int n, double k) {
   }
 }
 
-void IdentityMatrix(double* matrix, int n, double k) {
+void IdentityMat(double* matrix, int n, double k) {
   std::random_device dev;
   std::mt19937 gen(dev());
   for (int i = 0; i < n; i++) {
@@ -70,7 +70,7 @@ void IdentityMatrix(double* matrix, int n, double k) {
   }
 }
 
-void GenerateRandomValue(double* matrix, int sz) {
+void GenerateRandomVal(double* matrix, int sz) {
   std::random_device dev;
   std::mt19937 gen(dev());
   for (int i = 0; i < sz; i++) {

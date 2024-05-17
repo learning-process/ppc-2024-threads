@@ -12,8 +12,8 @@ TEST(Musaev_I_Mult_Matrix_Fox, test_pipeline_run) {
   std::vector<double> A(n * n);
   std::vector<double> B(n * n);
   std::vector<double> C(n * n);
-  GenerateRandomValue(A.data(), A.size());
-  IdentityMatrix(B.data(), n, k);
+  GenerateRandomVal(A.data(), A.size());
+  IdentityMat(B.data(), n, k);
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
@@ -55,8 +55,8 @@ TEST(Musaev_I_Mult_Matrix_Fox, test_task_run) {
   std::vector<double> A(n * n);
   std::vector<double> B(n * n);
   std::vector<double> C(n * n);
-  GenerateRandomValue(A.data(), A.size());
-  IdentityMatrix(B.data(), n, k);
+  GenerateRandomVal(A.data(), A.size());
+  IdentityMat(B.data(), n, k);
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();

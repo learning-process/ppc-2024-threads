@@ -8,9 +8,9 @@
 
 #include "core/task/include/task.hpp"
 
-void ScaledIdentityMatrix(double* matrix, int n, double k = 1.0);
-void IdentityMatrix(double* matrix, int n, double k = 1.0);
-void GenerateRandomValue(double* matrix, int sz);
+void ScaledIdentityMat(double* matrix, int n, double k = 1.0);
+void IdentityMat(double* matrix, int n, double k = 1.0);
+void GenerateRandomVal(double* matrix, int sz);
 
 class MusaevTaskSequential : public ppc::core::Task {
  public:
