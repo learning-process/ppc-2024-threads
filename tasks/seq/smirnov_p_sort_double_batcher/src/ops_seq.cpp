@@ -3,7 +3,7 @@
 
 constexpr int sizeDouble = sizeof(double);
 
-bool SortDoubleBatcherSequential::pre_processing() {
+bool RadixSortDoubleBatcherSequential::pre_processing() {
   internal_order_test();
   // Init value for input and output
   arr = std::vector<double>(taskData->inputs_count[0]);
@@ -15,19 +15,19 @@ bool SortDoubleBatcherSequential::pre_processing() {
   return true;
 }
 
-bool SortDoubleBatcherSequential::validation() {
+bool RadixSortDoubleBatcherSequential::validation() {
   internal_order_test();
   // Check count elements of output
   return taskData->inputs_count[0] == taskData->outputs_count[0];
 }
 
-bool SortDoubleBatcherSequential::run() {
+bool RadixSortDoubleBatcherSequential::run() {
   internal_order_test();
   res = bitwiseSortBatcher(arr);
   return true;
 }
 
-bool SortDoubleBatcherSequential::post_processing() {
+bool RadixSortDoubleBatcherSequential::post_processing() {
   internal_order_test();
   std::copy(res.begin(), res.end(), reinterpret_cast<double*>(taskData->outputs[0]));
   return true;

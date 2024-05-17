@@ -7,9 +7,9 @@
 
 #include "core/task/include/task.hpp"
 
-class SortDoubleBatcherSequential : public ppc::core::Task {
+class RadixSortDoubleBatcherSequential : public ppc::core::Task {
  public:
-  explicit SortDoubleBatcherSequential(std::shared_ptr<ppc::core::TaskData> taskData_)
+  explicit RadixSortDoubleBatcherSequential(std::shared_ptr<ppc::core::TaskData> taskData_)
       : Task(std::move(taskData_)) {}
   bool pre_processing() override;
   bool validation() override;

@@ -19,7 +19,7 @@ TEST(smirnov_p_sort_double_batcher, array) {
   std::sort(result.begin(), result.end());
 
   // Create Task
-  SortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
+  RadixSortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
   ASSERT_EQ(testRDSBSequential.validation(), true);
   testRDSBSequential.pre_processing();
   testRDSBSequential.run();
@@ -50,7 +50,7 @@ TEST(smirnov_p_sort_double_batcher, test_array_2) {
   std::sort(result.begin(), result.end());
 
   // Create Task
-  SortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
+  RadixSortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
   ASSERT_EQ(testRDSBSequential.validation(), true);
   testRDSBSequential.pre_processing();
   testRDSBSequential.run();
@@ -76,7 +76,7 @@ TEST(smirnov_p_sort_double_batcher, test_empty) {
   std::sort(result.begin(), result.end());
 
   // Create Task
-  SortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
+  RadixSortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
   ASSERT_EQ(testRDSBSequential.validation(), true);
   testRDSBSequential.pre_processing();
   testRDSBSequential.run();
@@ -102,7 +102,7 @@ TEST(smirnov_p_sort_double_batcher, test_one_number) {
   std::sort(result.begin(), result.end());
 
   // Create Task
-  SortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
+  RadixSortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
   ASSERT_EQ(testRDSBSequential.validation(), true);
   testRDSBSequential.pre_processing();
   testRDSBSequential.run();
@@ -129,7 +129,7 @@ TEST(smirnov_p_sort_double_batcher, test_with_negative) {
   std::sort(result.begin(), result.end());
 
   // Create Task
-  SortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
+  RadixSortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
   ASSERT_EQ(testRDSBSequential.validation(), true);
   testRDSBSequential.pre_processing();
   testRDSBSequential.run();
@@ -155,7 +155,7 @@ TEST(smirnov_p_sort_double_batcher, test_random) {
   std::sort(result.begin(), result.end());
 
   // Create Task
-  SortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
+  RadixSortDoubleBatcherSequential testRDSBSequential(RSDBDataSeq);
   ASSERT_EQ(testRDSBSequential.validation(), true);
   testRDSBSequential.pre_processing();
   testRDSBSequential.run();
