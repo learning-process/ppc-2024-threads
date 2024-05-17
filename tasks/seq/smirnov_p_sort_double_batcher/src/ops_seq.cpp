@@ -3,7 +3,7 @@
 
 constexpr int sizeDouble = sizeof(double);
 
-bool SortDoubleBatcherSequential::pre_processing() {
+bool RadixSortDoubleBatcherSequential::pre_processing() {
   internal_order_test();
   // Init value for input and output
   arr = std::vector<double>(taskData->inputs_count[0]);
@@ -15,25 +15,25 @@ bool SortDoubleBatcherSequential::pre_processing() {
   return true;
 }
 
-bool SortDoubleBatcherSequential::validation() {
+bool RadixSortDoubleBatcherSequential::validation() {
   internal_order_test();
   // Check count elements of output
   return taskData->inputs_count[0] == taskData->outputs_count[0];
 }
 
-bool SortDoubleBatcherSequential::run() {
+bool RadixSortDoubleBatcherSequential::run() {
   internal_order_test();
   res = bitwise_sort_batcher(arr);
   return true;
 }
 
-bool SortDoubleBatcherSequential::post_processing() {
+bool RadixSortDoubleBatcherSequential::post_processing() {
   internal_order_test();
   std::copy(res.begin(), res.end(), reinterpret_cast<double*>(taskData->outputs[0]));
   return true;
 }
 
-std::vector<double> BatchersMerge(std::vector<std::vector<double>>& subvectors) {
+std::vector<double> batcherMerge(std::vector<std::vector<double>>& subvectors) {
   std::vector<double> merged;
   if (subvectors.empty()) {
     return merged;
@@ -56,7 +56,7 @@ std::vector<double> BatchersMerge(std::vector<std::vector<double>>& subvectors) 
   return merged;
 }
 
-void PartSort(std::vector<std::vector<double>>& parts, std::vector<double>& side) {
+void partitionSort(std::vector<std::vector<double>>& parts, std::vector<double>& side) {
   for (int i = 0; i < sizeDouble; ++i) {
     for (auto& j : side) {
       uint64_t temp = *reinterpret_cast<uint64_t*>(reinterpret_cast<void*>(&j));
@@ -71,7 +71,7 @@ void PartSort(std::vector<std::vector<double>>& parts, std::vector<double>& side
   }
 }
 
-std::vector<double> BitwiseSortBatcher(std::vector<double> vec) {
+std::vector<double> bitwiseSortBatcher(std::vector<double> vec) {
   uint64_t mask = static_cast<uint64_t>(1) << (sizeDouble * 8 - 1);
   std::vector<double> positive;
   std::vector<double> negative;
@@ -85,8 +85,8 @@ std::vector<double> BitwiseSortBatcher(std::vector<double> vec) {
   }
 
   std::vector<std::vector<double>> parts(256);
-  partSort(parts, negative);
-  partSort(parts, positive);
+  partitionSort(parts, negative);
+  partitionSort(parts, positive);
 
   vec.clear();
   vec.reserve(negative.size() + positive.size());
@@ -96,7 +96,7 @@ std::vector<double> BitwiseSortBatcher(std::vector<double> vec) {
   return vec;
 }
 
-std::vector<double> RandomVector(int sizeVec, double minValue, double maxValue) {
+std::vector<double> randomVector(int sizeVec, double minValue, double maxValue) {
   std::random_device rd;
   std::default_random_engine gen{rd()};
   std::uniform_real_distribution<double> random(minValue, maxValue);
