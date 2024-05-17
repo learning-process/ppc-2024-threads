@@ -64,7 +64,7 @@ void partitionSort(std::vector<std::vector<double>>& parts, std::vector<double>&
       temp &= 255;
       parts[temp].push_back(j);
     }
-    side = batchersMerge(parts);
+    side = batcherMerge(parts);
     for (auto& part : parts) {
       part.clear();
     }
