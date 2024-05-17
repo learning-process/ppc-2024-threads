@@ -20,7 +20,7 @@ TEST(smirnov_p_sort_double_batcher, test_pipeline_run) {
   std::sort(result.begin(), result.end());
 
   // Create Task
-  auto testRSDBSequential = std::make_shared<RadixSortDoubleBatcherSequential>(RSDBDataSeq);
+  auto testRSDBSequential = std::make_shared<SortDoubleBatcherSequential>(RSDBDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -60,7 +60,7 @@ TEST(smirnov_p_sort_double_batcher, test_task_run) {
   std::sort(result.begin(), result.end());
 
   // Create Task
-  auto testRSDBSequential = std::make_shared<RadixSortDoubleBatcherSequential>(RSDBDataSeq);
+  auto testRSDBSequential = std::make_shared<SortDoubleBatcherSequential>(RSDBDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
