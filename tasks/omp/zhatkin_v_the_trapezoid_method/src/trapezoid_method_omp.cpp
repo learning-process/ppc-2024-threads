@@ -1,8 +1,8 @@
 // Copyright 2024 Zhatkin Vyacheslav
 #include "omp/zhatkin_v_the_trapezoid_method/include/trapezoid_method_omp.hpp"
 
-double trapezoidal_integral(const std::function<double(double, double)>& f, double lowerx, double upperx,
-                            double lowery, double uppery, int nx, int ny) {
+double trapezoidal_integral(const std::function<double(double, double)>& f, double lowerx, double upperx, double lowery,
+                            double uppery, int nx, int ny) {
   double hx = (upperx - lowerx) / nx;
   double hy = (uppery - lowery) / ny;
   double sum = 0.5 * (f(lowerx, lowery) + f(upperx, uppery));
