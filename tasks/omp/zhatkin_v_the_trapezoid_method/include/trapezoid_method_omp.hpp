@@ -15,7 +15,8 @@
 
 class ZhatkinTaskSequential : public ppc::core::Task {
  public:
-  explicit ZhatkinTaskSequential(std::shared_ptr<ppc::core::TaskData> taskData_, std::function<double(double, double)> func)
+   explicit ZhatkinTaskSequential(std::shared_ptr<ppc::core::TaskData> taskData_,
+                                  std::function<double(double, double)> func)
       : Task(std::move(taskData_)), f(std::move(func)) {}
   bool pre_processing() override;
   bool validation() override;
@@ -49,6 +50,6 @@ class ZhatkinTaskOMP : public ppc::core::Task {
 
 
 double trapezoidal_integralOMP(const std::function<double(double, double)>& f, double lowerx, double upperx, double lowery,
-                            double uppery, int nx, int ny);
+                                double uppery, int nx, int ny);
 
 #endif  // TASKS_OMP_ZHATKIN_V_TRAPEZOID_METHOD_INCLUDETRAPEZOID_METHOD_OMP_HPP_
