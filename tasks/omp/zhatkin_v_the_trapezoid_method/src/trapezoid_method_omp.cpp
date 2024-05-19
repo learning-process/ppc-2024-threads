@@ -18,7 +18,7 @@ double trapezoidal_integral(const std::function<double(double, double)>& f, doub
   return hx * hy * sum;
 }
 
-double trapezoidal_integral(const std::function<double(double, double)>& f, double lowerx, double upperx, double lowery,
+double trapezoidal_integralOMP(const std::function<double(double, double)>& f, double lowerx, double upperx, double lowery,
                             double uppery, int nx, int ny) {
   double hx = (upperx - lowerx) / nx;
   double hy = (uppery - lowery) / ny;
