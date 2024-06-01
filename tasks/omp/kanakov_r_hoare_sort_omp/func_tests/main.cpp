@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <vector>
 
-#include "omp/kanakov_r_hoare_sort_omp/include/hoare_sort_omp.hpp"
+#include "../include/hoare_sort_omp.hpp"
 
 using namespace kanakov_omp;
 
