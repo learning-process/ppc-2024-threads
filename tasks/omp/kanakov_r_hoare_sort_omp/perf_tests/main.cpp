@@ -155,7 +155,7 @@ TEST(kanakov_r_hoare_sort_omp, test_pipeline_run) {
   ASSERT_EQ(outputArraySeq, outputArrayOMP);
 }
 
-TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, test_task_run) {
+TEST(kanakov_r_hoare_sort_omp, test_task_run) {
   std::vector<int> inputArray = {
       -4756, -42,   7328,  -3411, 4169,  2421,  2323,  -5363, 7683,  -2768, -1865, -516,  -8424, 258,   1346,  6953,
       4322,  -3019, 5762,  8278,  655,   -3322, 5799,  -4712, -1905, -5911, -6471, 4210,  9761,  7960,  7752,  -98,

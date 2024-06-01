@@ -8,7 +8,7 @@
 
 using namespace kanakov_omp;
 
-TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Const_Array) {
+TEST(kanakov_r_hoare_sort_omp, Const_Array) {
   std::vector<int> inputArray = {6, 3, 2, 0, 5, 1, 9, 7, 4, 8};
 
   std::vector<int> outputArraySeq(inputArray.size());
@@ -42,7 +42,7 @@ TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Const_Array) {
   ASSERT_EQ(outputArrayOMP, outputArraySeq);
 }
 
-TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Random_Array) {
+TEST(kanakov_r_hoare_sort_omp, Random_Array) {
   std::vector<int> inputArray = {634,  -434, -842, 883,  -799, -64,  574,  733,  -406, -823, 563,  -901, 807,
                                  292,  6,    690,  247,  138,  -573, -945, 275,  -887, 499,  -803, -449, 298,
                                  -172, -762, 679,  222,  360,  412,  -882, -652, 250,  230,  -111, 215,  846,
@@ -79,7 +79,7 @@ TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Random_Array) {
   ASSERT_EQ(outputArrayOMP, outputArraySeq);
 }
 
-TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Random_Negative_Array) {
+TEST(kanakov_r_hoare_sort_omp, Random_Negative_Array) {
   std::vector<int> inputArray = {-12,  -575, -13,  -898, -690, -625, -444, -699, -929, -907, -146, -333, -357,
                                  -265, -961, -258, -768, -225, -506, -262, -645, -366, -843, -46,  -197, -30,
                                  -728, -75,  -641, -982, -287, -725, -793, -882, -153, -264, -247, -43,  -416,
@@ -117,7 +117,7 @@ TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Random_Negative_Array) {
   ASSERT_EQ(outputArrayOMP, outputArraySeq);
 }
 
-TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Single_Array) {
+TEST(kanakov_r_hoare_sort_omp, Single_Array) {
   std::vector<int> inputArray = {634};
 
   std::vector<int> outputArraySeq(inputArray.size());
@@ -151,7 +151,7 @@ TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Single_Array) {
   ASSERT_EQ(outputArrayOMP, outputArraySeq);
 }
 
-TEST(kanakov_r_hoare_sort_w_batcher_merge_omp, Empty_Array) {
+TEST(kanakov_r_hoare_sort_omp, Empty_Array) {
   std::vector<int> inputArray = {};
 
   std::vector<int> outputArraySeq(inputArray.size());
