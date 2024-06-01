@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include "core\task\include\task.hpp"
+#include "core/task/include/task.hpp"
 
 namespace kanakov_omp {
 class HoareSortSequential : public ppc::core::Task {

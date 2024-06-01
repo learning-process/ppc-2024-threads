@@ -5,8 +5,8 @@
 #include <algorithm>
 #include <vector>
 
-#include "core/perf\include/perf.hpp"
-#include "omp\kanakov_r_hoare_sort_omp\include\hoare_sort_omp.hpp"
+#include "core/perf/include/perf.hpp"
+#include "omp/kanakov_r_hoare_sort_omp/include/hoare_sort_omp.hpp"
 
 using namespace kanakov_omp;
 
