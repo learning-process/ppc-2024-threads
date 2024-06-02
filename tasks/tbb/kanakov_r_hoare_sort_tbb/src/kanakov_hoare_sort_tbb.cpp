@@ -116,29 +116,6 @@ bool kanakov_tbb::HoareSortTBB::post_processing() {
   return true;
 }
 
-// void kanakov_tbb::HoareSortTBB::HoareSortParallel(std::vector<int> &arr, size_t l, size_t r) {
-//   if (arr.size() <= 1) return;
-//   int n = r - l + 1;
-
- 
-//   for (int p = 1; p < n; p += p) {
-//       for (int k = p; k > 0; k /= 2) {
-//           for (int j = k % p; j + k < n; j += (k + k)) {
-//               oneapi::tbb::parallel_for(oneapi::tbb::blocked_range<int>(0, n / (j == 0 ? 1 : j)), [&](oneapi::tbb::blocked_range<int>& R) {
-//                   for (int i = R.begin(); i < R.end(); ++i) {
-//                       if ((j + i) / (p + p) == (j + i + k) / (p + p)) {
-//                           if (arr[l + j + i] > arr[l + j + i + k]) {
-//                               std::swap(arr[l + j + i], arr[l + j + i + k]);
-//                           }
-//                       }
-//                   }
-//               });
-//           }
-//       }
-//   }
-    
-// }
-
 void kanakov_tbb::HoareSortTBB::HoareSortParallel(std::vector<int> &arr, size_t l, size_t r) {
   if (arr.size() <= 1) return;
   int n = r - l + 1;
@@ -146,13 +123,12 @@ void kanakov_tbb::HoareSortTBB::HoareSortParallel(std::vector<int> &arr, size_t 
   for (int p = 1; p < n; p += p)
     for (int k = p; k > 0; k /= 2)
       for (int j = k % p; j + k < n; j += (k + k))
-        oneapi::tbb::parallel_for(
-          oneapi::tbb::blocked_range<int>(0, n - j - k),
-          [&](oneapi::tbb::blocked_range<int>& R) {
-            for (int i = R.begin(); i < R.end(); ++i) {
-              if ((j + i) / (p + p) == (j + i + k) / (p + p))
-                if (arr[l + j + i] > arr[l + j + i + k]) 
-                  std::swap(arr[l + j + i], arr[l + j + i + k]);
-            }
-          });
+        oneapi::tbb::parallel_for(oneapi::tbb::blocked_range<int>(0, n - j - k),
+                                  [&](oneapi::tbb::blocked_range<int> &R) {
+                                    for (int i = R.begin(); i < R.end(); ++i) {
+                                      if ((j + i) / (p + p) == (j + i + k) / (p + p))
+                                        if (arr[l + j + i] > arr[l + j + i + k])
+                                          std::swap(arr[l + j + i], arr[l + j + i + k]);
+                                    }
+                                  });
 }
