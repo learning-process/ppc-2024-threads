@@ -2,8 +2,6 @@
 
 #include "tbb/kanakov_r_hoare_sort_tbb/include/kanakov_hoare_sort_tbb.hpp"
 
-#include <omp.h>
-
 #include <algorithm>
 #include <random>
 #include <thread>
