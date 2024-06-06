@@ -43,7 +43,8 @@ class TestTaskSTLParallelKulaevCannon : public ppc::core::Task {
   int n = 0, m = 0;
 };
 
-std::vector<double> cannonMatrixMultiplication_stl(const std::vector<double>& A, const std::vector<double>& B, int n, int m);
+std::vector<double> cannonMatrixMultiplication_stl(const std::vector<double>& A, const std::vector<double>& B, int n,
+                                                   int m);
 
 std::vector<double> cannonMatrixMultiplication(const std::vector<double>& A, const std::vector<double>& B, int n,
                                                int m);

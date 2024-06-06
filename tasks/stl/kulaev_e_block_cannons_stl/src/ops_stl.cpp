@@ -2,7 +2,6 @@
 #include "stl/kulaev_e_block_cannons_stl/include/ops_stl.hpp"
 
 #include <algorithm>
-#include <mutex>
 #include <thread>
 #include <vector>
 
@@ -58,8 +57,8 @@ std::vector<double> multiplyMatrix(const std::vector<double>& A, const std::vect
   return C;
 }
 
-void multiplyBlocks(const std::vector<double>& A, const std::vector<double>& B, std::vector<double>& C, 
-                    int n, int m, int blockSize, int iStart, int jStart, int kStart) {
+void multiplyBlocks(const std::vector<double>& A, const std::vector<double>& B, std::vector<double>& C, int n, int m,
+                    int blockSize, int iStart, int jStart, int kStart) {
   for (int i = iStart; i < std::min(iStart + blockSize, n); ++i) {
     for (int j = jStart; j < std::min(jStart + blockSize, m); ++j) {
       for (int k = kStart; k < std::min(kStart + blockSize, m); ++k) {
@@ -69,7 +68,8 @@ void multiplyBlocks(const std::vector<double>& A, const std::vector<double>& B, 
   }
 }
 
-std::vector<double> cannonMatrixMultiplication_stl(const std::vector<double>& A, const std::vector<double>& B, int n, int m) {
+std::vector<double> cannonMatrixMultiplication_stl(const std::vector<double>& A, const std::vector<double>& B, int n,
+                                                   int m) {
   int blockSize = std::min(n, m);
   std::vector<double> C(n * m, 0.0);
 
