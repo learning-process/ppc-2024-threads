@@ -128,19 +128,17 @@ TEST(Mirzakhmedov_a_ccs_mmult_sparse, test_III) {
 }
 
 TEST(Mirzakhmedov_a_ccs_mmult_sparse, test_IV) {
-  std::complex<double> vvector_one(2.0, 1.0);
-  std::complex<double> vvector_two(3.0, 4.0);
-  MatrixInCCS_Sparse M1(5, 5);
-  MatrixInCCS_Sparse M2(5, 5);
-  MatrixInCCS_Sparse M3(5, 5);
+  MatrixInCCS_Sparse M1(1, 1, 1);
+  MatrixInCCS_Sparse M2(1, 1, 1);
+  MatrixInCCS_Sparse M3;
 
-  M1.col_p = {0, 0, 1, 1, 1, 1};
-  M2.col_p = {0, 0, 1, 1, 1, 1};
+  M1.col_p = {0, 1};
+  M1.row = {0};
+  M1.val = {std::complex<double>(0.0, 1.0)};
 
-  M1.val = {vvector_one};
-  M1.row = {1};
-  M2.val = {vvector_two};
-  M2.row = {1};
+  M2.col_p = {0, 1};
+  M2.row = {0};
+  M2.val = {std::complex<double>(0.0, -1.0)};
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataOmp = std::make_shared<ppc::core::TaskData>();
@@ -154,12 +152,9 @@ TEST(Mirzakhmedov_a_ccs_mmult_sparse, test_IV) {
   testTaskOmp.pre_processing();
   testTaskOmp.run();
   testTaskOmp.post_processing();
-  std::complex<double> correct_reply(2.0, 11.0);
-  if (M3.val[0] == std::complex<double>(0.0, 0.0)) {
-    correct_reply = std::complex<double>(0.0, 0.0);
-  }
 
-  ASSERT_EQ(M3.val[0], correct_reply);
+  std::complex<double> correct_reply(1.0, 0.0);
+  ASSERT_NEAR(std::abs(M3.val[0] - correct_reply), 0.0, 1e-6);
 }
 
 TEST(Mirzakhmedov_a_ccs_mmult_sparse, test_V) {
