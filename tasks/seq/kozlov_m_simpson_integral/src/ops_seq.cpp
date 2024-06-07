@@ -42,7 +42,7 @@ bool KozlovTaskSequential::run() {
     for (uint64_t j = 0; j <= m; j++) {
       if (j == 0 || j == m) {
         q = 1;
-      } else if (i % 2 == 0) {
+      } else if (j % 2 == 0) {
         q = 4;
       } else {
         q = 2;
