@@ -131,7 +131,7 @@ bool ImageMarkingOmp::run() {
   // First pass
 #pragma omp parallel for schedule(static)
   for (int i = 0; i < static_cast<int>(height); ++i) {
-    for (int j = 0; j < static_cast<int>(width); ++j) { // Change uint32_t to int
+    for (int j = 0; j < static_cast<int>(width); ++j) {
       if (source[i][j] == 0) {
         std::set<int> neighboringLabels;
         if (i > 0 && labels[(i - 1) * width + j] != -1) neighboringLabels.insert(labels[(i - 1) * width + j]);
@@ -165,7 +165,7 @@ bool ImageMarkingOmp::run() {
     if (!equivalence[i].empty()) {
       int smallestLabel = *equivalence[i].begin();
 #pragma omp parallel for schedule(static)
-      for (int j = 0; j < static_cast<int>(width * height); ++j) { // Change uint32_t to int
+      for (int j = 0; j < static_cast<int>(width * height); ++j) {
         if (static_cast<int>(labels[j]) == i) {
           labels[j] = smallestLabel;
         }
@@ -178,7 +178,7 @@ bool ImageMarkingOmp::run() {
   // Second pass
 #pragma omp parallel for schedule(static)
   for (int i = 0; i < static_cast<int>(height); ++i) {
-    for (int j = 0; j < static_cast<int>(width); ++j) { // Change uint32_t to int
+    for (int j = 0; j < static_cast<int>(width); ++j) {
       if (source[i][j] == 0) {
         destination[i][j] = labels[i * width + j];
       }
