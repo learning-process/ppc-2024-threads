@@ -186,8 +186,8 @@ TEST(salaev_v_components_marking_omp_functional, correct_rectangle) {
   ImageMarkingOmp testTaskParallel(taskDataParallel);
   testTaskParallel.validation();
   testTaskParallel.pre_processing();
-  testTaskSequential.run();
-  testTaskSequential.post_processing();
+  testTaskParallel.run();
+  testTaskParallel.post_processing();
   ASSERT_EQ(output2, expected2);
 }
 
@@ -236,7 +236,7 @@ TEST(salaev_v_components_marking_omp_functional, test_functional) {
   ImageMarkingOmp testTaskParallel(taskDataParallel);
   testTaskParallel.validation();
   testTaskParallel.pre_processing();
-  testTaskSequential.run();
-  testTaskSequential.post_processing();
+  testTaskParallel.run();
+  testTaskParallel.post_processing();
   ASSERT_EQ(output2, expected2);
 }
