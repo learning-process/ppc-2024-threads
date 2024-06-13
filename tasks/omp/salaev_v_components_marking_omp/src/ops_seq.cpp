@@ -166,7 +166,7 @@ bool ImageMarkingOmp::run() {
       int smallestLabel = *equivalence[i].begin();
 #pragma omp parallel for
       for (size_t j = 0; j < labels.size(); ++j) {
-        if (labels[j] == i) {
+        if (static_cast<size_t>(labels[j]) == i) {
           labels[j] = smallestLabel;
         }
       }
