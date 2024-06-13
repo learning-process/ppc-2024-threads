@@ -17,8 +17,8 @@ bool ImageMarkingSeq::pre_processing() {
   width = reinterpret_cast<uint32_t *>(taskData->inputs[0])[1];
   source.resize(height);
   destination.resize(height);
-  for (size_t i = 0; i < height; ++i) {
-    for (size_t j = 0; j < width; ++j)
+  for (uint32_t i = 0; i < height; ++i) {
+    for (uint32_t j = 0; j < width; ++j)
       source[i].push_back(reinterpret_cast<uint8_t *>(taskData->inputs[1])[i * width + j]);
     destination[i].resize(width, 0);
   }
@@ -32,8 +32,8 @@ bool ImageMarkingSeq::run() {
   std::vector<std::set<int>> equivalence(height * width);
 
   // First pass
-  for (size_t i = 0; i < height; ++i) {
-    for (size_t j = 0; j < width; ++j) {
+  for (uint32_t i = 0; i < height; ++i) {
+    for (uint32_t j = 0; j < width; ++j) {
       if (source[i][j] == 0) {
         std::set<int> neighboringLabels;
         if (i > 0 && labels[(i - 1) * width + j] != -1) neighboringLabels.insert(labels[(i - 1) * width + j]);
@@ -69,8 +69,8 @@ bool ImageMarkingSeq::run() {
   resolve_labels(labels);
 
   // Second pass
-  for (size_t i = 0; i < height; ++i) {
-    for (size_t j = 0; j < width; ++j) {
+  for (uint32_t i = 0; i < height; ++i) {
+    for (uint32_t j = 0; j < width; ++j) {
       if (source[i][j] == 0) {
         destination[i][j] = labels[i * width + j];
       }
@@ -82,8 +82,8 @@ bool ImageMarkingSeq::run() {
 
 bool ImageMarkingSeq::post_processing() {
   internal_order_test();
-  for (size_t i = 0; i < height; ++i)
-    for (size_t j = 0; j < width; ++j)
+  for (uint32_t i = 0; i < height; ++i)
+    for (uint32_t j = 0; j < width; ++j)
       reinterpret_cast<uint32_t *>(taskData->outputs[0])[i * width + j] = destination[i][j];
   return true;
 }
@@ -114,8 +114,8 @@ bool ImageMarkingOmp::pre_processing() {
   width = reinterpret_cast<uint32_t *>(taskData->inputs[0])[1];
   source.resize(height);
   destination.resize(height);
-  for (size_t i = 0; i < height; ++i) {
-    for (size_t j = 0; j < width; ++j)
+  for (uint32_t i = 0; i < height; ++i) {
+    for (uint32_t j = 0; j < width; ++j)
       source[i].push_back(reinterpret_cast<uint8_t *>(taskData->inputs[1])[i * width + j]);
     destination[i].resize(width, 0);
   }
@@ -128,10 +128,10 @@ bool ImageMarkingOmp::run() {
   std::vector<int> labels(height * width, -1);
   std::vector<std::set<int>> equivalence(height * width);
 
-// First pass
+  // First pass
 #pragma omp parallel for
-  for (int i = 0; i < height; ++i) {
-    for (int j = 0; j < width; ++j) {
+  for (uint32_t i = 0; i < height; ++i) {
+    for (uint32_t j = 0; j < width; ++j) {
       if (source[i][j] == 0) {
         std::set<int> neighboringLabels;
         if (i > 0 && labels[(i - 1) * width + j] != -1) neighboringLabels.insert(labels[(i - 1) * width + j]);
@@ -159,13 +159,13 @@ bool ImageMarkingOmp::run() {
     }
   }
 
-// Resolve equivalences
+  // Resolve equivalences
 #pragma omp parallel for
-  for (int i = 0; i < equivalence.size(); ++i) {
+  for (uint32_t i = 0; i < equivalence.size(); ++i) {
     if (!equivalence[i].empty()) {
       int smallestLabel = *equivalence[i].begin();
 #pragma omp parallel for
-      for (int j = 0; j < labels.size(); ++j) {
+      for (uint32_t j = 0; j < labels.size(); ++j) {
         if (static_cast<size_t>(labels[j]) == i) {
           labels[j] = smallestLabel;
         }
@@ -175,10 +175,10 @@ bool ImageMarkingOmp::run() {
 
   resolve_labels(labels);
 
-// Second pass
+  // Second pass
 #pragma omp parallel for
-  for (int i = 0; i < height; ++i) {
-    for (int j = 0; j < width; ++j) {
+  for (uint32_t i = 0; i < height; ++i) {
+    for (uint32_t j = 0; j < width; ++j) {
       if (source[i][j] == 0) {
         destination[i][j] = labels[i * width + j];
       }
@@ -190,8 +190,8 @@ bool ImageMarkingOmp::run() {
 
 bool ImageMarkingOmp::post_processing() {
   internal_order_test();
-  for (size_t i = 0; i < height; ++i)
-    for (size_t j = 0; j < width; ++j)
+  for (uint32_t i = 0; i < height; ++i)
+    for (uint32_t j = 0; j < width; ++j)
       reinterpret_cast<uint32_t *>(taskData->outputs[0])[i * width + j] = destination[i][j];
   return true;
 }
