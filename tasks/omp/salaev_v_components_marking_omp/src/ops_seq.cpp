@@ -130,8 +130,8 @@ bool ImageMarkingOmp::run() {
 
 // First pass
 #pragma omp parallel for
-  for (size_t i = 0; i < height; ++i) {
-    for (size_t j = 0; j < width; ++j) {
+  for (int i = 0; i < height; ++i) {
+    for (int j = 0; j < width; ++j) {
       if (source[i][j] == 0) {
         std::set<int> neighboringLabels;
         if (i > 0 && labels[(i - 1) * width + j] != -1) neighboringLabels.insert(labels[(i - 1) * width + j]);
@@ -161,11 +161,11 @@ bool ImageMarkingOmp::run() {
 
 // Resolve equivalences
 #pragma omp parallel for
-  for (size_t i = 0; i < equivalence.size(); ++i) {
+  for (int i = 0; i < equivalence.size(); ++i) {
     if (!equivalence[i].empty()) {
       int smallestLabel = *equivalence[i].begin();
 #pragma omp parallel for
-      for (size_t j = 0; j < labels.size(); ++j) {
+      for (int j = 0; j < labels.size(); ++j) {
         if (static_cast<size_t>(labels[j]) == i) {
           labels[j] = smallestLabel;
         }
@@ -177,8 +177,8 @@ bool ImageMarkingOmp::run() {
 
 // Second pass
 #pragma omp parallel for
-  for (size_t i = 0; i < height; ++i) {
-    for (size_t j = 0; j < width; ++j) {
+  for (int i = 0; i < height; ++i) {
+    for (int j = 0; j < width; ++j) {
       if (source[i][j] == 0) {
         destination[i][j] = labels[i * width + j];
       }
