@@ -173,7 +173,6 @@ bool ImageMarkingOmp::run() {
     }
   }
 
-  // Flatten labels
   resolve_labels(labels);
 
 // Second pass
