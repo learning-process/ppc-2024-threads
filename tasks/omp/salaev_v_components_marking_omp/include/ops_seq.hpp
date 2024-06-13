@@ -43,4 +43,4 @@ class ImageMarkingOmp : public ppc::core::Task {
   void resolve_labels(std::vector<int>& labels);
 };
 
-}  // namespace SalaevSeq
+}  // namespace SalaevOMP

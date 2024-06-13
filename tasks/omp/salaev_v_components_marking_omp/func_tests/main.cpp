@@ -115,7 +115,7 @@ TEST(salaev_v_components_marking_seq_functional, correct_run) {
   testTaskSequential.pre_processing();
   ASSERT_EQ(testTaskSequential.run(), true);
 
-    // Create data
+  // Create data
   std::vector<uint32_t> dimensions2 = {height, width};
   std::vector<uint8_t> input2 = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0};
   std::vector<uint32_t> output2(height * width, 0);
@@ -168,10 +168,10 @@ TEST(salaev_v_components_marking_seq_functional, correct_rectangle) {
   // Create data
   std::vector<uint32_t> dimensions2 = {height, width};
   std::vector<uint8_t> input2 = {0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0,
-                                1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1};
+                                 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1};
   std::vector<uint32_t> output2(height * width, 0);
   std::vector<uint32_t> expected2 = {1, 0, 2, 0, 3,  0, 0,  4, 0,  5,  0, 6,  7, 0,  8,
-                                    0, 9, 0, 0, 10, 0, 11, 0, 12, 13, 0, 14, 0, 15, 0};
+                                     0, 9, 0, 0, 10, 0, 11, 0, 12, 13, 0, 14, 0, 15, 0};
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataParallel = std::make_shared<ppc::core::TaskData>();
@@ -217,7 +217,7 @@ TEST(salaev_v_components_marking_seq_functional, test_functional) {
   testTaskSequential.post_processing();
   ASSERT_EQ(output, expected);
 
-    // Create data
+  // Create data
   std::vector<uint32_t> dimensions2 = {height, width};
   std::vector<uint8_t> input2 = {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0};
   std::vector<uint32_t> output2(height * width, 0);
