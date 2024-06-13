@@ -1,7 +1,6 @@
+// Copyright 2023 Salaev Vladislav
+
 #include "omp/salaev_v_components_marking_omp/include/ops_seq.hpp"
-#include <unordered_map>
-#include <algorithm>
-#include <execution>
 
 using namespace SalaevOMP;
 
@@ -132,7 +131,7 @@ bool ImageMarkingOmp::run() {
   // First pass
 #pragma omp parallel for schedule(static)
   for (int i = 0; i < static_cast<int>(height); ++i) {
-    for (uint32_t j = 0; j < width; ++j) {
+    for (int j = 0; j < static_cast<int>(width); ++j) { // Change uint32_t to int
       if (source[i][j] == 0) {
         std::set<int> neighboringLabels;
         if (i > 0 && labels[(i - 1) * width + j] != -1) neighboringLabels.insert(labels[(i - 1) * width + j]);
@@ -166,7 +165,7 @@ bool ImageMarkingOmp::run() {
     if (!equivalence[i].empty()) {
       int smallestLabel = *equivalence[i].begin();
 #pragma omp parallel for schedule(static)
-      for (uint32_t j = 0; j < width * height; ++j) {
+      for (int j = 0; j < static_cast<int>(width * height); ++j) { // Change uint32_t to int
         if (static_cast<int>(labels[j]) == i) {
           labels[j] = smallestLabel;
         }
@@ -179,7 +178,7 @@ bool ImageMarkingOmp::run() {
   // Second pass
 #pragma omp parallel for schedule(static)
   for (int i = 0; i < static_cast<int>(height); ++i) {
-    for (uint32_t j = 0; j < width; ++j) {
+    for (int j = 0; j < static_cast<int>(width); ++j) { // Change uint32_t to int
       if (source[i][j] == 0) {
         destination[i][j] = labels[i * width + j];
       }
