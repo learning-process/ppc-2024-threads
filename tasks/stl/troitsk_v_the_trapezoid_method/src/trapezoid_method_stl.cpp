@@ -23,7 +23,6 @@ double trapezoidal_integralSTL(const std::function<double(double, double)>& f, d
   double hx = (upperx - lowerx) / nx;
   double hy = (uppery - lowery) / ny;
   double sum = 0.5 * (f(lowerx, lowery) + f(upperx, uppery));
-
   std::vector<std::future<double>> futures(nx - 1);
 
   for (int i = 1; i < nx; ++i) {
