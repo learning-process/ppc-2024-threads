@@ -21,7 +21,7 @@ TEST(Safronov_M_Mult_Matrix_Fox, validationTest) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  SafronovSeqFoxAlgTaskTBB safronovTask(taskDataSeq);
+  SafronovFoxAlgTaskTBB safronovTask(taskDataSeq);
   ASSERT_EQ(safronovTask.validation(), true);
 }
 
@@ -39,7 +39,7 @@ TEST(Safronov_M_Mult_Matrix_Fox, mult2) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  SafronovSeqFoxAlgTaskTBB safronovTask(taskDataSeq);
+  SafronovFoxAlgTaskTBB safronovTask(taskDataSeq);
   ASSERT_EQ(safronovTask.validation(), true);
   ASSERT_TRUE(safronovTask.pre_processing());
   ASSERT_TRUE(safronovTask.run());
@@ -69,7 +69,7 @@ TEST(Safronov_M_Mult_Matrix_Fox, mult3) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  SafronovSeqFoxAlgTaskTBB safronovTask(taskDataSeq);
+  SafronovFoxAlgTaskTBB safronovTask(taskDataSeq);
   ASSERT_EQ(safronovTask.validation(), true);
   ASSERT_TRUE(safronovTask.pre_processing());
   ASSERT_TRUE(safronovTask.run());
@@ -100,7 +100,7 @@ TEST(Safronov_M_Mult_Matrix_Fox, mult4) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  SafronovSeqFoxAlgTaskTBB safronovTask(taskDataSeq);
+  SafronovFoxAlgTaskTBB safronovTask(taskDataSeq);
   ASSERT_EQ(safronovTask.validation(), true);
   ASSERT_TRUE(safronovTask.pre_processing());
   ASSERT_TRUE(safronovTask.run());
@@ -130,7 +130,7 @@ TEST(Safronov_M_Mult_Matrix_Fox, mult5) {
   taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
   taskDataSeq->outputs_count.emplace_back(out.size());
 
-  SafronovSeqFoxAlgTaskTBB safronovTask(taskDataSeq);
+  SafronovFoxAlgTaskTBB safronovTask(taskDataSeq);
   ASSERT_EQ(safronovTask.validation(), true);
   ASSERT_TRUE(safronovTask.pre_processing());
   ASSERT_TRUE(safronovTask.run());

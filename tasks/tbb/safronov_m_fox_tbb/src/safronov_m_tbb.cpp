@@ -1,7 +1,7 @@
-// Copyright 2024 Safronov Mikhail
-
 #include "tbb/tbb.h"
+#include "tbb/safronov_m_fox_tbb/include/safronov_m_tbb.h"
 
+#include <atomic>
 #include <cmath>
 #include <iostream>
 #include <random>
@@ -11,7 +11,7 @@
 using std::cout;
 using std::endl;
 
-bool SafronovSeqFoxAlgTaskTBB::validation() {
+bool SafronovFoxAlgTaskTBB::validation() {
     internal_order_test();
     size_t input_count = taskData->inputs_count[0];
     n = static_cast<size_t>(round(sqrt(input_count)));
@@ -31,7 +31,7 @@ bool SafronovSeqFoxAlgTaskTBB::validation() {
     return valid;
 }
 
-bool SafronovSeqFoxAlgTaskTBB::pre_processing() {
+bool SafronovFoxAlgTaskTBB::pre_processing() {
     internal_order_test();
     int num_threads = 2;
     size_t matrix_size = taskData->inputs_count[0];
@@ -45,54 +45,34 @@ bool SafronovSeqFoxAlgTaskTBB::pre_processing() {
     return true;
 }
 
-bool SafronovSeqFoxAlgTaskTBB::run() {
+bool SafronovFoxAlgTaskTBB::run() {
     internal_order_test();
     try {
-        int num_threads = 2;
-        size_t block_size = n / num_threads;
+        const int num_threads = 2;
+        const size_t block_size = n / num_threads;
 
-        double* result_row;
-        double* matrix_a_block_row;
-        double* matrix_b_block_row;
+        tbb::parallel_for(0, num_threads, [&](int thread_id) {
+            const size_t start = thread_id * block_size;
+            const size_t end = (thread_id == num_threads - 1) ? n : (thread_id + 1) * block_size;
 
-        double tmp;
-
-        size_t result_row_index;
-
-        int n_int = static_cast<int>(n);
-        int block_size_int = static_cast<int>(block_size);
-
-        tbb::parallel_for(tbb::blocked_range<int>(0, n_int, block_size_int),
-            [&](const tbb::blocked_range<int>& r) {
-                for (int i = r.begin(); i != r.end(); ++i) {
-                    for (int k = 0; k < n_int; k += block_size_int) {
-                        for (int l = 0; l < n_int; l += block_size_int) {
-                            result_row_index = static_cast<size_t>((i + l) % n_int);
-                            for (int ii = 0; ii < block_size_int; ii++) {
-                                matrix_a_block_row = A + (i + ii) * n + result_row_index;
-                                result_row = C + (i + ii) * n + k;
-                                for (int jj = 0; jj < block_size_int; jj++) {
-                                    matrix_b_block_row = B + result_row_index * n + (k + jj);
-                                    tmp = 0;
-                                    for (int kk = 0; kk < block_size_int; kk++) {
-                                        tmp += matrix_a_block_row[kk] * matrix_b_block_row[kk * n];
-                                    }
-                                    tbb::atomic_fetch_and_add(&result_row[jj], tmp);
-                                }
-                            }
-                        }
+            for (size_t i = start; i < end; ++i) {
+                for (size_t j = 0; j < n; ++j) {
+                    double sum = 0.0;
+                    for (size_t k = 0; k < n; ++k) {
+                        sum += A[i * n + k] * B[k * n + j];
                     }
+                    C[i * n + j] = sum;
                 }
             }
-        );
+        });
     } catch (const std::exception& e) {
-        cout << e.what() << endl;
+        std::cout << e.what() << std::endl;
         return false;
     }
     return true;
 }
 
-bool SafronovSeqFoxAlgTaskTBB::post_processing() {
+bool SafronovFoxAlgTaskTBB::post_processing() {
     internal_order_test();
     return true;
 }

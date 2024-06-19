@@ -9,9 +9,9 @@
 
 #include "core/task/include/task.hpp"
 
-class SafronovSeqFoxAlgTaskTBB : public ppc::core::Task {
+class SafronovFoxAlgTaskTBB : public ppc::core::Task {
  public:
-  explicit SafronovSeqFoxAlgTaskTBB(std::shared_ptr<ppc::core::TaskData> taskData_) : Task(std::move(taskData_)) {}
+  explicit SafronovFoxAlgTaskTBB(std::shared_ptr<ppc::core::TaskData> taskData_) : Task(std::move(taskData_)) {}
   bool validation() override;
   bool pre_processing() override;
   bool run() override;
