@@ -1,29 +1,32 @@
-// Copyright 2024 Smirnov Leonid
+// Copyright 2024 Makhinya Danil
 #include <gtest/gtest.h>
 
-#include <algorithm>
 #include <vector>
 
 #include "core/perf/include/perf.hpp"
-#include "omp/smirnov_l_radixsort_omp/include/ops_omp.hpp"
+#include "stl/makhinya_d_hoare_sort_batcher_merge/include/hoare_sort_stl.hpp"
 
-TEST(Smirnov_L_Radix_Sort_Test, test_pipeline_run) {
-  const int count = 3000000;
+const uint32_t COUNT = 1UL << 22;
+const uint32_t SEED = 420;
 
-  // Create data
-  std::vector<int> in = getRandomVectorSmirn(count);
-  std::vector<int> expected = in;
-  std::vector<int> out(count);
+TEST(MakhinyaPerf, test_pipeline_run) {
+  HoareSortSTL::vec_t in_vec(COUNT);
+
+  srand(SEED);
+  for (HoareSortSTL::sortable_type& x : in_vec) {
+    x = static_cast<HoareSortSTL::sortable_type>(rand());
+  }
 
   // Create TaskData
-  std::shared_ptr<ppc::core::TaskData> taskDataPar = std::make_shared<ppc::core::TaskData>();
-  taskDataPar->inputs.emplace_back(reinterpret_cast<uint8_t *>(in.data()));
-  taskDataPar->inputs_count.emplace_back(in.size());
-  taskDataPar->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
-  taskDataPar->outputs_count.emplace_back(out.size());
+  std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&in_vec));
+  taskDataSeq->inputs_count.emplace_back(1);
+
+  taskDataSeq->outputs.emplace_back(nullptr);
+  taskDataSeq->outputs_count.emplace_back(0);
 
   // Create Task
-  auto testTaskParallel = std::make_shared<RadixSortOMPParallelS>(taskDataPar);
+  auto testTaskSequential = std::make_shared<HoareSortSTL>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -39,34 +42,30 @@ TEST(Smirnov_L_Radix_Sort_Test, test_pipeline_run) {
   auto perfResults = std::make_shared<ppc::core::PerfResults>();
 
   // Create Perf analyzer
-  auto perfAnalyzer = std::make_shared<ppc::core::Perf>(testTaskParallel);
+  auto perfAnalyzer = std::make_shared<ppc::core::Perf>(testTaskSequential);
   perfAnalyzer->pipeline_run(perfAttr, perfResults);
   ppc::core::Perf::print_perf_statistic(perfResults);
-
-  std::sort(expected.begin(), expected.end());
-
-  for (size_t i = 0; i < out.size(); i++) {
-    ASSERT_EQ(expected[i], out[i]);
-  }
+  ASSERT_TRUE(testTaskSequential->check_order());
 }
 
-TEST(Smirnov_L_Radix_Sort_Test, test_task_run) {
-  const int count = 3000000;
+TEST(MakhinyaPerf, test_task_run) {
+  HoareSortSTL::vec_t in_vec(COUNT);
 
-  // Create data
-  std::vector<int> in = getRandomVectorSmirn(count);
-  std::vector<int> expected = in;
-  std::vector<int> out(count);
+  srand(SEED);
+  for (HoareSortSTL::sortable_type& x : in_vec) {
+    x = static_cast<HoareSortSTL::sortable_type>(rand());
+  }
 
   // Create TaskData
   std::shared_ptr<ppc::core::TaskData> taskDataSeq = std::make_shared<ppc::core::TaskData>();
-  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t *>(in.data()));
-  taskDataSeq->inputs_count.emplace_back(in.size());
-  taskDataSeq->outputs.emplace_back(reinterpret_cast<uint8_t *>(out.data()));
-  taskDataSeq->outputs_count.emplace_back(out.size());
+  taskDataSeq->inputs.emplace_back(reinterpret_cast<uint8_t*>(&in_vec));
+  taskDataSeq->inputs_count.emplace_back(1);
+
+  taskDataSeq->outputs.emplace_back(nullptr);
+  taskDataSeq->outputs_count.emplace_back(0);
 
   // Create Task
-  auto testTaskSequential = std::make_shared<RadixSortOMPParallelS>(taskDataSeq);
+  auto testTaskSequential = std::make_shared<HoareSortSTL>(taskDataSeq);
 
   // Create Perf attributes
   auto perfAttr = std::make_shared<ppc::core::PerfAttr>();
@@ -85,10 +84,5 @@ TEST(Smirnov_L_Radix_Sort_Test, test_task_run) {
   auto perfAnalyzer = std::make_shared<ppc::core::Perf>(testTaskSequential);
   perfAnalyzer->task_run(perfAttr, perfResults);
   ppc::core::Perf::print_perf_statistic(perfResults);
-
-  std::sort(expected.begin(), expected.end());
-
-  for (size_t i = 0; i < out.size(); i++) {
-    ASSERT_EQ(expected[i], out[i]);
-  }
+  ASSERT_TRUE(testTaskSequential->check_order());
 }
