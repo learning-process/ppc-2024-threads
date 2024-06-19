@@ -18,17 +18,17 @@ bool SafronovFoxAlgTaskTBB::validation() {
   size_t input_count = taskData->inputs_count[0];
   n = static_cast<size_t>(round(sqrt(input_count)));
   bool valid = (taskData->inputs[0] != nullptr) && (taskData->inputs[1] != nullptr) &&
-                  (taskData->outputs[0] != nullptr) && (input_count == taskData->inputs_count[1]) &&
-                  (input_count == taskData->outputs_count[0]) && (n * n == input_count);
+               (taskData->outputs[0] != nullptr) && (input_count == taskData->inputs_count[1]) &&
+               (input_count == taskData->outputs_count[0]) && (n * n == input_count);
   if (!valid) {
-      std::cerr << "Validation failed: " << std::endl;
-      std::cerr << "input_count: " << input_count << std::endl;
-      std::cerr << "inputs[0] != nullptr: " << (taskData->inputs[0] != nullptr) << std::endl;
-      std::cerr << "inputs[1] != nullptr: " << (taskData->inputs[1] != nullptr) << std::endl;
-      std::cerr << "outputs[0] != nullptr: " << (taskData->outputs[0] != nullptr) << std::endl;
-      std::cerr << "inputs_count[0] == inputs_count[1]: " << (input_count == taskData->inputs_count[1]) << std::endl;
-      std::cerr << "inputs_count[0] == outputs_count[0]: " << (input_count == taskData->outputs_count[0]) << std::endl;
-      std::cerr << "n * n == input_count: " << (n * n == input_count) << std::endl;
+    std::cerr << "Validation failed: " << std::endl;
+    std::cerr << "input_count: " << input_count << std::endl;
+    std::cerr << "inputs[0] != nullptr: " << (taskData->inputs[0] != nullptr) << std::endl;
+    std::cerr << "inputs[1] != nullptr: " << (taskData->inputs[1] != nullptr) << std::endl;
+    std::cerr << "outputs[0] != nullptr: " << (taskData->outputs[0] != nullptr) << std::endl;
+    std::cerr << "inputs_count[0] == inputs_count[1]: " << (input_count == taskData->inputs_count[1]) << std::endl;
+    std::cerr << "inputs_count[0] == outputs_count[0]: " << (input_count == taskData->outputs_count[0]) << std::endl;
+    std::cerr << "n * n == input_count: " << (n * n == input_count) << std::endl;
   }
   return valid;
 }
@@ -38,8 +38,8 @@ bool SafronovFoxAlgTaskTBB::pre_processing() {
   int num_threads = 2;
   size_t matrix_size = taskData->inputs_count[0];
   if (matrix_size % num_threads != 0) {
-      std::cerr << "Matrix size must be divisible by the number of threads\n";
-      return false;
+    std::cerr << "Matrix size must be divisible by the number of threads\n";
+    return false;
   }
   A = reinterpret_cast<double*>(taskData->inputs[0]);
   B = reinterpret_cast<double*>(taskData->inputs[1]);
@@ -62,10 +62,10 @@ bool SafronovFoxAlgTaskTBB::run() {
           double sum = 0.0;
           for (size_t k = 0; k < n; ++k) {
             sum += A[i * n + k] * B[k * n + j];
-           }
+          }
           C[i * n + j] = sum;
         }
-       }
+      }
     });
   } catch (const std::exception& e) {
     std::cout << e.what() << std::endl;
@@ -114,7 +114,7 @@ std::vector<double> mulSafronov(const std::vector<double>& A, const std::vector<
     for (int j = 0; j < n; j++) {
       for (int k = 0; k < n; k++) {
         C[i * n + j] += A[i * n + k] * B[k * n + j];
-       }
+      }
     }
   }
   return C;
